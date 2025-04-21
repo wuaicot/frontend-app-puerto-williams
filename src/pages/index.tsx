@@ -23,9 +23,10 @@ export default function LandingPage() {
     // Contenedor principal: fondo negro, altura completa, centrado flex
     <div className="flex flex-col items-center justify-center min-h-screen bg-black text-white p-8">
       {/* Título de la página (opcional, como en la imagen) */}
-      <h1 className="absolute top-12 text-xl mb-12">BienVenido</h1>
+      <h1 className="absolute top-20 text-xl mb-12">EDIFICIO PUERTO WILLIAMS</h1>
 
       {/* Contenedor de los botones */}
+      <h4>Ingresar como</h4>
       <div className="flex flex-col items-center gap-y-6">
         {" "}
         {/* Aumentado el gap para más espacio */}
@@ -36,19 +37,21 @@ export default function LandingPage() {
         >
           Admin.
         </button>
-        {/* Botón Registrarse */}
-        <button
-          onClick={handleRegisterClick}
-          className="bg-black text-white border border-white font-semibold py-2 px-8 rounded-md shadow-md hover:bg-gray-800 hover:border-gray-400 transition duration-300 ease-in-out min-w-[200px] text-center" // Estilo diferente como en la imagen
-        >
-          Registrarse
-        </button>
+       
         {/* Botón Conserje */}
         <button
           onClick={handleConserjeClick}
           className="bg-white text-black font-semibold py-3 px-10 rounded-full shadow-md hover:bg-gray-200 transition duration-300 ease-in-out min-w-[200px] text-center" // Estilo similar a la imagen
         >
           Conserje
+        </button>
+
+         {/* Botón Registrarse */}
+         <button
+          onClick={handleRegisterClick}
+          className="bg-black text-white border border-white font-semibold py-2 px-8 rounded-md shadow-md hover:bg-gray-800 hover:border-gray-400 transition duration-300 ease-in-out min-w-[200px] text-center" // Estilo diferente como en la imagen
+        >
+          Registrarse
         </button>
       </div>
     </div>

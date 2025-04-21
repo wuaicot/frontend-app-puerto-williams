@@ -4,14 +4,21 @@ FRONTEND-APP-PUERTO-WILLIAMS
 │   ├── node_modules
 │   ├── public
 │   ├── src
+│   │   ├── components
+│   │   ├── features
+│   │   ├── hooks
+│   │   ├── lib
 │   │   ├── pages
 │   │   │   ├── api
 │   │   │   │   └── hello.ts
 │   │   │   ├── _app.tsx
 │   │   │   ├── _document.tsx
 │   │   │   ├── index.tsx
+│   │   ├── providers
+│   │   ├── store
 │   │   ├── styles
 │   │   │   └── globals.css
+│   │   ├── types
 │   
 │── .gitignore
 │── eslint.config.mjs

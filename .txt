@@ -17,9 +17,9 @@ FRONTEND-APP-PUERTO-WILLIAMS
 │   │   │   ├── _document.tsx
 │   │   │   ├── index.tsx
 │   │   ├── providers
-│   │   ├── store
+│   │   ├── store/
 │   │   │   └── index.ts
-│   │   ├── styles
+│   │   ├── styles/
 │   │   │   └── globals.css
 │   │   ├── types
 │   

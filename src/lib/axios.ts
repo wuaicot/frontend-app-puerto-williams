@@ -1,3 +1,4 @@
+//client/src/lib/axios.ts
 import axios from 'axios';
 import { auth } from './firebase'; // Importamos la instancia de auth de Firebase
 

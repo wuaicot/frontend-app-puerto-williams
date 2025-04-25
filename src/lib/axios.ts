@@ -1,31 +1,29 @@
-//client/src/lib/axios.ts
-import axios from 'axios';
-import { auth } from './firebase'; // Importamos la instancia de auth de Firebase
+import axios from "axios";
+import { auth } from "./firebase";
 
-// Creamos una instancia de Axios con configuración base
+// Crea una instancia de Axios con configuración global
 const apiClient = axios.create({
-  baseURL: process.env.NEXT_PUBLIC_API_BASE_URL || '/api', // URL base de tu API backend
+  baseURL: process.env.NEXT_PUBLIC_API_BASE_URL || "http://localhost:4000/api",
   headers: {
-    'Content-Type': 'application/json',
+    "Content-Type": "application/json",
   },
 });
 
-// Interceptor para añadir el token de autenticación de Firebase a cada solicitud
+// Interceptor: adjunta automáticamente el token de Firebase al header Authorization
 apiClient.interceptors.request.use(
   async (config) => {
-    const user = auth.currentUser; // Obtiene el usuario actual de Firebase Auth
+    const user = auth.currentUser;
 
     if (user) {
       try {
-        const token = await user.getIdToken(); // Obtiene el ID token actual (se refresca automáticamente si es necesario)
-        if (token) {
-          config.headers.Authorization = `Bearer ${token}`; // Añade el token al header
-        }
-      } catch (error) {
-        console.error('Error getting Firebase token:', error);
-        // Podrías manejar el error aquí (ej: desloguear al usuario)
+        const token = await user.getIdToken();
+        config.headers.Authorization = `Bearer ${token}`;
+      } catch (err) {
+        console.error("No se pudo obtener el token de Firebase:", err);
+        // Puedes hacer logout aquí si es necesario
       }
     }
+
     return config;
   },
   (error) => {

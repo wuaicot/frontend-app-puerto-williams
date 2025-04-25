@@ -1,26 +1,33 @@
-import { configureStore } from '@reduxjs/toolkit';
-// Importa tus reducers/slices aquí a medida que los crees
-// import authReducer from '../features/auth/authSlice'; // Ejemplo
+// client/store/index.ts
+import { configureStore, createSlice } from '@reduxjs/toolkit';
+
+// Ejemplo de slice “dummy” para asegurar que el store tiene al menos un reducer válido.
+// Más adelante sustituye o amplia con slices reales (authSlice, userSlice, etc.).
+const dummySlice = createSlice({
+  name: 'dummy',
+  initialState: {},
+  reducers: {
+    // Por ahora no necesitamos acciones; este slice solo evita el error de “no reducer”
+  },
+});
 
 export const store = configureStore({
   reducer: {
-    // Añade tus reducers aquí:
-    // auth: authReducer, // Ejemplo
+    dummy: dummySlice.reducer,
+    // Aquí irían tus futuros reducers/slices:
+    // auth: authReducer,
+    // posts: postsReducer,
   },
-  // Middleware predeterminado de Redux Toolkit ya incluye thunk y chequeos de inmutabilidad, etc.
-  // Puedes añadir middleware adicional aquí si es necesario
-  middleware: (getDefaultMiddleware) => getDefaultMiddleware({
-    // Opcional: Configurar serialización si usas tipos no serializables en el estado (ej: Date),
-    // pero es mejor evitarlos en el estado de Redux.
-    // serializableCheck: {
-    //   ignoredActions: ['your/action/type'],
-    //   ignoredPaths: ['some.nested.path'],
-    // },
-  }),
-  devTools: process.env.NODE_ENV !== 'production', // Habilita Redux DevTools solo en desarrollo
+  devTools: process.env.NODE_ENV !== 'production',
+  middleware: (getDefaultMiddleware) =>
+    getDefaultMiddleware({
+      // Si en el futuro necesitas ignorar checks de serialización:
+      // serializableCheck: {
+      //   ignoredActions: ['tu/accion/noSerializable'],
+      // },
+    }),
 });
 
-// Inferir los tipos `RootState` y `AppDispatch` del propio store
+// Inferimos tipos a partir del store
 export type RootState = ReturnType<typeof store.getState>;
-// Tipo recomendado para dispatch, soporta thunks
 export type AppDispatch = typeof store.dispatch;

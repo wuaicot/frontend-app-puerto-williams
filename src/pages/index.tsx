@@ -1,3 +1,4 @@
+//client/src/pages/index.tsx
 import React from 'react';
 import { getAuth, GoogleAuthProvider, signInWithPopup } from 'firebase/auth';
 import { auth } from '../lib/firebase';
@@ -7,27 +8,18 @@ import { useRouter } from 'next/router';
 export default function LandingPage() {
   const router = useRouter();
 
-  // --- Función para manejar el clic en "Registrarse" ---
   const handleRegisterClick = async () => {
     console.log("Botón Registrarse presionado");
     const provider = new GoogleAuthProvider();
 
     try {
-      console.log("Iniciando popup de Google Sign-In...");
       const userCredential = await signInWithPopup(auth, provider);
       const user = userCredential.user;
-      console.log("¡Login con Google exitoso!", user);
-
       const idToken = await user.getIdToken();
-      console.log("ID Token obtenido:", idToken);
 
-      console.log("Enviando token al backend (/api/auth/register)...");
-      const response = await apiClient.post('/auth/register'); // Token enviado vía interceptor
-
+      const response = await apiClient.post('/auth/register');
       const userData = response.data;
-      console.log("Respuesta del backend (registro):", userData);
 
-      // Redirigir según el estado del usuario
       if (userData.status === 'PENDING') {
         router.push('/pendiente-aprobacion');
       } else {
@@ -35,21 +27,36 @@ export default function LandingPage() {
       }
 
     } catch (error: any) {
-      console.error("Error durante el proceso de registro:", error);
-      if (error.code === 'auth/popup-closed-by-user') {
-        alert("Proceso de registro cancelado (ventana cerrada).");
-      } else if (error.response) {
-        console.error("Error data:", error.response.data);
-        alert(`Error del servidor: ${error.response.data?.message || 'Error desconocido'}`);
-      } else {
-        alert("Ocurrió un error durante el registro. Intenta de nuevo.");
-      }
+      console.error("Error durante el registro:", error);
+      alert(error.response?.data?.message || "Ocurrió un error al registrarse.");
     }
   };
 
-  const handleAdminClick = () => {
+  const handleAdminClick = async () => {
     console.log("Botón Admin presionado");
-    alert("Funcionalidad de login Admin aún no implementada.");
+    const provider = new GoogleAuthProvider();
+
+    try {
+      const userCredential = await signInWithPopup(auth, provider);
+      const idToken = await userCredential.user.getIdToken();
+
+      const response = await apiClient.post("/auth/login", {}, {
+        headers: {
+          Authorization: `Bearer ${idToken}`,
+        },
+      });
+
+      const userData = response.data;
+      if (userData.role === "ADMIN" && userData.status === "APPROVED") {
+        router.push("/admin/usuarios");
+      } else {
+        alert("No tienes permisos para acceder como Administrador.");
+      }
+
+    } catch (error: any) {
+      console.error("Error en login Admin:", error);
+      alert(error.response?.data?.message || "Error en el login del administrador.");
+    }
   };
 
   const handleConserjeClick = () => {

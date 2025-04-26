@@ -72,7 +72,7 @@ export default function LandingPage() {
 
       // Validar rol y estado
       if (userData.role === 'ADMIN' && userData.status === 'APPROVED') {
-        router.push('/admin/usuarios');
+        router.push('/admin/mainView');
       } else {
         alert("No tienes permisos para acceder como Administrador.");
       }

@@ -24,7 +24,6 @@ export default function GestionUsuariosConserje() {
       console.error("Error obteniendo usuarios pendientes:", err);
     }
   };
-
   useEffect(() => {
     fetchPendientes();
   }, []);

@@ -11,11 +11,13 @@ FRONTEND-APP-PUERTO-WILLIAMS
 │   │   │   ├── axios.ts
 │   │   │   ├── firebase.ts
 │   │   ├── pages
-│   │   │   ├── api
-│   │   │   │   └── hello.ts
+│   │   │   ├── admin
+│   │   │   │   └── usuarios.tsx
 │   │   │   ├── _app.tsx
 │   │   │   ├── _document.tsx
-│   │   │   ├── index.tsx
+│   │   │   ├── index.tsx 
+│   │   │   ├── pendiente-aprobacion.tsx
+│   │   │   ├── registro.tsx
 │   │   ├── providers
 │   │   ├── store/
 │   │   │   └── index.ts
@@ -23,7 +25,9 @@ FRONTEND-APP-PUERTO-WILLIAMS
 │   │   │   └── globals.css
 │   │   ├── types
 │   
+│── .env.local
 │── .gitignore
+│── .txt
 │── eslint.config.mjs
 │── next-env.d.ts
 │── next.config.ts

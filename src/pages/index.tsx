@@ -1,31 +1,45 @@
 //client/src/pages/index.tsx
+
 import React from 'react';
-import { getAuth, GoogleAuthProvider, signInWithPopup } from 'firebase/auth';
-import { auth } from '../lib/firebase';
-import apiClient from '../lib/axios';
 import { useRouter } from 'next/router';
+import { getAuth, GoogleAuthProvider, signInWithPopup } from 'firebase/auth';
+import { app } from '../lib/firebase';
+import apiClient from '../lib/axios';
 
 export default function LandingPage() {
   const router = useRouter();
+  const firebaseAuth = getAuth(app);
 
   const handleRegisterClick = async () => {
     console.log("Botón Registrarse presionado");
     const provider = new GoogleAuthProvider();
 
     try {
-      const userCredential = await signInWithPopup(auth, provider);
+      // Autenticación con Google
+      const userCredential = await signInWithPopup(firebaseAuth, provider);
       const user = userCredential.user;
       const idToken = await user.getIdToken();
 
-      const response = await apiClient.post('/auth/register');
-      const userData = response.data;
+      // Llamada al endpoint de registro, enviando el token en headers
+      const response = await apiClient.post(
+        '/auth/register',
+        {}, // body vacío
+        {
+          headers: {
+            Authorization: `Bearer ${idToken}`,
+          },
+        }
+      );
 
+      const userData = response.data;
+      console.log("Registro/login existente:", userData);
+
+      // Redirigir según estado
       if (userData.status === 'PENDING') {
         router.push('/pendiente-aprobacion');
       } else {
         router.push('/conserjeria');
       }
-
     } catch (error: any) {
       console.error("Error durante el registro:", error);
       alert(error.response?.data?.message || "Ocurrió un error al registrarse.");
@@ -37,22 +51,31 @@ export default function LandingPage() {
     const provider = new GoogleAuthProvider();
 
     try {
-      const userCredential = await signInWithPopup(auth, provider);
-      const idToken = await userCredential.user.getIdToken();
+      // Autenticación con Google
+      const userCredential = await signInWithPopup(firebaseAuth, provider);
+      const user = userCredential.user;
+      const idToken = await user.getIdToken();
 
-      const response = await apiClient.post("/auth/login", {}, {
-        headers: {
-          Authorization: `Bearer ${idToken}`,
-        },
-      });
+      // Llamada al endpoint de login admin
+      const response = await apiClient.post(
+        '/auth/login',
+        {}, // body vacío
+        {
+          headers: {
+            Authorization: `Bearer ${idToken}`,
+          },
+        }
+      );
 
       const userData = response.data;
-      if (userData.role === "ADMIN" && userData.status === "APPROVED") {
-        router.push("/admin/usuarios");
+      console.log("Login Admin exitoso:", userData);
+
+      // Validar rol y estado
+      if (userData.role === 'ADMIN' && userData.status === 'APPROVED') {
+        router.push('/admin/usuarios');
       } else {
         alert("No tienes permisos para acceder como Administrador.");
       }
-
     } catch (error: any) {
       console.error("Error en login Admin:", error);
       alert(error.response?.data?.message || "Error en el login del administrador.");
@@ -66,7 +89,7 @@ export default function LandingPage() {
 
   return (
     <div className="flex flex-col items-center justify-center min-h-screen bg-black text-white p-8">
-      <h1 className="absolute top-5 text-xl mb-12">landingPage</h1>
+      <h1 className="absolute top-5 text-xl mb-12">Puerto Williams App</h1>
 
       <div className="flex flex-col items-center gap-y-6">
         <button
@@ -93,3 +116,4 @@ export default function LandingPage() {
     </div>
   );
 }
+

@@ -1,7 +1,9 @@
+// client/src/lib/axios.ts
 import axios from "axios";
-import { auth } from "./firebase";
+import { getAuth, signOut } from "firebase/auth";
+import { app } from "./firebase";
 
-// Crea una instancia de Axios con configuración global
+// Instancia de Axios con configuración base
 const apiClient = axios.create({
   baseURL: process.env.NEXT_PUBLIC_API_BASE_URL || "http://localhost:4000/api",
   headers: {
@@ -9,24 +11,41 @@ const apiClient = axios.create({
   },
 });
 
-// Interceptor: adjunta automáticamente el token de Firebase al header Authorization
+const firebaseAuth = getAuth(app);
+
+// Interceptor de petición: añade token Firebase en Authorization
 apiClient.interceptors.request.use(
   async (config) => {
-    const user = auth.currentUser;
-
+    const user = firebaseAuth.currentUser;
     if (user) {
       try {
         const token = await user.getIdToken();
-        config.headers.Authorization = `Bearer ${token}`;
+        config.headers.set('Authorization', `Bearer ${token}`);
       } catch (err) {
         console.error("No se pudo obtener el token de Firebase:", err);
-        // Puedes hacer logout aquí si es necesario
+        // Si falla al obtener el token, forzamos logout
+        await signOut(firebaseAuth);
+        window.location.href = "/";
       }
     }
-
     return config;
   },
-  (error) => {
+  (error) => Promise.reject(error)
+);
+
+// Interceptor de respuesta: si recibimos 401, cerramos sesión y redirigimos
+apiClient.interceptors.response.use(
+  (response) => response,
+  async (error) => {
+    if (error.response?.status === 401) {
+      try {
+        await signOut(firebaseAuth);
+      } catch (err) {
+        console.error("Error al cerrar sesión después de 401:", err);
+      }
+      // Redirigir al landing (o página de login)
+      window.location.href = "/";
+    }
     return Promise.reject(error);
   }
 );

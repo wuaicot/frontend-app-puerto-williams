@@ -1,8 +1,7 @@
-//client/src/pages/index.tsx
-
+// client/src/pages/index.tsx
 import React from 'react';
 import { useRouter } from 'next/router';
-import { getAuth, GoogleAuthProvider, signInWithPopup } from 'firebase/auth';
+import { getAuth, GoogleAuthProvider, signInWithPopup, signOut } from 'firebase/auth';
 import { app } from '../lib/firebase';
 import apiClient from '../lib/axios';
 
@@ -12,33 +11,32 @@ export default function LandingPage() {
 
   const handleRegisterClick = async () => {
     console.log("Botón Registrarse presionado");
+
+    // 1) Asegurarnos de que no haya sesión previa
+    await signOut(firebaseAuth);
+
+    // 2) Configurar el provider para que muestre selector de cuenta
     const provider = new GoogleAuthProvider();
+    provider.setCustomParameters({
+      prompt: 'select_account',
+    });
 
     try {
-      // Autenticación con Google
+      // 3) Lanzar el popup de login
       const userCredential = await signInWithPopup(firebaseAuth, provider);
-      const user = userCredential.user;
-      const idToken = await user.getIdToken();
+      const idToken = await userCredential.user.getIdToken();
 
-      // Llamada al endpoint de registro, enviando el token en headers
-      const response = await apiClient.post(
-        '/auth/register',
-        {}, // body vacío
-        {
-          headers: {
-            Authorization: `Bearer ${idToken}`,
-          },
-        }
-      );
+      // 4) Llamada al backend
+      const { data: userData } = await apiClient.post('/auth/register');
 
-      const userData = response.data;
-      console.log("Registro/login existente:", userData);
+      console.log("Respuesta registro:", userData);
 
-      // Redirigir según estado
+      // 5) Redirecciones según estado
       if (userData.status === 'PENDING') {
         router.push('/pendiente-aprobacion');
       } else {
-        router.push('/conserjeria');
+        // Status APPROVED (quizá un test anterior), ir a la pantalla main de Conserjería
+        router.push('/conserjeria/mainView');
       }
     } catch (error: any) {
       console.error("Error durante el registro:", error);
@@ -48,29 +46,18 @@ export default function LandingPage() {
 
   const handleAdminClick = async () => {
     console.log("Botón Admin presionado");
+    await signOut(firebaseAuth);
     const provider = new GoogleAuthProvider();
+    provider.setCustomParameters({ prompt: 'select_account' });
 
     try {
-      // Autenticación con Google
       const userCredential = await signInWithPopup(firebaseAuth, provider);
-      const user = userCredential.user;
-      const idToken = await user.getIdToken();
+      const idToken = await userCredential.user.getIdToken();
 
-      // Llamada al endpoint de login admin
-      const response = await apiClient.post(
-        '/auth/login',
-        {}, // body vacío
-        {
-          headers: {
-            Authorization: `Bearer ${idToken}`,
-          },
-        }
-      );
+      const { data: userData } = await apiClient.post('/auth/login');
 
-      const userData = response.data;
       console.log("Login Admin exitoso:", userData);
 
-      // Validar rol y estado
       if (userData.role === 'ADMIN' && userData.status === 'APPROVED') {
         router.push('/admin/mainView');
       } else {
@@ -94,21 +81,21 @@ export default function LandingPage() {
       <div className="flex flex-col items-center gap-y-6">
         <button
           onClick={handleAdminClick}
-          className="bg-white text-black font-semibold py-3 px-10 rounded-full shadow-md hover:bg-gray-200 transition duration-300 ease-in-out min-w-[200px] text-center"
+          className="bg-white text-black font-semibold py-3 px-10 rounded-full shadow-md hover:bg-gray-200 transition duration-300 ease-in-out min-w-[200px]"
         >
           Admin.
         </button>
 
         <button
           onClick={handleRegisterClick}
-          className="bg-black text-white border border-white font-semibold py-2 px-8 rounded-md shadow-md hover:bg-gray-800 hover:border-gray-400 transition duration-300 ease-in-out min-w-[200px] text-center"
+          className="bg-black text-white border border-white font-semibold py-2 px-8 rounded-md shadow-md hover:bg-gray-800 hover:border-gray-400 transition duration-300 ease-in-out min-w-[200px]"
         >
           Registrarse
         </button>
 
         <button
           onClick={handleConserjeClick}
-          className="bg-white text-black font-semibold py-3 px-10 rounded-full shadow-md hover:bg-gray-200 transition duration-300 ease-in-out min-w-[200px] text-center"
+          className="bg-white text-black font-semibold py-3 px-10 rounded-full shadow-md hover:bg-gray-200 transition duration-300 ease-in-out min-w-[200px]"
         >
           Conserje
         </button>
@@ -116,4 +103,3 @@ export default function LandingPage() {
     </div>
   );
 }
-

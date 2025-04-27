@@ -1,91 +1,127 @@
-import { useEffect, useState } from "react";
-import apiClient from "../../lib/axios";
+// client/src/pages/admin/usuarios.tsx
+import React, { useEffect, useState } from 'react';
+import { useRouter } from 'next/router';
+import apiClient from '../../lib/axios';
+
+// Definimos localmente los enums para no depender de '@prisma/client'
+type Role = 'ADMIN' | 'CONSERJE' | 'MAYORDOMO' | 'NOCHERO' | 'JARDINERO' | 'PISCINERO';
+type Status = 'PENDING' | 'APPROVED' | 'REJECTED' | 'CANCELLED' | 'SUSPENDED';
 
 interface User {
   id: string;
   name: string;
   email: string;
-  role: string;
-  status: string;
-  createdAt: string;
+  status: Status;
+  role: Role;
 }
 
-export default function GestionUsuariosConserje() {
-  const [usuarios, setUsuarios] = useState<User[]>([]);
+export default function AdminUsuariosPage() {
+  const router = useRouter();
+  const [users, setUsers] = useState<User[]>([]);
   const [loading, setLoading] = useState(true);
-  const [rolSeleccionado, setRolSeleccionado] = useState<Record<string, string>>({});
+  const [approving, setApproving] = useState<string | null>(null);
 
-  const fetchPendientes = async () => {
-    try {
-      const { data } = await apiClient.get("/admin/users?status=PENDING");
-      setUsuarios(data);
-      setLoading(false);
-    } catch (err) {
-      console.error("Error obteniendo usuarios pendientes:", err);
-    }
-  };
+  // Fetch de solicitudes PENDING al montar
   useEffect(() => {
-    fetchPendientes();
+    const fetchPending = async () => {
+      try {
+        const { data } = await apiClient.get<User[]>('/admin/users?status=PENDING');
+        setUsers(data);
+      } catch (err) {
+        console.error('Error al obtener usuarios pendientes:', err);
+      } finally {
+        setLoading(false);
+      }
+    };
+    fetchPending();
   }, []);
 
-  const aprobar = async (id: string) => {
-    const rol = rolSeleccionado[id] || "MAYORDOMO";
-    await apiClient.patch(`/admin/users/${id}/approve`, { role: rol });
-    fetchPendientes();
+  // Función de aprobar
+  const handleApprove = async (userId: string, role: Role) => {
+    setApproving(userId);
+    try {
+      await apiClient.patch(`/admin/users/${userId}/approve`, { role });
+      setUsers(prev => prev.filter(u => u.id !== userId));
+    } catch (err: any) {
+      console.error('Error al aprobar usuario:', err);
+      alert(err.response?.data?.message || 'Error al aprobar usuario');
+    } finally {
+      setApproving(null);
+    }
   };
 
-  const rechazar = async (id: string) => {
-    await apiClient.patch(`/admin/users/${id}/reject`);
-    fetchPendientes();
-  };
+  if (loading) {
+    return (
+      <div className="min-h-screen flex items-center justify-center bg-black text-white">
+        <p>Cargando solicitudes…</p>
+      </div>
+    );
+  }
 
   return (
-    <div className="min-h-screen bg-black text-white p-8 flex flex-col items-center">
-      <h1 className="text-2xl font-bold mb-6">GESTIÓN USUARIO CONSERJE</h1>
+    <div className="min-h-screen bg-black text-white p-8">
+      <button
+        onClick={() => router.push('/admin/mainView')}
+        className="mb-6 text-3xl hover:opacity-70"
+      >
+        ←
+      </button>
 
-      {loading ? (
-        <p>Cargando...</p>
-      ) : usuarios.length === 0 ? (
-        <p>No hay usuarios pendientes.</p>
+      <h1 className="text-2xl mb-4 font-semibold">Solicitudes de Conserjes</h1>
+
+      {users.length === 0 ? (
+        <div className="mt-16 text-center">
+          <p className="mb-4">No hay solicitudes pendientes.</p>
+          <button
+            onClick={() => router.push('/admin/mainView')}
+            className="py-2 px-6 border border-white rounded hover:bg-white hover:text-black transition"
+          >
+            Volver a la consola
+          </button>
+        </div>
       ) : (
-        <div className="w-full max-w-xl space-y-6">
-          {usuarios.map((u) => (
-            <div key={u.id} className="border p-4 rounded bg-gray-900">
-              <p className="font-semibold">{u.name}</p>
-              <p className="text-sm text-gray-400">{u.email}</p>
-
-              <label className="block mt-2 text-sm">Asignar Rol:</label>
-              <select
-                className="bg-black border px-2 py-1 mt-1"
-                value={rolSeleccionado[u.id] || "MAYORDOMO"}
-                onChange={(e) =>
-                  setRolSeleccionado({ ...rolSeleccionado, [u.id]: e.target.value })
-                }
-                aria-label={`Asignar rol para ${u.name}`}
-              >
-                <option value="MAYORDOMO">Mayordomo</option>
-                <option value="PORTERO">Portero</option>
-                <option value="MANTENCION">Mantención</option>
-                <option value="PISCINA">Piscina</option>
-              </select>
-
-              <div className="flex gap-4 mt-4">
-                <button
-                  onClick={() => aprobar(u.id)}
-                  className="bg-green-600 px-4 py-2 rounded text-white hover:bg-green-700"
+        <ul className="space-y-6">
+          {users.map(user => (
+            <li
+              key={user.id}
+              className="p-4 border border-gray-700 rounded flex flex-col md:flex-row md:items-center md:justify-between"
+            >
+              <div>
+                <p><strong>Nombre:</strong> {user.name}</p>
+                <p><strong>Email:</strong> {user.email}</p>
+              </div>
+              <div className="mt-4 md:mt-0 flex items-center gap-4">
+                <label htmlFor={`role-select-${user.id}`} className="sr-only">
+                  Seleccionar rol
+                </label>
+                <select
+                  id={`role-select-${user.id}`}
+                  defaultValue="CONSERJE"
+                  onChange={e => {
+                    const select = e.target as HTMLSelectElement;
+                    user.role = select.value as Role;
+                  }}
+                  className="bg-gray-800 text-white py-1 px-3 rounded"
                 >
-                  Aprobar
-                </button>
+                  {['CONSERJE','MAYORDOMO','NOCHERO','JARDINERO','PISCINERO'].map(r => (
+                    <option key={r} value={r}>{r}</option>
+                  ))}
+                </select>
                 <button
-                  onClick={() => rechazar(u.id)}
-                  className="bg-red-600 px-4 py-2 rounded text-white hover:bg-red-700"
+                  onClick={() => handleApprove(user.id, user.role)}
+                  disabled={approving === user.id}
+                  className={`py-2 px-4 rounded-full ${
+                    approving === user.id
+                      ? 'bg-gray-600 cursor-not-allowed'
+                      : 'bg-white text-black hover:bg-gray-200'
+                  } transition`}
                 >
-                  Rechazar
+                  {approving === user.id ? 'Aprobando…' : 'Aprobar'}
                 </button>
               </div>
-            </div>
+            </li>
           ))}
-        </div>
+        </ul>
       )}
     </div>
   );

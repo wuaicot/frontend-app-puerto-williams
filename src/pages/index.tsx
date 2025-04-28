@@ -9,16 +9,17 @@ export default function LandingPage() {
   const router = useRouter();
 
   const handleAuthAction = async (type: 'register' | 'login') => {
-    // Aseguramos que no haya sesión previa
+    // Cerrar sesión previa (si existiera)
     await signOut(auth);
     const provider = new GoogleAuthProvider();
     provider.setCustomParameters({ prompt: 'select_account' });
 
     try {
-      // Autenticación con popup usando auth directamente
+      // Abrir popup de Google
       const userCredential = await signInWithPopup(auth, provider);
       await userCredential.user.getIdToken();
 
+      // Llamada al endpoint correspondiente
       const endpoint = type === 'register' ? '/auth/register' : '/auth/login';
       const { data: userData } = await apiClient.post(endpoint);
 
@@ -39,9 +40,30 @@ export default function LandingPage() {
     }
   };
 
-  const handleConserjeriaClick = () => {
-    // Ruta principal de Conserjería
-    router.push('/conserjeria/mainView');
+  const handleConserjeriaClick = async () => {
+    // Cerrar sesión previa para elegir cuenta
+    await signOut(auth);
+    const provider = new GoogleAuthProvider();
+    provider.setCustomParameters({ prompt: 'select_account' });
+
+    try {
+      // Login con popup
+      const userCredential = await signInWithPopup(auth, provider);
+      await userCredential.user.getIdToken();
+
+      // Intentar login en backend para conserje
+      const { data: userData } = await apiClient.post('/auth/login');
+      if (userData.role === 'CONSERJE' && userData.status === 'APPROVED') {
+        router.push('/conserjeria/mainView');
+      } else if (userData.status === 'PENDING') {
+        router.push('/pendiente-aprobacion');
+      } else {
+        alert('No tienes permisos para acceder al entorno de Conserjería.');
+      }
+    } catch (error: any) {
+      console.error('Error en login Conserjería:', error);
+      alert(error.response?.data?.message || 'Error durante el login de Conserjería.');
+    }
   };
 
   return (

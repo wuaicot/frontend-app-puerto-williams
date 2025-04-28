@@ -21,7 +21,6 @@ export default function AdminUsuariosPage() {
   const [loading, setLoading] = useState(true);
   const [approving, setApproving] = useState<string | null>(null);
 
-  // Fetch de solicitudes PENDING al montar
   useEffect(() => {
     const fetchPending = async () => {
       try {
@@ -36,7 +35,6 @@ export default function AdminUsuariosPage() {
     fetchPending();
   }, []);
 
-  // Función de aprobar
   const handleApprove = async (userId: string, role: Role) => {
     setApproving(userId);
     try {
@@ -91,9 +89,7 @@ export default function AdminUsuariosPage() {
                 <p><strong>Email:</strong> {user.email}</p>
               </div>
               <div className="mt-4 md:mt-0 flex items-center gap-4">
-                <label htmlFor={`role-select-${user.id}`} className="sr-only">
-                  Seleccionar rol
-                </label>
+                <label htmlFor={`role-select-${user.id}`} className="sr-only">Seleccionar rol</label>
                 <select
                   id={`role-select-${user.id}`}
                   defaultValue="CONSERJE"

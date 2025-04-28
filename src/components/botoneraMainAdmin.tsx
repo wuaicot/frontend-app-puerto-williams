@@ -1,33 +1,36 @@
-// client/src/components/BotoneraMainConserjeria.tsx
+// client/src/components/BotoneraMainAdmin.tsx
 import React from 'react';
-import { useRouter } from 'next/router';
+import Link from 'next/link';
 
-export const BotoneraMainConserjeria: React.FC = () => {
-  const router = useRouter();
+interface BotoneraMainAdminProps {
+  onNavigate: (route: string) => void;
+}
+
+export const BotoneraMainAdmin: React.FC<BotoneraMainAdminProps> = ({ onNavigate }) => {
   const botones = [
-    { label: 'Registrar inicio/fin turno', route: '/conserjeria/turno' },
-    { label: 'Tareas asignadas', route: '/conserjeria/tareas' },
-    { label: 'Controlar acceso', route: '/conserjeria/acceso' },
-    { label: 'Atención residente', route: '/conserjeria/atencion' },
+    { label: 'Gestión usuario Conserje', route: '/admin/usuarios' },
+    { label: 'Ver reporte incidencia', route: '/admin/incidencias' },
+    { label: 'Gestionar finanzas', route: '/admin/finanzas' },
+    { label: 'Gestionar mantenimiento', route: '/admin/mantenimiento' },
+    { label: 'Gestionar comunicación', route: '/admin/comunicacion' },
+    { label: 'Gestionar normativas', route: '/admin/normativas' },
   ];
 
   return (
-    <div className="relative flex flex-col items-center gap-6 p-8 text-white">
-      <button
-        onClick={() => router.push('/')}
-        className="absolute top-4 left-4 text-3xl hover:opacity-70"
-      >
+    <div className="relative flex flex-col items-center gap-4 -mt-16 text-white">
+      
+      <Link href="/" className="relative translate-y-112 text-3xl hover:opacity-70">
         ←
-      </button>
+      </Link>
 
-      <h1 className="mb-6 text-2xl font-semibold">CONSORJERIA</h1>
+      <h1 className="mb-8 text-2xl font-semibold">CONSOLA ADMINISTRADOR</h1>
 
       <div className="flex flex-col gap-4 w-full max-w-xs">
         {botones.map((btn) => (
           <button
             key={btn.route}
-            onClick={() => router.push(btn.route)}
-            className="w-full py-2 px-6 rounded-full border border-white text-center hover:bg-white hover:text-black transition"
+            onClick={() => onNavigate(btn.route)}
+            className="w-auto py-1  rounded-full border border-white text-center hover:bg-white hover:text-black transition cursor-pointer "
           >
             {btn.label}
           </button>

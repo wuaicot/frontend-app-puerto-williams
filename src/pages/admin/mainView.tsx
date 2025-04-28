@@ -1,13 +1,20 @@
-// client/src/pages/conserjeria/mainView.tsx
+// client/src/pages/admin/mainView.tsx
 import React from 'react';
-import { BotoneraMainConserjeria } from '../../components/BotoneraMainConserjeria';
-import { TurnStatus } from '../../components/TurnStatus';
+import { useRouter } from 'next/router';
+import { BotoneraMainAdmin } from '../../../src/components/BotoneraMainAdmin';
 
-export default function ConserjeriaMainView() {
+const MainViewAdmin: React.FC = () => {
+  const router = useRouter();
+
+  const handleNavigate = (route: string) => {
+    router.push(route);
+  };
+
   return (
-    <div className="min-h-screen bg-black flex flex-col items-center p-8">
-      <BotoneraMainConserjeria />
-      <TurnStatus />
+    <div className="min-h-screen bg-black flex items-center justify-center">
+      <BotoneraMainAdmin onNavigate={handleNavigate} />
     </div>
   );
-}
+};
+
+export default MainViewAdmin;

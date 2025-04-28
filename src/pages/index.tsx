@@ -8,18 +8,14 @@ import apiClient from '../lib/axios';
 export default function LandingPage() {
   const router = useRouter();
 
+  // Función genérica para registrar o login de Admin
   const handleAuthAction = async (type: 'register' | 'login') => {
-    // Cerrar sesión previa (si existiera)
     await signOut(auth);
     const provider = new GoogleAuthProvider();
     provider.setCustomParameters({ prompt: 'select_account' });
 
     try {
-      // Abrir popup de Google
-      const userCredential = await signInWithPopup(auth, provider);
-      await userCredential.user.getIdToken();
-
-      // Llamada al endpoint correspondiente
+      await signInWithPopup(auth, provider);
       const endpoint = type === 'register' ? '/auth/register' : '/auth/login';
       const { data: userData } = await apiClient.post(endpoint);
 
@@ -40,25 +36,26 @@ export default function LandingPage() {
     }
   };
 
+  // Flujo dinámico para Conserjería según rol
   const handleConserjeriaClick = async () => {
-    // Cerrar sesión previa para elegir cuenta
     await signOut(auth);
     const provider = new GoogleAuthProvider();
     provider.setCustomParameters({ prompt: 'select_account' });
 
     try {
-      // Login con popup
-      const userCredential = await signInWithPopup(auth, provider);
-      await userCredential.user.getIdToken();
+      await signInWithPopup(auth, provider);
+      // Obtener estado y rol del usuario
+      const { data } = await apiClient.get<{ status: 'PENDING' | 'APPROVED' | 'REJECTED'; role: string }>('/auth/status');
+      const { status, role } = data;
 
-      // Intentar login en backend para conserje
-      const { data: userData } = await apiClient.post('/auth/login');
-      if (userData.role === 'CONSERJE' && userData.status === 'APPROVED') {
-        router.push('/conserjeria/mainView');
-      } else if (userData.status === 'PENDING') {
+      if (status === 'PENDING') {
         router.push('/pendiente-aprobacion');
+      } else if (status === 'APPROVED') {
+        // Redireccionar a la vista del área según rol asignado
+        const area = role.toLowerCase();
+        router.push(`/conserjeria/${area}`);
       } else {
-        alert('No tienes permisos para acceder al entorno de Conserjería.');
+        alert('Acceso denegado. Razón desconocida o solicitud rechazada.');
       }
     } catch (error: any) {
       console.error('Error en login Conserjería:', error);
@@ -73,21 +70,21 @@ export default function LandingPage() {
       <div className="flex flex-col items-center gap-y-6">
         <button
           onClick={() => handleAuthAction('login')}
-          className="bg-white text-black font-semibold py-3 px-10 rounded-full shadow-md hover:bg-gray-200 transition duration-300 ease-in-out min-w-[200px]"
+          className="bg-white text-black font-semibold py-3 px-10 rounded-full shadow-md hover:bg-gray-200 transition min-w-[200px]"
         >
           Admin.
         </button>
 
         <button
           onClick={() => handleAuthAction('register')}
-          className="bg-black text-white border border-white font-semibold py-2 px-8 rounded-md shadow-md hover:bg-gray-800 hover:border-gray-400 transition duration-300 ease-in-out min-w-[200px]"
+          className="bg-black text-white border border-white font-semibold py-2 px-8 rounded-md shadow-md hover:bg-gray-800 hover:border-gray-400 transition min-w-[200px]"
         >
           Registrarse
         </button>
 
         <button
           onClick={handleConserjeriaClick}
-          className="bg-white text-black font-semibold py-3 px-10 rounded-full shadow-md hover:bg-gray-200 transition duration-300 ease-in-out min-w-[200px]"
+          className="bg-white text-black font-semibold py-3 px-10 rounded-full shadow-md hover:bg-gray-200 transition min-w-[200px]"
         >
           Conserjeria
         </button>

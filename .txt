@@ -4,15 +4,20 @@ FRONTEND-APP-PUERTO-WILLIAMS
 │   ├── node_modules
 │   ├── public
 │   ├── src
-│   │   ├── components
-│   │   ├── features
+│   │   ├── components/
+│   │   │   ├── BotoneraMainAdmin.tsx
+│   │   │   ├── BotoneraMainConserjeria.tsx
+│   │   │   ├── TurnStatus.tsx
 │   │   ├── hooks
 │   │   ├── lib/
 │   │   │   ├── axios.ts
 │   │   │   ├── firebase.ts
 │   │   ├── pages
 │   │   │   ├── admin
-│   │   │   │   └── usuarios.tsx
+│   │   │   │   ├── mainView.tsx
+│   │   │   │   ├── usuarios.tsx
+│   │   │   ├── conserjeria/
+│   │   │   │   └── mainView.tsx
 │   │   │   ├── _app.tsx
 │   │   │   ├── _document.tsx
 │   │   │   ├── index.tsx 

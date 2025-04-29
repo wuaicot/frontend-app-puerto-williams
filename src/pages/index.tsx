@@ -65,28 +65,28 @@ export default function LandingPage() {
 
   return (
     <div className="flex flex-col items-center justify-center min-h-screen bg-black text-white p-8">
-      <h1 className="absolute top-5 text-xl mb-12">Puerto Williams App</h1>
+      <h1 className="absolute top-16 text-xl mb-12">Puerto Williams App</h1>
 
-      <div className="flex flex-col items-center gap-y-6">
+      <div className="flex flex-col -mt-8  items-center gap-y-6">
         <button
           onClick={() => handleAuthAction('login')}
-          className="bg-white text-black font-semibold py-3 px-10 rounded-full shadow-md hover:bg-gray-200 transition min-w-[200px]"
+          className="bg-white text-black font-semibold py-2 px-10 rounded-full shadow-md hover:bg-blue-200 hover:text-green-500 cursor-pointer  transition min-w-[200px]"
         >
           Admin.
         </button>
 
         <button
           onClick={() => handleAuthAction('register')}
-          className="bg-black text-white border border-white font-semibold py-2 px-8 rounded-md shadow-md hover:bg-gray-800 hover:border-gray-400 transition min-w-[200px]"
+          className="bg-black text-white border border-white font-semibold py-1 px-8 rounded-md shadow-md hover:bg-green-800 hover:border-white hover:text-blue-500  transition min-w-[180px] cursor-pointer"
         >
           Registrarse
         </button>
 
         <button
           onClick={handleConserjeriaClick}
-          className="bg-white text-black font-semibold py-3 px-10 rounded-full shadow-md hover:bg-gray-200 transition min-w-[200px]"
+          className="bg-white text-black font-semibold py-2 px-10 rounded-full shadow-white  hover:bg-gray-200 transition min-w-[200px] cursor-pointer "
         >
-          Conserjeria
+          Conserjería
         </button>
       </div>
     </div>

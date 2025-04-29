@@ -1,11 +1,18 @@
 // client/src/pages/admin/usuarios.tsx
-import React, { useEffect, useState } from 'react';
-import { useRouter } from 'next/router';
-import apiClient from '../../lib/axios';
+import React, { useEffect, useState } from "react";
+import { useRouter } from "next/router";
+import apiClient from "../../lib/axios";
 
 // Definimos localmente los enums para no depender de '@prisma/client'
-type Role = 'ADMIN' | 'CONSERJE' | 'MAYORDOMO' | 'NOCHERO' | 'JARDINERO' | 'PISCINERO';
-type Status = 'PENDING' | 'APPROVED' | 'REJECTED' | 'CANCELLED' | 'SUSPENDED';
+type Role =
+  | "ADMIN"
+  | "CONSERJE"
+  | "MAYORDOMO"
+  | "NOCHERO"
+  | "JARDINERO"
+  | "PISCINERO"
+  | "MANTENIMIENTO";
+type Status = "PENDING" | "APPROVED" | "REJECTED" | "CANCELLED" | "SUSPENDED";
 
 interface User {
   id: string;
@@ -24,10 +31,12 @@ export default function AdminUsuariosPage() {
   useEffect(() => {
     const fetchPending = async () => {
       try {
-        const { data } = await apiClient.get<User[]>('/admin/users?status=PENDING');
+        const { data } = await apiClient.get<User[]>(
+          "/admin/users?status=PENDING"
+        );
         setUsers(data);
       } catch (err) {
-        console.error('Error al obtener usuarios pendientes:', err);
+        console.error("Error al obtener usuarios pendientes:", err);
       } finally {
         setLoading(false);
       }
@@ -39,10 +48,10 @@ export default function AdminUsuariosPage() {
     setApproving(userId);
     try {
       await apiClient.patch(`/admin/users/${userId}/approve`, { role });
-      setUsers(prev => prev.filter(u => u.id !== userId));
+      setUsers((prev) => prev.filter((u) => u.id !== userId));
     } catch (err: any) {
-      console.error('Error al aprobar usuario:', err);
-      alert(err.response?.data?.message || 'Error al aprobar usuario');
+      console.error("Error al aprobar usuario:", err);
+      alert(err.response?.data?.message || "Error al aprobar usuario");
     } finally {
       setApproving(null);
     }
@@ -57,21 +66,17 @@ export default function AdminUsuariosPage() {
   }
 
   return (
-    <div className="min-h-screen bg-black text-white p-8">
-      <button
-        onClick={() => router.push('/admin/mainView')}
-        className="mb-6 text-3xl hover:opacity-70"
-      >
-        ←
-      </button>
-
-      <h1 className="text-2xl mb-4 font-semibold">Solicitudes de Conserjes</h1>
+    <div className="min-h-screen mt-16  bg-black text-white p-8 align-items-center flex flex-col">
+      <h1 className="text-2xl mb-4 font-semibold">
+        Solicitudes desde Conserjería
+      </h1>
 
       {users.length === 0 ? (
         <div className="mt-16 text-center">
           <p className="mb-4">No hay solicitudes pendientes.</p>
+
           <button
-            onClick={() => router.push('/admin/mainView')}
+            onClick={() => router.push("/admin/mainView")}
             className="py-2 px-6 border border-white rounded hover:bg-white hover:text-black transition"
           >
             Volver a la consola
@@ -79,28 +84,43 @@ export default function AdminUsuariosPage() {
         </div>
       ) : (
         <ul className="space-y-6">
-          {users.map(user => (
+          {users.map((user) => (
             <li
               key={user.id}
               className="p-4 border border-gray-700 rounded flex flex-col md:flex-row md:items-center md:justify-between"
             >
               <div>
-                <p><strong>Nombre:</strong> {user.name}</p>
-                <p><strong>Email:</strong> {user.email}</p>
+                <p>
+                  <strong>Nombre:</strong> {user.name}
+                </p>
+                <p>
+                  <strong>Email:</strong> {user.email}
+                </p>
               </div>
               <div className="mt-4 md:mt-0 flex items-center gap-4">
-                <label htmlFor={`role-select-${user.id}`} className="sr-only">Seleccionar rol</label>
+                <label htmlFor={`role-select-${user.id}`} className="sr-only">
+                  Seleccionar rol
+                </label>
                 <select
                   id={`role-select-${user.id}`}
                   defaultValue="CONSERJE"
-                  onChange={e => {
+                  onChange={(e) => {
                     const select = e.target as HTMLSelectElement;
                     user.role = select.value as Role;
                   }}
                   className="bg-gray-800 text-white py-1 px-3 rounded"
                 >
-                  {['CONSERJE','MAYORDOMO','NOCHERO','JARDINERO','PISCINERO'].map(r => (
-                    <option key={r} value={r}>{r}</option>
+                  {[
+                    "CONSERJE",
+                    "MAYORDOMO",
+                    "NOCHERO",
+                    "JARDINERO",
+                    "PISCINERO",
+                    "MANTENIMIENTO",
+                  ].map((r) => (
+                    <option key={r} value={r}>
+                      {r}
+                    </option>
                   ))}
                 </select>
                 <button
@@ -108,17 +128,23 @@ export default function AdminUsuariosPage() {
                   disabled={approving === user.id}
                   className={`py-2 px-4 rounded-full ${
                     approving === user.id
-                      ? 'bg-gray-600 cursor-not-allowed'
-                      : 'bg-white text-black hover:bg-gray-200'
+                      ? "bg-gray-600 cursor-not-allowed"
+                      : "bg-white text-black hover:bg-gray-200"
                   } transition`}
                 >
-                  {approving === user.id ? 'Aprobando…' : 'Aprobar'}
+                  {approving === user.id ? "Aprobando…" : "Aprobar"}
                 </button>
               </div>
             </li>
           ))}
         </ul>
       )}
+      <button
+        onClick={() => router.push("/admin/mainView")}
+        className="mb-6 mt-8 cursor-pointer   translate-y-auto text-3xl hover:opacity-70"
+      >
+        ←
+      </button>
     </div>
   );
 }

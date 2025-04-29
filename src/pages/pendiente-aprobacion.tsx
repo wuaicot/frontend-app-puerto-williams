@@ -66,7 +66,7 @@ export default function PendienteAprobacion() {
               Entiendo
             </button>
             <a
-              href="mailto:admin@puerto-williams-app.com"
+              href="mailto:example@puerto-williams-app.com"
               className="py-2 px-6 border border-white rounded hover:bg-white hover:text-black transition"
             >
               Contactar

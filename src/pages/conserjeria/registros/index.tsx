@@ -21,7 +21,7 @@ export default function RegistrosPage() {
     const params: any = {};
     if (start) params.start = start;
     if (end) params.end = end;
-    const { data } = await apiClient.get<Registro[]>('/api/novedades', { params });
+    const { data } = await apiClient.get<Registro[]>('/novedades', { params });
     setRegistros(data);
   };
 
@@ -30,7 +30,8 @@ export default function RegistrosPage() {
   }, []);
 
   const sorted = [...registros].sort((a, b) => {
-    const diff = new Date(a.timestamp).getTime() - new Date(b.timestamp).getTime();
+    const diff =
+      new Date(a.timestamp).getTime() - new Date(b.timestamp).getTime();
     return sortAsc ? diff : -diff;
   });
 

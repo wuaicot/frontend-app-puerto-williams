@@ -17,7 +17,16 @@ FRONTEND-APP-PUERTO-WILLIAMS
 │   │   │   │   ├── mainView.tsx
 │   │   │   │   ├── usuarios.tsx
 │   │   │   ├── conserjeria/
-│   │   │   │   └── mainView.tsx
+│   │   │   │   ├── conserje/
+│   │   │   │   │   └── index.tsx
+│   │   │   │   ├── mantenimiento/
+│   │   │   │   │   └── index.tsx
+│   │   │   │   ├── mayordomo/
+│   │   │   │   │   └── index.tsx
+│   │   │   │   ├── nochero/
+│   │   │   │   │   └── index.tsx
+│   │   │   │   ├── piscina/
+│   │   │   │       └── index.tsx
 │   │   │   ├── _app.tsx
 │   │   │   ├── _document.tsx
 │   │   │   ├── index.tsx 

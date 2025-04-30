@@ -1,4 +1,3 @@
-// client/src/lib/axios.ts
 import axios from "axios";
 import { getAuth, signOut } from "firebase/auth";
 import { app } from "./firebase";
@@ -20,10 +19,11 @@ apiClient.interceptors.request.use(
     if (user) {
       try {
         const token = await user.getIdToken();
+        // Asegúrate de usar config.headers['Authorization']
         config.headers.set('Authorization', `Bearer ${token}`);
       } catch (err) {
         console.error("No se pudo obtener el token de Firebase:", err);
-        // Si falla al obtener el token, forzamos logout
+        // Forzar logout y redirección al landing
         await signOut(firebaseAuth);
         window.location.href = "/";
       }
@@ -43,7 +43,6 @@ apiClient.interceptors.response.use(
       } catch (err) {
         console.error("Error al cerrar sesión después de 401:", err);
       }
-      // Redirigir al landing (o página de login)
       window.location.href = "/";
     }
     return Promise.reject(error);

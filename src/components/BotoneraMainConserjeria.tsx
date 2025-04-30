@@ -9,13 +9,14 @@ export const BotoneraMainConserjeria: React.FC = () => {
     { label: 'Tareas asignadas', route: '/conserjeria/tareas' },
     { label: 'Controlar acceso', route: '/conserjeria/acceso' },
     { label: 'Atención residente', route: '/conserjeria/atencion' },
+    { label: 'Ver registros', route: '/conserjeria/registros' },
   ];
 
   return (
     <div className="relative flex flex-col items-center gap-6 p-8 text-white">
       <button
         onClick={() => router.push('/')}
-        className=" translate-y-140 cursor-pointer top-4 left-4 text-3xl hover:opacity-70"
+        className="absolute top-4 left-4 text-3xl hover:opacity-70"
       >
         ←
       </button>

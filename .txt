@@ -62,4 +62,4 @@ FRONTEND-APP-PUERTO-WILLIAMS
 │── pnpm-lock.yaml
 │── postcss.config.mjs
 │── README.md
-│── tsconfig.json
+└── tsconfig.json

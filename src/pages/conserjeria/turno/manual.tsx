@@ -1,34 +1,51 @@
-// client/src/pages/conserjeria/turno/manual.tsx
 import React, { useState } from 'react';
-import { useRouter } from 'next/router';
-import { TurnStatus } from '../../../components/TurnStatus';
+import apiClient from '../../../lib/axios';
 
 export default function ManualTurnRegistration() {
-  const router = useRouter();
-  const [entry, setEntry] = useState('');
+  const [text, setText] = useState('');
+  const [isLast, setIsLast] = useState(false);
 
-  const handleSubmit = () => {
-    // TODO: send to backend
-    console.log('Manual entry:', entry);
-    router.back();
+  const handleSave = async () => {
+    if (!text.trim()) return;
+    try {
+      await apiClient.post('/api/novedades', {
+        description: text,
+        entryMethod: 'MANUAL',
+        isLast,
+      });
+      alert('Registro manual guardado');
+      setText('');
+      setIsLast(false);
+    } catch (err) {
+      console.error('Error guardando registro manual:', err);
+      alert('No se pudo guardar el registro manual');
+    }
   };
 
   return (
-    <div className="min-h-screen bg-black flex flex-col items-center p-8 text-white">
-      <button onClick={() => router.back()} className="absolute top-4 left-4 text-3xl hover:opacity-70">←</button>
-      <h1 className="mt-8 mb-6 text-2xl font-semibold">Registro Manual de Turno</h1>
-      <TurnStatus />
+    <div className="p-8 flex flex-col gap-4">
+      <h2 className="text-xl font-semibold">Registro Manual</h2>
       <textarea
-        className="w-full max-w-md h-40 p-2 mt-4 bg-gray-900 text-white rounded"
-        placeholder="Escribe aquí los detalles de inicio/fin de turno..."
-        value={entry}
-        onChange={(e) => setEntry(e.target.value)}
+        rows={4}
+        className="border p-2 rounded w-full"
+        placeholder="Escribe tu registro..."
+        value={text}
+        onChange={(e) => setText(e.target.value)}
       />
+      <label className="flex items-center gap-2">
+        <input
+          type="checkbox"
+          checked={isLast}
+          onChange={() => setIsLast(!isLast)}
+        />
+        Fin de turno
+      </label>
       <button
-        onClick={handleSubmit}
-        className="mt-4 py-2 px-6 bg-white text-black rounded hover:bg-gray-200"
+        onClick={handleSave}
+        disabled={!text.trim()}
+        className="bg-blue-600 text-white px-4 py-2 rounded disabled:opacity-50 disabled:cursor-not-allowed"
       >
-        Guardar Registro
+        Guardar registro
       </button>
     </div>
   );

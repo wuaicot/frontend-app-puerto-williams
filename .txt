@@ -3,41 +3,54 @@ FRONTEND-APP-PUERTO-WILLIAMS
 │   ├── .next
 │   ├── node_modules
 │   ├── public
-│   ├── src
-│   │   ├── components/
-│   │   │   ├── BotoneraMainAdmin.tsx
-│   │   │   ├── BotoneraMainConserjeria.tsx
-│   │   │   ├── TurnStatus.tsx
-│   │   ├── hooks
-│   │   ├── lib/
-│   │   │   ├── axios.ts
-│   │   │   ├── firebase.ts
-│   │   ├── pages
-│   │   │   ├── admin
-│   │   │   │   ├── mainView.tsx
-│   │   │   │   ├── usuarios.tsx
-│   │   │   ├── conserjeria/
-│   │   │   │   ├── conserje/
-│   │   │   │   │   └── index.tsx
-│   │   │   │   ├── mantenimiento/
-│   │   │   │   │   └── index.tsx
-│   │   │   │   ├── mayordomo/
-│   │   │   │   │   └── index.tsx
-│   │   │   │   ├── nochero/
-│   │   │   │   │   └── index.tsx
-│   │   │   │   ├── piscina/
-│   │   │   │       └── index.tsx
-│   │   │   ├── _app.tsx
-│   │   │   ├── _document.tsx
-│   │   │   ├── index.tsx 
-│   │   │   ├── pendiente-aprobacion.tsx
-│   │   │   ├── registro.tsx
-│   │   ├── providers
-│   │   ├── store/
-│   │   │   └── index.ts
-│   │   ├── styles/
-│   │   │   └── globals.css
-│   │   ├── types
+│   └── src/
+│       ├── components/
+│       │   ├── BotoneraMainAdmin.tsx
+│       │   ├── BotoneraMainConserjeria.tsx
+│       │   └── TurnStatus.tsx
+│       │
+│       ├── hooks
+│       │
+│       ├── lib/
+│       │   ├── axios.ts
+│       │   └── firebase.ts
+│       │
+│       ├── pages/
+│       │   ├── admin/
+│       │   │   ├── mainView.tsx
+│       │   │   └── usuarios.tsx
+│       │   │
+│       │   ├── conserjeria/
+│       │   │   ├── conserje/
+│       │   │   │   └── index.tsx
+│       │   │   ├── mantenimiento/
+│       │   │   │   └── index.tsx
+│       │   │   ├── mayordomo/
+│       │   │   │   └── index.tsx
+│       │   │   ├── nochero/
+│       │   │   │   └── index.tsx
+│       │   │   ├── piscina/
+│       │   │   │   └── index.tsx
+│       │   │   └── turno/
+│       │   │       ├── index.tsx
+│       │   │       ├── manual.tsx
+│       │   │       └── voice.tsx
+│       │   │       
+│       │   ├── _app.tsx
+│       │   ├── _document.tsx
+│       │   ├── index.tsx 
+│       │   ├── pendiente-aprobacion.tsx
+│       │   └── registro.tsx
+│       │
+│       ├── providers
+│       │
+│       ├── store/
+│       │   └── index.ts
+│       │ 
+│       ├── styles/
+│       │   └── globals.css
+│       │ 
+│       └── types
 │   
 │── .env.local
 │── .gitignore

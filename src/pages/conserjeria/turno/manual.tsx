@@ -1,8 +1,8 @@
-import React, { useState } from 'react';
-import apiClient from '../../../lib/axios';
+import React, { useState } from "react";
+import apiClient from "../../../lib/axios";
 
 export default function ManualTurnRegistration() {
-  const [text, setText] = useState('');
+  const [text, setText] = useState("");
   const [isLast, setIsLast] = useState(false);
 
   const handleSave = async () => {
@@ -10,24 +10,24 @@ export default function ManualTurnRegistration() {
     try {
       await apiClient.post('/api/novedades', {
         description: text,
-        entryMethod: 'MANUAL',
+        entryMethod: 'VOICE',
         isLast,
       });
-      alert('Registro manual guardado');
-      setText('');
+      
+      alert("Registro manual guardado");
+      setText("");
       setIsLast(false);
-    } catch (err) {
-      console.error('Error guardando registro manual:', err);
-      alert('No se pudo guardar el registro manual');
+    } catch {
+      alert("No se pudo guardar el registro manual");
     }
   };
 
   return (
-    <div className="p-8 flex flex-col gap-4">
+    <div className="p-8 flex flex-col gap-4 bg-black text-white min-h-screen">
       <h2 className="text-xl font-semibold">Registro Manual</h2>
       <textarea
         rows={4}
-        className="border p-2 rounded w-full"
+        className="border p-2 rounded bg-gray-800 text-white"
         placeholder="Escribe tu registro..."
         value={text}
         onChange={(e) => setText(e.target.value)}

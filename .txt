@@ -68,7 +68,10 @@ FRONTEND-APP-PUERTO-WILLIAMS
 └── tsconfig.json
 
 ♦♦♦♦♦♦♦♦♦♦♦♦♦♦♦♦♦♦♦♦♦♦♦♦♦♦♦♦♦♦♦♦♦♦♦♦♦♦♦♦♦♦♦♦♦♦♦♦
-
 git fetch origin
 git reset --hard origin/main
 git clean -fdn
+
+
+
+ngsx6345

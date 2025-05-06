@@ -26,7 +26,7 @@ export default function TurnoModeSelection() {
           className="flex flex-col items-center"
         >
           <div className="text-6xl mb-2">🗣️</div>
-          <span>Con su voz</span>
+          <span>Con mi voz</span>
         </button>
 
         {/* Manual mode */}

@@ -7,6 +7,7 @@ FRONTEND-APP-PUERTO-WILLIAMS
 │       ├── components/
 │       │   ├── BotoneraMainAdmin.tsx
 │       │   ├── BotoneraMainConserjeria.tsx
+│       │   ├── RegistrosLibros.tsx
 │       │   └── TurnStatus.tsx
 │       │
 │       ├── hooks
@@ -31,6 +32,8 @@ FRONTEND-APP-PUERTO-WILLIAMS
 │       │   │   │   └── index.tsx
 │       │   │   ├── piscina/
 │       │   │   │   └── index.tsx
+│       │   │   ├── registros/
+│       │   │   │   └── index.tsx
 │       │   │   └── turno/
 │       │   │       ├── index.tsx
 │       │   │       ├── manual.tsx
@@ -39,8 +42,8 @@ FRONTEND-APP-PUERTO-WILLIAMS
 │       │   ├── _app.tsx
 │       │   ├── _document.tsx
 │       │   ├── index.tsx 
-│       │   ├── pendiente-aprobacion.tsx
-│       │   └── registro.tsx
+│       │   └── pendiente-aprobacion.tsx
+│       │   
 │       │
 │       ├── providers
 │       │
@@ -63,3 +66,9 @@ FRONTEND-APP-PUERTO-WILLIAMS
 │── postcss.config.mjs
 │── README.md
 └── tsconfig.json
+
+♦♦♦♦♦♦♦♦♦♦♦♦♦♦♦♦♦♦♦♦♦♦♦♦♦♦♦♦♦♦♦♦♦♦♦♦♦♦♦♦♦♦♦♦♦♦♦♦
+
+git fetch origin
+git reset --hard origin/main
+git clean -fdn

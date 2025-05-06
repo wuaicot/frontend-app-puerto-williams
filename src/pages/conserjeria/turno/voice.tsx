@@ -16,7 +16,7 @@ export default function VoiceTurnRegistration() {
   const [pendingText, setPendingText] = useState("");
   const [showContinue, setShowContinue] = useState(false);
 
-  // 1) Validar estado & rol
+  // Validar estado & rol
   useEffect(() => {
     apiClient
       .get<{ status: string; role: string }>("/auth/status")
@@ -49,6 +49,7 @@ export default function VoiceTurnRegistration() {
     resetTranscript();
     SpeechRecognition.startListening({ continuous: true });
   }
+
   function stopListening() {
     SpeechRecognition.stopListening();
     setPendingText(transcript);
@@ -57,12 +58,11 @@ export default function VoiceTurnRegistration() {
 
   async function handleSend(isLast: boolean) {
     try {
-      await apiClient.post('/api/novedades', {
+      await apiClient.post("/novedades", {
         description: pendingText,
-        entryMethod: 'VOICE',
+        entryMethod: "VOICE",
         isLast,
       });
-      
       setIsReviewOpen(false);
       setIsTurnOpen(!isLast);
       setShowContinue(true);
@@ -80,6 +80,7 @@ export default function VoiceTurnRegistration() {
       >
         ←
       </button>
+
       <h1 className="mt-4 text-2xl font-semibold text-center">
         Registro por Voz
       </h1>
@@ -111,23 +112,24 @@ export default function VoiceTurnRegistration() {
         >
           <Transition.Child
             as={Fragment}
-            enter="ease-out dur­ation-300"
+            enter="ease-out duration-300"
             enterFrom="opacity-0"
             enterTo="opacity-100"
-            leave="ease-in dur­ation-200"
+            leave="ease-in duration-200"
             leaveFrom="opacity-100"
             leaveTo="opacity-0"
           >
             <div className="fixed inset-0 bg-black bg-opacity-50" />
           </Transition.Child>
+
           <div className="fixed inset-0 overflow-y-auto">
             <div className="flex min-h-full items-center justify-center p-4 text-center">
               <Transition.Child
                 as={Fragment}
-                enter="ease-out dur­ation-300"
+                enter="ease-out duration-300"
                 enterFrom="opacity-0 scale-95"
                 enterTo="opacity-100 scale-100"
-                leave="ease-in dur­ation-200"
+                leave="ease-in duration-200"
                 leaveFrom="opacity-100 scale-100"
                 leaveTo="opacity-0 scale-95"
               >
@@ -185,7 +187,7 @@ export default function VoiceTurnRegistration() {
                 resetTranscript();
                 router.push("/conserjeria/turno");
               }}
-              className="mr-2 px-4 py-2 border rounded"
+              className="mr-2 px-4 py-2 border"
             >
               Sí
             </button>

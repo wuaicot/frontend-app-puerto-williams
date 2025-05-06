@@ -10,7 +10,6 @@ const apiClient = axios.create({
   baseURL: API_BASE_URL,
   headers: { "Content-Type": "application/json" },
 });
-
 const firebaseAuth = getAuth(app);
 
 apiClient.interceptors.request.use(
@@ -32,7 +31,6 @@ apiClient.interceptors.request.use(
   },
   (error) => Promise.reject(error),
 );
-
 apiClient.interceptors.response.use(
   (res) => res,
   async (error) => {

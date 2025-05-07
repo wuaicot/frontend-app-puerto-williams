@@ -74,4 +74,9 @@ git clean -fdn
 
 
 
-ngsx6345
+ <Link
+        href="/conserjeria/conserje"
+        className="mt-8 animate-pulse  text-3xl hover:opacity-70 flex flex-col items-center justify-center w-full"
+      >
+        ←
+      </Link>

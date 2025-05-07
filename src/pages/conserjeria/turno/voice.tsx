@@ -7,6 +7,7 @@ import { SpeakerWaveIcon } from "@heroicons/react/24/outline";
 import { Dialog, Transition } from "@headlessui/react";
 import apiClient from "../../../lib/axios";
 import { TurnStatus } from "../../../components/TurnStatus";
+import Link from "next/link";
 
 export default function VoiceTurnRegistration() {
   const router = useRouter();
@@ -73,14 +74,6 @@ export default function VoiceTurnRegistration() {
 
   return (
     <div className="min-h-screen bg-black text-white p-8 relative">
-      <button
-        onClick={() => router.back()}
-        aria-label="Volver"
-        className="absolute top-4 left-4 text-3xl hover:opacity-70"
-      >
-        ←
-      </button>
-
       <h1 className="mt-4 text-2xl font-semibold text-center">
         Registro por Voz
       </h1>
@@ -93,12 +86,12 @@ export default function VoiceTurnRegistration() {
           onTouchStart={startListening}
           onTouchEnd={stopListening}
           aria-label="Mantén pulsado para grabar"
-          className="relative p-6 bg-red-600 rounded-full"
+          className="relative p-6 bg-sky-500 rounded-full"
         >
-          <span className="absolute inset-0 rounded-full bg-red-600 opacity-50 animate-ping" />
-          <SpeakerWaveIcon className="relative w-16 h-16 text-white" />
+          <span className="absolute -inset-1 rounded-full bg-sky-500 opacity-50 animate-ping" />
+          <SpeakerWaveIcon className="relative w-16 h-16 text-black" />
         </button>
-        <p className="mt-4">
+        <p className="mt-8 ">
           {listening ? "Escuchando..." : "Mantén presionado para grabar"}
         </p>
       </div>
@@ -200,6 +193,12 @@ export default function VoiceTurnRegistration() {
           </div>
         </div>
       )}
+      <Link
+        href="/conserjeria/conserje"
+        className="mt-12 text-3xl hover:opacity-70 flex flex-col items-center justify-center w-full"
+      >
+        ←
+      </Link>
     </div>
   );
 }

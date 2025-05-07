@@ -63,10 +63,11 @@ export const RegistrosLibro: React.FC<Props> = ({ registros, onRefresh }) => {
   };
 
   return (
-    <div className="bg-black text-white p-4 rounded-lg shadow-lg">
+    <div className="bg-black text-sky-500 p-4 rounded-lg shadow-lg">
       {/* Filters */}
       <div className="grid grid-cols-1 md:grid-cols-4 gap-4 mb-4">
-        <DatePicker
+        <div className="inline-flex gap-2 justify-center items-center">
+          <DatePicker
           selected={startDate}
           onChange={(date) => setStartDate(date)}
           placeholderText="Desde"
@@ -78,18 +79,19 @@ export const RegistrosLibro: React.FC<Props> = ({ registros, onRefresh }) => {
           placeholderText="Hasta"
           className="p-2 bg-gray-800 rounded"
         />
+        </div>
         <select
           value={methodFilter}
           onChange={(e) => setMethodFilter(e.target.value)}
           className="p-2 bg-gray-800 rounded"
         >
-          <option value="ALL">Todos los métodos</option>
+          <option value="ALL"> Voz / Manual</option>
           <option value="VOICE">Voz</option>
           <option value="MANUAL">Manual</option>
         </select>
         <input
           type="text"
-          placeholder="Buscar descripción..."
+          placeholder="palabra clave"
           value={searchText}
           onChange={(e) => setSearchText(e.target.value)}
           className="p-2 bg-gray-800 rounded"
@@ -106,13 +108,13 @@ export const RegistrosLibro: React.FC<Props> = ({ registros, onRefresh }) => {
         </button>
         <button
           onClick={onRefresh}
-          className="bg-blue-600 px-3 py-1 rounded hover:bg-blue-500 transition"
+          className="bg-blue-500 px-3 py-1 rounded hover:bg-blue-500 text-black transition"
         >
           Actualizar lista
         </button>
         <button
           onClick={downloadPDF}
-          className="bg-green-600 px-3 py-1 rounded hover:bg-green-500 transition ml-auto"
+          className="bg-green-500 px-3 py-1 rounded hover:bg-green-500 transition ml-auto text-black"
         >
           Descargar PDF
         </button>
@@ -147,10 +149,10 @@ export const RegistrosLibro: React.FC<Props> = ({ registros, onRefresh }) => {
                     {r.entryMethod}
                   </span>
                   <span className="text-sm text-gray-400 group-open:hidden">
-                    Ver ▶
+                    Ver ↴
                   </span>
                   <span className="text-sm text-gray-400 hidden group-open:inline">
-                    Cerrar ▼
+                    Cerrar ×
                   </span>
                 </summary>
                 <motion.div

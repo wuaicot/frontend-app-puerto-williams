@@ -9,7 +9,7 @@ interface BotoneraMainAdminProps {
 export const BotoneraMainAdmin: React.FC<BotoneraMainAdminProps> = ({ onNavigate }) => {
   const botones = [
     { label: 'Gestión usuario Conserje', route: '/admin/usuarios' },
-    { label: 'Ver reporte incidencia', route: '/admin/incidencias' },
+    { label: 'Ver libro de registro', route: '/admin/incidencias' },
     { label: 'Gestionar finanzas', route: '/admin/finanzas' },
     { label: 'Gestionar mantenimiento', route: '/admin/mantenimiento' },
     { label: 'Gestionar comunicación', route: '/admin/comunicacion' },

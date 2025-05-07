@@ -5,8 +5,8 @@ export const TurnStatus: React.FC = () => {
   const [status, setStatus] = useState<'IN' | 'OUT'>('IN');
 
   return (
-    <div className="mt-8 p-4 bg-white rounded-lg max-w-md text-black">
-      <h2 className="text-center mb-4">Estado de turno actual</h2>
+    <div className="mt-8 p-2 border-solid bg-blue-950 rounded-lg max-w-md text-white">
+      <h2 className="text-center mb-2">Estado de turno actual</h2>
       <div className="flex justify-around">
         {['IN', 'OUT'].map((type) => (
           <label key={type} className="flex flex-col items-center">

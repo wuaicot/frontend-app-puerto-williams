@@ -37,7 +37,7 @@ export default function AdminRegistrosPage() {
     <div className="min-h-screen bg-black text-white p-8">
       <Link
         href="/admin/mainView"
-        className="relative translate-y-112 text-3xl hover:opacity-70"
+        className="relative translate-y-112 text-3xl hover:opacity-70 animate-pulse"
       >
         ←
       </Link>

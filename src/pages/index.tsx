@@ -93,19 +93,19 @@ export default function LandingPage() {
       <div className="flex flex-col mt-8 gap-6">
         <button
           onClick={() => handleAuthAction("login")}
-          className="bg-white text-black font-semibold py-2 px-10 rounded-full"
+          className="bg-white text-black font-semibold py-2 px-10 rounded-md cursor-pointer border border-blue-700" 
         >
           Admin.
         </button>
         <button
           onClick={() => handleAuthAction("register")}
-          className="bg-black text-white border border-white py-2 px-8 rounded-md"
+          className="bg-black text-white border border-violet-700 py-2 px-8 cursor-pointer rounded-md"
         >
-          Registrarse
+          Solicitar acceso
         </button>
         <button
           onClick={handleConserjeriaClick}
-          className="bg-white text-black font-semibold py-2 px-10 rounded-full"
+          className="bg-white text-black font-semibold py-2 px-10 rounded-md cursor-pointer border border-green-700"
         >
           Conserjería
         </button>

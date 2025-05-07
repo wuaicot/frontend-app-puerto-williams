@@ -11,7 +11,7 @@ export default function PiscinaArea() {
       <button onClick={() => router.back()} className="text-3xl mb-4">
         ←
         </button>
-      <h1 className="text-2xl mb-6">Área Piscina</h1>
+      <h1 className="text-2xl mb-6">Área MANTENIMIENTO</h1>
       <TurnStatus />
       <p>Control de mantenimiento y prevención de la estructura del edificio.</p>
     </div>

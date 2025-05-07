@@ -1,7 +1,7 @@
 import React, { useState } from "react";
 import { format } from "date-fns";
 import { jsPDF } from "jspdf";
-import "jspdf-autotable";
+import autoTable from "jspdf-autotable";
 import { motion, AnimatePresence } from "framer-motion";
 import DatePicker from "react-datepicker";
 import "react-datepicker/dist/react-datepicker.css";
@@ -47,8 +47,8 @@ export const RegistrosLibro: React.FC<Props> = ({ registros, onRefresh }) => {
     const doc = new jsPDF({ unit: "pt", format: "letter" });
     doc.setFontSize(14);
     doc.text("Libro de Registros 2.0", 40, 40);
-    // @ts-ignore
-    doc.autoTable({
+    // Use autoTable plugin
+    autoTable(doc, {
       startY: 70,
       head: [["Fecha y hora", "Método", "Descripción completa"]],
       body: filtered.map((r) => [
@@ -63,35 +63,37 @@ export const RegistrosLibro: React.FC<Props> = ({ registros, onRefresh }) => {
   };
 
   return (
-    <div className="bg-black text-sky-500 p-4 rounded-lg shadow-lg">
+    <div className="bg-black text-sky-200 p-4 rounded-lg shadow-lg flex-wrap">
       {/* Filters */}
-      <div className="grid grid-cols-1 md:grid-cols-4 gap-4 mb-4">
-        <div className="inline-flex gap-2 justify-center items-center">
+      <div className="grid grid-cols-1 md:flex-cols-4 gap-4 mb-4">
+        <div className="flex gap-2 items-center">
           <DatePicker
-          selected={startDate}
-          onChange={(date) => setStartDate(date)}
-          placeholderText="Desde"
-          className="p-2 bg-gray-800 rounded"
-        />
-        <DatePicker
-          selected={endDate}
-          onChange={(date) => setEndDate(date)}
-          placeholderText="Hasta"
-          className="p-2 bg-gray-800 rounded"
-        />
+            selected={startDate}
+            onChange={(date) => setStartDate(date)}
+            placeholderText="Desde"
+            className="p-2 bg-gray-800 max-w-[120px] rounded"
+          />
+          <DatePicker
+            selected={endDate}
+            onChange={(date) => setEndDate(date)}
+            placeholderText="Hasta"
+            className="p-2 bg-gray-800 max-w-[120px] rounded"
+          />
         </div>
         <select
+          aria-label="Filtrar método"
           value={methodFilter}
           onChange={(e) => setMethodFilter(e.target.value)}
           className="p-2 bg-gray-800 rounded"
         >
-          <option value="ALL"> Voz / Manual</option>
+          <option value="ALL">Todos los métodos</option>
           <option value="VOICE">Voz</option>
           <option value="MANUAL">Manual</option>
         </select>
+
         <input
           type="text"
-          placeholder="palabra clave"
+          placeholder="Buscar descripción..."
           value={searchText}
           onChange={(e) => setSearchText(e.target.value)}
           className="p-2 bg-gray-800 rounded"
@@ -108,13 +110,13 @@ export const RegistrosLibro: React.FC<Props> = ({ registros, onRefresh }) => {
         </button>
         <button
           onClick={onRefresh}
-          className="bg-blue-500 px-3 py-1 rounded hover:bg-blue-500 text-black transition"
+          className="bg-blue-600 px-3 py-1 rounded hover:bg-blue-500 text-white transition"
         >
           Actualizar lista
         </button>
         <button
           onClick={downloadPDF}
-          className="bg-green-500 px-3 py-1 rounded hover:bg-green-500 transition ml-auto text-black"
+          className="bg-green-600 px-3 py-1 rounded hover:bg-green-500 transition ml-auto text-white"
         >
           Descargar PDF
         </button>
@@ -149,10 +151,10 @@ export const RegistrosLibro: React.FC<Props> = ({ registros, onRefresh }) => {
                     {r.entryMethod}
                   </span>
                   <span className="text-sm text-gray-400 group-open:hidden">
-                    Ver ↴
+                    Ver ▶
                   </span>
                   <span className="text-sm text-gray-400 hidden group-open:inline">
-                    Cerrar ×
+                    Cerrar ▼
                   </span>
                 </summary>
                 <motion.div

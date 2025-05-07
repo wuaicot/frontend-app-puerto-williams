@@ -19,7 +19,7 @@ export const BotoneraMainAdmin: React.FC<BotoneraMainAdminProps> = ({ onNavigate
   return (
     <div className="relative flex flex-col items-center gap-4 -mt-16 text-white">
       
-      <Link href="/" className="relative translate-y-112 text-3xl hover:opacity-70">
+      <Link href="/" className="relative translate-y-112 text-3xl hover:opacity-70   ">
         ←
       </Link>
 

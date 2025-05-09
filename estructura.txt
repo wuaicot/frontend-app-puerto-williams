@@ -1,0 +1,70 @@
+FRONTEND-APP-PUERTO-WILLIAMS
+│── client
+│   ├── .next
+│   ├── node_modules
+│   ├── public
+│   └── src/
+│       ├── components/
+│       │   ├── BotoneraMainAdmin.tsx
+│       │   ├── BotoneraMainConserjeria.tsx
+│       │   ├── Footer.tsx
+│       │   ├── RegistrosLibros.tsx
+│       │   └── TurnStatus.tsx
+│       │
+│       ├── hooks
+│       │
+│       ├── lib/
+│       │   ├── axios.ts
+│       │   └── firebase.ts
+│       │
+│       ├── pages/
+│       │   ├── admin/
+│       │   │   ├── incidencias.tsx
+│       │   │   ├── mainView.tsx
+│       │   │   └── usuarios.tsx
+│       │   │
+│       │   ├── conserjeria/
+│       │   │   ├── conserje/
+│       │   │   │   └── index.tsx
+│       │   │   ├── mantenimiento/
+│       │   │   │   └── index.tsx
+│       │   │   ├── mayordomo/
+│       │   │   │   └── index.tsx
+│       │   │   ├── nochero/
+│       │   │   │   └── index.tsx
+│       │   │   ├── piscina/
+│       │   │   │   └── index.tsx
+│       │   │   ├── registros/
+│       │   │   │   └── index.tsx
+│       │   │   └── turno/
+│       │   │       ├── index.tsx
+│       │   │       ├── manual.tsx
+│       │   │       └── voice.tsx
+│       │   │       
+│       │   ├── _app.tsx
+│       │   ├── _document.tsx
+│       │   ├── index.tsx 
+│       │   └── pendiente-aprobacion.tsx
+│       │   
+│       │
+│       ├── providers
+│       │
+│       ├── store/
+│       │   └── index.ts
+│       │ 
+│       ├── styles/
+│       │   └── globals.css
+│       │ 
+│       └── types
+│   
+│── .env.local
+│── .gitignore
+│── .txt
+│── eslint.config.mjs
+│── next-env.d.ts
+│── next.config.ts
+│── package.json
+│── pnpm-lock.yaml
+│── postcss.config.mjs
+│── README.md
+└── tsconfig.json

@@ -151,10 +151,10 @@ export const RegistrosLibro: React.FC<Props> = ({ registros, onRefresh }) => {
                     {r.entryMethod}
                   </span>
                   <span className="text-sm text-gray-400 group-open:hidden">
-                    Ver ▶
+                    Ver ▸
                   </span>
                   <span className="text-sm text-gray-400 hidden group-open:inline">
-                    Cerrar ▼
+                    Cerrar ×
                   </span>
                 </summary>
                 <motion.div

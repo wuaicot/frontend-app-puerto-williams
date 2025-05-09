@@ -1,3 +1,4 @@
+// client/src/pages/conserjeria/turno/voice.tsx
 import React, { useState, useEffect, Fragment } from "react";
 import { useRouter } from "next/router";
 import SpeechRecognition, {
@@ -12,12 +13,13 @@ import Link from "next/link";
 export default function VoiceTurnRegistration() {
   const router = useRouter();
   const [role, setRole] = useState<string>("");
-  const [isTurnOpen, setIsTurnOpen] = useState(true);
   const [isReviewOpen, setIsReviewOpen] = useState(false);
   const [pendingText, setPendingText] = useState("");
   const [showContinue, setShowContinue] = useState(false);
+  const [isLast, setIsLast] = useState(false);       // <-- nuevo
+  const [loading, setLoading] = useState(false);
 
-  // Validar estado & rol
+  // 1) Validar estado & rol de usuario
   useEffect(() => {
     apiClient
       .get<{ status: string; role: string }>("/auth/status")
@@ -31,6 +33,7 @@ export default function VoiceTurnRegistration() {
       .catch(() => router.replace("/"));
   }, [router]);
 
+  // 2) Reconocimiento de voz
   const {
     transcript,
     listening,
@@ -50,14 +53,16 @@ export default function VoiceTurnRegistration() {
     resetTranscript();
     SpeechRecognition.startListening({ continuous: true });
   }
-
   function stopListening() {
     SpeechRecognition.stopListening();
     setPendingText(transcript);
     setIsReviewOpen(true);
   }
 
-  async function handleSend(isLast: boolean) {
+  // 3) Envía el registro (IN u OUT según isLast)
+  async function handleSend() {
+    if (!pendingText.trim()) return;
+    setLoading(true);
     try {
       await apiClient.post("/novedades", {
         description: pendingText,
@@ -65,15 +70,22 @@ export default function VoiceTurnRegistration() {
         isLast,
       });
       setIsReviewOpen(false);
-      setIsTurnOpen(!isLast);
       setShowContinue(true);
     } catch {
-      alert("No se pudo guardar el registro.");
+      alert("No se pudo guardar el registro de voz");
+    } finally {
+      setLoading(false);
     }
   }
 
   return (
     <div className="min-h-screen bg-black text-white p-8 relative">
+      <Link
+        href="/conserjeria/conserje"
+        className="absolute top-4 left-4 text-3xl hover:opacity-70"
+      >
+        ←
+      </Link>
       <h1 className="mt-4 text-2xl font-semibold text-center">
         Registro por Voz
       </h1>
@@ -91,7 +103,7 @@ export default function VoiceTurnRegistration() {
           <span className="absolute -inset-1 rounded-full bg-sky-500 opacity-50 animate-ping" />
           <SpeakerWaveIcon className="relative w-16 h-16 text-black" />
         </button>
-        <p className="mt-8 ">
+        <p className="mt-8 text-white">
           {listening ? "Escuchando..." : "Mantén presionado para grabar"}
         </p>
       </div>
@@ -130,18 +142,29 @@ export default function VoiceTurnRegistration() {
                   <Dialog.Title className="text-lg font-medium text-gray-900">
                     Revisión de Registro
                   </Dialog.Title>
-                  <div className="mt-2 text-left">
+
+                  <div className="mt-2 text-left space-y-3">
                     <p className="text-sm text-gray-700">Texto transcrito:</p>
-                    <p className="mt-1 text-gray-800">
+                    <p className="mt-1 text-gray-800 whitespace-pre-wrap">
                       {pendingText || <em>(vacío)</em>}
                     </p>
-                    <p className="mt-4 text-sm text-gray-700">
+
+                    <p className="mt-2 flex items-center gap-2">
+                      <input
+                        type="checkbox"
+                        id="fin-turno"
+                        checked={isLast}
+                        onChange={() => setIsLast(!isLast)}
+                      />
+                      <label htmlFor="fin-turno" className="text-sm text-gray-700">
+                        Marcar como fin de turno
+                      </label>
+                    </p>
+
+                    <p className="text-sm text-gray-700">
                       Fecha y hora: {new Date().toLocaleString()}
                     </p>
                     <p className="text-sm text-gray-700">Rol: {role}</p>
-                    <p className="mt-2 text-sm text-gray-700">
-                      {isTurnOpen ? "Inicio de turno" : "Fin de turno"}
-                    </p>
                   </div>
 
                   <div className="mt-4 flex justify-end gap-2">
@@ -155,11 +178,11 @@ export default function VoiceTurnRegistration() {
                       Grabar de nuevo
                     </button>
                     <button
-                      className="px-4 py-2 bg-blue-600 text-white rounded"
-                      disabled={!pendingText.trim()}
-                      onClick={() => handleSend(!isTurnOpen)}
+                      className="px-4 py-2 bg-blue-600 text-white rounded disabled:opacity-50 disabled:cursor-not-allowed"
+                      disabled={!pendingText.trim() || loading}
+                      onClick={handleSend}
                     >
-                      Enviar
+                      {loading ? "Guardando..." : "Enviar"}
                     </button>
                   </div>
                 </Dialog.Panel>
@@ -185,7 +208,7 @@ export default function VoiceTurnRegistration() {
               Sí
             </button>
             <button
-              onClick={() => router.push("/conserjeria/conserje")}
+              onClick={() => router.push("/conserjeria/turno")}
               className="px-4 py-2 bg-gray-800 text-white rounded"
             >
               No
@@ -193,12 +216,6 @@ export default function VoiceTurnRegistration() {
           </div>
         </div>
       )}
-      <Link
-        href="/conserjeria/conserje"
-        className="mt-12 text-3xl hover:opacity-70 flex flex-col items-center justify-center w-full"
-      >
-        ←
-      </Link>
     </div>
   );
 }

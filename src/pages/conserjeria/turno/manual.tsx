@@ -1,4 +1,4 @@
-//client/src/pages/conserjeria/turno/manual.tsx
+// client/src/pages/conserjeria/turno/manual.tsx
 import React, { useState } from "react";
 import apiClient from "../../../lib/axios";
 import { useRouter } from "next/router";
@@ -32,10 +32,14 @@ export default function ManualTurnRegistration() {
 
   return (
     <div className="p-8 flex flex-col gap-4 bg-black text-white min-h-screen">
-      <Link href="/conserjeria/conserje" className="relative translate-y-112 text-3xl hover:opacity-70 flex-col">
+      <Link
+        href="/conserjeria/conserje"
+        className="absolute top-4 left-4 text-3xl hover:opacity-70"
+      >
         ←
       </Link>
       <h2 className="text-xl font-semibold mt-20">Registro Manual</h2>
+
       <textarea
         rows={4}
         className="border p-2 rounded bg-gray-800 text-sky-500"
@@ -43,18 +47,20 @@ export default function ManualTurnRegistration() {
         value={text}
         onChange={(e) => setText(e.target.value)}
       />
+
       <label className="flex items-center gap-2">
         <input
           type="checkbox"
           checked={isLast}
           onChange={() => setIsLast(!isLast)}
         />
-        Fin de turno
+        <span>Fin de turno</span>
       </label>
+
       <button
         onClick={handleSave}
         disabled={!text.trim() || loading}
-        className="bg-sky-500 text-black px-auto py-2 rounded disabled:opacity-50 disabled:cursor-not-allowed active:cursor-pointer"
+        className="bg-sky-500 text-black px-4 py-2 rounded disabled:opacity-50 disabled:cursor-not-allowed"
       >
         {loading ? "Guardando..." : "Guardar registro"}
       </button>

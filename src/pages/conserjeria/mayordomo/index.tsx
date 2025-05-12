@@ -11,7 +11,7 @@ export default function MayordomoArea() {
   useEffect(() => {
     // Fetch tareas de mayordomo
     async function fetchTasks() {
-      const { data } = await apiClient.get<string[]>('/conserjeria/mayordomo/tasks');
+      const { data } = await apiClient.get<string[]>('/conserjeria/mayordomo/');
       setTasks(data);
     }
     fetchTasks();

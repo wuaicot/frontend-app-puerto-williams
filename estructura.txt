@@ -7,6 +7,9 @@ FRONTEND-APP-PUERTO-WILLIAMS
 │       ├── components/
 │       │   ├── BotoneraMainAdmin.tsx
 │       │   ├── BotoneraMainConserjeria.tsx
+│       │   ├── BotoneraMainMantenimiento.tsx
+│       │   ├── BotoneraMainMayordomo.tsx
+│       │   ├── BotoneraMainNochero.tsx
 │       │   ├── Footer.tsx
 │       │   ├── RegistrosLibros.tsx
 │       │   └── TurnStatus.tsx

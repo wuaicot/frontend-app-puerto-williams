@@ -38,12 +38,12 @@ export default function RegistrosPage() {
 
   return (
     <div className="min-h-screen bg-black text-white p-8">
-      <button
+      {/* <button
         onClick={() => router.back()}
         className="relative translate-y-112 text-3xl hover:opacity-70"
       >
         ←
-      </button>
+      </button> */}
 
       <h1 className="text-2xl font-semibold mb-4 ml-20">Libro de Registros</h1>
 
@@ -55,12 +55,12 @@ export default function RegistrosPage() {
         <p className="mt-4 text-center text-gray-400">Cargando registros...</p>
       )}
 
-      {/* <button
+      <button
         onClick={() => router.back()}
-        className="relative  text-3xl hover:opacity-70"
+        className="relative text-3xl hover:opacity-70 cursor-pointer"
       >
         ←
-      </button> */}
+      </button>
     </div>
   );
 }

@@ -8,11 +8,11 @@ export default function TurnoModeSelection() {
   const router = useRouter();
 
   return (
-    <div className="min-h-screen bg-black flex flex-col items-center p-8 text-white">
-      {/* Back button */}
+    <div className="min-h-screen bg-black flex flex-col items-center p-8 text-white r">
+    
       <button
         onClick={() => router.back()}
-        className="absolute top-4 left-4 text-3xl hover:opacity-70"
+        className="absolute top-4 left-4 text-3xl hover:opacity-70 cursor-pointer"
       >
         ←
       </button>
@@ -23,7 +23,7 @@ export default function TurnoModeSelection() {
         {/* Voice mode */}
         <button
           onClick={() => router.push('/conserjeria/turno/voice')}
-          className="flex flex-col items-center"
+          className="flex flex-col items-center cursor-pointer"
         >
           <div className="text-6xl mb-2">🗣️</div>
           <span>Con mi voz</span>
@@ -32,7 +32,7 @@ export default function TurnoModeSelection() {
         {/* Manual mode */}
         <button
           onClick={() => router.push('/conserjeria/turno/manual')}
-          className="flex flex-col items-center"
+          className="flex flex-col items-center cursor-pointer"
         >
           <div className="text-6xl mb-2">📝</div>
           <span>Manualmente</span>

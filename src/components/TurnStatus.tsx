@@ -1,46 +1,91 @@
-import React, { useState, useEffect } from 'react';
-import apiClient from '../lib/axios';
+import React, { useState, useEffect } from "react";
+import apiClient from "../lib/axios";
+import { motion } from "framer-motion";
 
 export const TurnStatus: React.FC = () => {
-  const [status, setStatus] = useState<'IN' | 'OUT' | null>(null);
-  const [duration, setDuration] = useState<number | null>(null);
+  const [status, setStatus] = useState<"IN" | "OUT" | null>(null);
+  const [sessionStart, setSessionStart] = useState<Date | null>(null);
+  const [duration, setDuration] = useState<number>(0);
   const [loading, setLoading] = useState(true);
   const [error, setError] = useState<string | null>(null);
 
+  // Al montar, obtenemos estado actual y el inicio de sesión
   useEffect(() => {
-    const fetch = async () => {
+    const fetchStatus = async () => {
       try {
-        const res = await apiClient.get<{ status: 'IN' | 'OUT' }>('/novedades/current-status');
+        const res = await apiClient.get<{
+          status: "IN" | "OUT";
+          sessionStart: string | null;
+        }>("/novedades/current-status");
+
         setStatus(res.data.status);
-        if (res.data.status === 'IN') {
-          const durRes = await apiClient.get<{ minutes: number }>('/novedades/current-duration');
-          setDuration(durRes.data.minutes);
+        if (res.data.status === "IN" && res.data.sessionStart) {
+          const start = new Date(res.data.sessionStart);
+          setSessionStart(start);
         }
-      } catch {
-        setError('No se pudo cargar el estado');
+      } catch (err) {
+        setError("No se pudo cargar el estado del turno.");
       } finally {
         setLoading(false);
       }
     };
-    fetch();
-    const iv = setInterval(fetch, 60000);
-    return () => clearInterval(iv);
+
+    fetchStatus();
   }, []);
 
-  if (loading) return <div className="mt-8">Cargando estado...</div>;
-  if (error) return <div className="mt-8 text-red-600">{error}</div>;
+  // Iniciar contador basado en sessionStart
+  useEffect(() => {
+    if (status !== "IN" || !sessionStart) return;
+
+    const updateDuration = () => {
+      const now = Date.now();
+      const minutes = Math.floor((now - sessionStart.getTime()) / 60000);
+      setDuration(minutes);
+    };
+
+    updateDuration(); // Llamada inicial
+    const interval = setInterval(updateDuration, 60_000); // Cada 1 min
+
+    return () => clearInterval(interval);
+  }, [status, sessionStart]);
+
+  if (loading) {
+    return (
+      <div className="mt-8 flex justify-center">
+        <motion.div
+          className="w-8 h-8 border-4 border-t-transparent border-white rounded-full animate-spin"
+        />
+      </div>
+    );
+  }
+
+  if (error) {
+    return (
+      <div className="mt-8 p-4 bg-red-600 text-white rounded text-center">
+        {error}
+      </div>
+    );
+  }
 
   return (
-    <div className="mt-8 p-4 bg-blue-950 rounded-lg max-w-md mx-auto text-white">
-      <h2 className="text-center mb-2">Turno actual</h2>
-      <div className="text-xl font-semibold text-center mb-2">
-        {status === 'IN' ? '🔓 Inicio de turno' : '🔒 Fin de turno'}
+    <motion.div
+      className="mt-8 p-4 bg-blue-950 rounded-lg max-w-md mx-auto text-white shadow-lg"
+      initial={{ opacity: 0, y: 20 }}
+      animate={{ opacity: 1, y: 0 }}
+      transition={{ duration: 0.4 }}
+    >
+      <h2 className="text-center mb-2 text-lg font-medium">
+        Estado del turno
+      </h2>
+      <div className="text-xl font-bold text-center mb-2">
+        {status === "IN" ? "🔓 Turno activo" : "🔒 Turno finalizado"}
       </div>
-      {status === 'IN' && duration != null && (
-        <div className="text-center text-sm">
-          Llevas <strong>{duration}</strong> minuto{duration !== 1 ? 's' : ''}
+      {status === "IN" && sessionStart && (
+        <div className="text-center text-sm text-slate-300">
+          Tiempo en turno: <strong>{duration}</strong> minuto
+          {duration !== 1 ? "s" : ""}
         </div>
       )}
-    </div>
+    </motion.div>
   );
 };

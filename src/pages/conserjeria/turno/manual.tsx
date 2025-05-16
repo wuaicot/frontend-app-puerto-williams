@@ -32,12 +32,12 @@ export default function ManualTurnRegistration() {
 
   return (
     <div className="p-8 flex flex-col gap-4 bg-black text-white min-h-screen">
-      <Link
-        href="/conserjeria/conserje"
-        className="absolute top-4 left-4 text-3xl hover:opacity-70"
+       <button
+        onClick={() => router.back()}
+        className="absolute top-4 left-4 text-3xl hover:opacity-70 cursor-pointer"
       >
         ←
-      </Link>
+      </button>
       <h2 className="text-xl font-semibold mt-20">Registro Manual</h2>
 
       <textarea

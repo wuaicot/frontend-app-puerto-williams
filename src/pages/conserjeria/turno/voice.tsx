@@ -16,7 +16,7 @@ export default function VoiceTurnRegistration() {
   const [isReviewOpen, setIsReviewOpen] = useState(false);
   const [pendingText, setPendingText] = useState("");
   const [showContinue, setShowContinue] = useState(false);
-  const [isLast, setIsLast] = useState(false);       // <-- nuevo
+  const [isLast, setIsLast] = useState(false); // <-- nuevo
   const [loading, setLoading] = useState(false);
 
   // 1) Validar estado & rol de usuario
@@ -80,13 +80,13 @@ export default function VoiceTurnRegistration() {
 
   return (
     <div className="min-h-screen bg-black text-white p-8 relative">
-      <Link
-        href="/conserjeria/conserje"
-        className="absolute top-4 left-4 text-3xl hover:opacity-70"
+      <button
+        onClick={() => router.back()}
+        className="absolute top-8 left-4 text-3xl hover:opacity-70 cursor-pointer"
       >
         ←
-      </Link>
-      <h1 className="mt-4 text-2xl font-semibold text-center">
+      </button>
+      <h1 className="mt-12 text-2xl font-semibold text-center">
         Registro por Voz
       </h1>
       <TurnStatus />
@@ -156,7 +156,10 @@ export default function VoiceTurnRegistration() {
                         checked={isLast}
                         onChange={() => setIsLast(!isLast)}
                       />
-                      <label htmlFor="fin-turno" className="text-sm text-gray-700">
+                      <label
+                        htmlFor="fin-turno"
+                        className="text-sm text-gray-700"
+                      >
                         Marcar como fin de turno
                       </label>
                     </p>
@@ -169,7 +172,7 @@ export default function VoiceTurnRegistration() {
 
                   <div className="mt-4 flex justify-end gap-2">
                     <button
-                      className="px-4 py-2 rounded border"
+                      className="px-4 py-2 rounded-lg    text-white hover:bg-sky-400 transition bg-orange-400 cursor-pointer border"
                       onClick={() => {
                         setIsReviewOpen(false);
                         resetTranscript();

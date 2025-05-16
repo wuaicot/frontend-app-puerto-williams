@@ -20,7 +20,8 @@ export default function MayordomoArea() {
 
   return (
     <section className="h-screen overflow-hidden bg-black text-white">
-      <div className="
+      <div
+        className="
         flex 
         flex-col 
         md:flex-row 
@@ -29,12 +30,12 @@ export default function MayordomoArea() {
         h-full 
         gap-6 
         p-4
-      ">
-      
+      "
+      >
         <div className=" flex-col items-center justify-center mt-52">
           <TurnStatus />
-          <BotoneraMainMayordomo />          
-        </div>        
+          <BotoneraMainMayordomo />
+        </div>
       </div>
     </section>
   );

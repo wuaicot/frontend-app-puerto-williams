@@ -79,32 +79,55 @@ export default function VoiceTurnRegistration() {
   }
 
   return (
-    <div className="min-h-screen bg-black text-white p-8 relative">
+    <div
+      className="min-h-screen bg-black text-white p-8 relative 
+    flex flex-col items-center justify-center 
+    md:p-16
+    lg:p-24"
+    >
       <button
         onClick={() => router.back()}
-        className="absolute top-8 left-4 text-3xl hover:opacity-70 cursor-pointer"
+        className="absolute top-8 left-4 text-3xl hover:opacity-70 cursor-pointer 
+        transition-opacity duration-300"
+        aria-label="Volver"
       >
         ←
       </button>
-      <h1 className="mt-12 text-2xl font-semibold text-center">
+      <h1
+        className="mt-12 text-2xl font-semibold text-center 
+      md:text-3xl lg:text-4xl"
+      >
         Registro por Voz
       </h1>
       <TurnStatus />
 
-      <div className="flex flex-col items-center justify-center mt-12">
+      <div
+        className="flex flex-col items-center justify-center mt-12 
+      gap-8 text-center 
+      md:gap-12 lg:gap-16"
+      >
         <button
           onMouseDown={startListening}
           onMouseUp={stopListening}
           onTouchStart={startListening}
           onTouchEnd={stopListening}
           aria-label="Mantén pulsado para grabar"
-          className="relative p-6 bg-sky-500 rounded-full"
+          className="relative p-6 bg-sky-500 rounded-full 
+          text-white shadow-lg transition-transform transform hover:scale-105 active:scale-95
+          
+          active:shadow-lime-500
+          active:shadow-xl"
         >
           <span className="absolute -inset-1 rounded-full bg-sky-500 opacity-50 animate-ping" />
-          <SpeakerWaveIcon className="relative w-16 h-16 text-black" />
+          <SpeakerWaveIcon
+            className="relative w-16 h-16 text-black 
+          "
+          />
         </button>
-        <p className="mt-8 text-white">
-          {listening ? "Escuchando..." : "Mantén presionado para grabar"}
+        <p className="mt-8 text-white text-lg   md:text-xl lg:text-2xl">
+          {listening
+            ? "Escuchando..."
+            : "Mantén presionado para grabar y luego suelta"}
         </p>
       </div>
 
@@ -127,7 +150,11 @@ export default function VoiceTurnRegistration() {
             <div className="fixed inset-0 bg-black bg-opacity-50" />
           </Transition.Child>
 
-          <div className="fixed inset-0 overflow-y-auto">
+          <div
+            className="fixed inset-0 overflow-y-auto 
+            justify-center p-4 
+            "
+          >
             <div className="flex min-h-full items-center justify-center p-4 text-center">
               <Transition.Child
                 as={Fragment}
@@ -138,18 +165,33 @@ export default function VoiceTurnRegistration() {
                 leaveFrom="opacity-100 scale-100"
                 leaveTo="opacity-0 scale-95"
               >
-                <Dialog.Panel className="w-full max-w-md rounded-2xl bg-white p-6 shadow-xl transition-all">
-                  <Dialog.Title className="text-lg font-medium text-gray-900">
+                <Dialog.Panel
+                  className="w-full max-w-md rounded-2xl bg-white p-6 shadow-xl transition-all 
+                transform text-center align-middle text-gray-900 
+                flex flex-col gap-4"
+                >
+                  <Dialog.Title
+                    className="text-lg font-medium text-gray-900 
+                  leading-6"
+                  >
                     Revisión de Registro
                   </Dialog.Title>
 
-                  <div className="mt-2 text-left space-y-3">
-                    <p className="text-sm text-gray-700">Texto transcrito:</p>
-                    <p className="mt-1 text-gray-800 whitespace-pre-wrap">
+                  <div
+                    className="mt-2 text-left space-y-3 flex flex-col items-start gap-2"
+                  >
+                    <p className="text-sm text-gray-700 
+                    ">Texto transcrito:</p>
+                    <p className="mt-1 text-gray-800 whitespace-pre-wrap 
+                    bg-gray-100 p-2 rounded-lg border border-gray-300 shadow-sm 
+                    w-full h-32 overflow-y-auto
+                    ">
                       {pendingText || <em>(vacío)</em>}
                     </p>
 
-                    <p className="mt-2 flex items-center gap-2">
+                    <p className="mt-2 flex items-center gap-2 
+                    text-md text-gray-700 
+">
                       <input
                         type="checkbox"
                         id="fin-turno"
@@ -158,21 +200,28 @@ export default function VoiceTurnRegistration() {
                       />
                       <label
                         htmlFor="fin-turno"
-                        className="text-sm text-gray-700"
+                        className="text-sm text-gray-700 
+                        cursor-pointer hover:text-gray-900 transition-colors duration-200"
                       >
-                        Marcar como fin de turno
+                        Firmar cambio de turno
                       </label>
                     </p>
 
-                    <p className="text-sm text-gray-700">
+                    <p className="text-sm text-gray-700 
+                    ">
                       Fecha y hora: {new Date().toLocaleString()}
                     </p>
-                    <p className="text-sm text-gray-700">Rol: {role}</p>
+                    <p className="text-sm text-gray-700 
+                    
+                    ">Rol: {role}</p>
                   </div>
 
-                  <div className="mt-4 flex justify-end gap-2">
+                  <div className="mt-4 flex justify-end gap-2 
+                  items-center 
+                  ">
                     <button
-                      className="px-4 py-2 rounded-lg    text-white hover:bg-sky-400 transition bg-orange-400 cursor-pointer border"
+                      className="px-4 py-2 rounded-lg    text-white hover:bg-sky-400 transition bg-orange-400 cursor-pointer border 
+                     "
                       onClick={() => {
                         setIsReviewOpen(false);
                         resetTranscript();
@@ -181,7 +230,9 @@ export default function VoiceTurnRegistration() {
                       Grabar de nuevo
                     </button>
                     <button
-                      className="px-4 py-2 bg-blue-600 text-white rounded disabled:opacity-50 disabled:cursor-not-allowed"
+                      className="px-4 py-2 bg-blue-600 text-white rounded disabled:opacity-50 disabled:cursor-not-allowed 
+                      hover:bg-blue-700 transition duration-200
+                      "
                       disabled={!pendingText.trim() || loading}
                       onClick={handleSend}
                     >
@@ -197,22 +248,31 @@ export default function VoiceTurnRegistration() {
 
       {/* Modal continuar o salir */}
       {showContinue && (
-        <div className="fixed inset-0 flex items-center justify-center bg-black bg-opacity-50">
-          <div className="bg-white p-6 rounded-lg text-black text-center">
-            <p className="mb-4">Registro guardado. ¿Deseas crear otro?</p>
+        <div className="fixed inset-0 flex items-center justify-center bg-black bg-opacity-50 
+        z-50  ">
+          <div className="bg-white/40 p-6 rounded-lg text-black text-center 
+          shadow-lg max-w-sm w-full 
+          flex flex-col items-center gap-4">
+            <h2 className="text-lg text-white font-semibold 
+            ">¡Listo!</h2>
+            <p className="mb-4 text-white 
+            ">Registro guardado. ¿Deseas crear otro?</p>
             <button
               onClick={() => {
                 setShowContinue(false);
                 resetTranscript();
                 router.push("/conserjeria/turno");
               }}
-              className="mr-2 px-4 py-2 border"
+              className="mr-2 px-4 py-2 border border-gray-300 rounded text-white
+              hover:bg-gray-100 transition duration-200 hover:text-black"
             >
               Sí
             </button>
             <button
               onClick={() => router.push("/conserjeria/turno")}
-              className="px-4 py-2 bg-gray-800 text-white rounded"
+              className="px-4 py-2 border  text-white rounded 
+              hover:bg-gray-700 transition duration-200 
+              hover:text-white"
             >
               No
             </button>

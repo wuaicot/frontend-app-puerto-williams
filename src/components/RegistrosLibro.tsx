@@ -147,60 +147,70 @@ export const RegistrosLibro: React.FC<Props> = ({ registros, onRefresh }) => {
 
       {/* List */}
       <section>
-        <div className="overflow-y-auto rounded-lg border shadow-md transition-all duration-300
-        ">
-        <AnimatePresence>
-          {filtered.length === 0 ? (
-            <motion.p
-              key="empty"
-              initial={{ opacity: 0 }}
-              animate={{ opacity: 1 }}
-              exit={{ opacity: 0 }}
-              className="text-center text-gray-500 py-8             "
-            >
-              No hay registros disponibles.
-            </motion.p>
-          ) : (
-            filtered.map((r) => (
-              <motion.details
-                key={r.id}
-                initial={{ opacity: 0, y: 10 }}
-                animate={{ opacity: 1, y: 0 }}
-                exit={{ opacity: 0, y: 10 }}
-                transition={{ duration: 0.2 }}
-                className="group mb-2 border border-gray-700 rounded hover:border-gray-500 transition
-                bg-gray-800 shadow-md "
+        <div
+          className="overflow-y-auto rounded-lg border shadow-md transition-all duration-300
+        "
+        >
+          <AnimatePresence>
+            {filtered.length === 0 ? (
+              <motion.p
+                key="empty"
+                initial={{ opacity: 0 }}
+                animate={{ opacity: 1 }}
+                exit={{ opacity: 0 }}
+                className="text-center text-gray-500 py-8             "
               >
-                <summary className="flex justify-between items-center px-4 py-2 cursor-pointer 
-                text-gray-200 bg-gray-900 rounded-t-lg group-open:bg-gray-800 group-open:border-b-0 
-                group-open:border-gray-700 ">
-                  <span>
-                    {format(new Date(r.timestamp), "dd/MM/yyyy HH:mm")} —{" "}
-                    {r.entryMethod}
-                  </span>
-                  <span className="text-sm text-gray-400 group-open:hidden 
-                   group-open:group-hover:text-gray-200 
-                  transition-all duration-300 ">
-                    Ver ▸
-                  </span>
-                  <span className="text-sm text-gray-400 hidden group-open:inline ">
-                    Cerrar ×
-                  </span>
-                </summary>
-                <motion.div
-                  initial={{ opacity: 0 }}
-                  animate={{ opacity: 1 }}
-                  exit={{ opacity: 0 }}
+                No hay registros disponibles.
+              </motion.p>
+            ) : (
+              filtered.map((r) => (
+                <motion.details
+                  key={r.id}
+                  initial={{ opacity: 0, y: 10 }}
+                  animate={{ opacity: 1, y: 0 }}
+                  exit={{ opacity: 0, y: 10 }}
                   transition={{ duration: 0.2 }}
-                  className="bg-gray-900 px-4 py-3 text-md whitespace-pre-wrap text-white"
+                  className="group mb-2 border border-gray-700 rounded hover:border-gray-500 transition
+                bg-gray-800 shadow-md "
                 >
-                  {r.description}
-                </motion.div>
-              </motion.details>
-            ))
-          )}
-        </AnimatePresence>
-      </div>
+                  <summary
+                    className="flex justify-between items-center px-4 py-2 cursor-pointer 
+                text-gray-200 bg-gray-900 rounded-t-lg group-open:bg-gray-800 group-open:border-b-0 
+                group-open:border-gray-700 "
+                  >
+                    <span>
+                      {format(new Date(r.timestamp), "dd/MM/yyyy HH:mm")} —{" "}
+                      {r.entryMethod}
+                    </span>
+                    <span
+                      className="text-sm text-gray-400 group-open:hidden 
+                   group-open:group-hover:text-gray-200 
+                  transition-all duration-300 "
+                    >
+                      Ver ▸
+                    </span>
+                    <span className="text-sm text-gray-400 hidden group-open:inline">
+                      Cerrar ×
+                    </span>
+                  </summary>
+                  <motion.div
+                    initial={{ opacity: 0 }}
+                    animate={{ opacity: 1 }}
+                    exit={{ opacity: 0 }}
+                    transition={{ duration: 0.2 }}
+                    className="bg-gray-900 px-4 py-3 text-md whitespace-pre-wrap text-white
+                  rounded-b-lg group-open:bg-gray-800 group-open:border-t-0
+                  group-open:border-gray-700 group-open:shadow-md 
+                  group-open:shadow-gray-700
+                  group-open:group-hover:bg-gray-800 group-open:group-hover:border-gray-500"
+                  >
+                    {r.description}
+                  </motion.div>
+                </motion.details>
+              ))
+            )}
+          </AnimatePresence>
+        </div>
       </section>
     </div>
   );

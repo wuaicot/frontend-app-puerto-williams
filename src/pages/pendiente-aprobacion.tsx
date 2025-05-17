@@ -45,12 +45,21 @@ export default function PendienteAprobacion() {
   }
 
   return (
-    <div className="min-h-screen flex flex-col items-center justify-center bg-black text-white p-8">
+    <div className="min-h-screen flex flex-col items-center justify-center bg-transparent text-black p-8 
+    text-center 
+    bg-[url('/images/pendiente-aprobacion.jpg')] bg-cover bg-no-repeat bg-center">
       {info!.status === 'PENDING' && (
         <>
-          <h1 className="text-3xl mb-4">Solicitud en revisión</h1>
-          <p className="mb-6">Rol solicitado: <strong>{info!.role}</strong></p>
-          <p>Por favor, espera a que el administrador apruebe tu solicitud.</p>
+          <h1 className="text-3xl mb-4 mt-140 text-white 
+          bg-black bg-opacity-50 p-4 rounded-lg 
+          shadow-lg">
+          <svg xmlns="http://www.w3.org/2000/svg" className="h-6 w-6 inline-block mr-2 animate-spin" viewBox="0 0 24 24">
+            <circle className="fill-current text-violet-500" cx="12" cy="12" r="10" strokeWidth="4" />
+            <path className="fill-current text-white"  />
+          </svg>
+          Solicitud en revisión</h1>
+          {/* <p className="mb-6">Rol solicitado: <strong>{info!.role}</strong></p> */}
+          <p className='animate-pulse border'>Por favor, espera a que el administrador apruebe tu solicitud.</p>
         </>
       )}
 

@@ -66,30 +66,53 @@ export default function AdminUsuariosPage() {
   }
 
   return (
-    <div className="min-h-screen mt-16  bg-black text-white p-8 align-items-center flex flex-col">
-      <h1 className="text-2xl mb-4 font-semibold text-center cursor-auto  ">
-        Solicitudes desde Conserjería
+    <div
+      className="min-h-screen mt-16  bg-black text-white p-8 align-items-center flex flex-col 
+    justify-center items-center
+    gap-4 rounded-lg shadow-lg border border-gray-700 transition-all duration-200 ease-in-out transform hover:scale-105 hover:shadow-xl"
+    >
+      <h1
+        className="text-2xl mb-4 font-semibold text-center cursor-auto  
+      text-violet-500"
+      >
+        <span className="text-white">✔️</span> Aprobación de Solicitudes desde
+        Conserjería
       </h1>
 
       {users.length === 0 ? (
-        <div className="mt-16 text-center flex flex-col items-center">
-          <h2 className="text-xl text-gray-400  mb-4">No hay solicitudes pendientes</h2>
-          
-          
+        <div
+          className="mt-16 text-center flex flex-col items-center 
+        justify-center gap-4 
+        bg-gray-800 p-8 rounded-lg shadow-lg border border-gray-700 transition-all duration-200 ease-in-out transform hover:scale-105 hover:shadow-xl"
+        >
+          <h2
+            className="text-xl text-gray-400  mb-4 
+          font-semibold text-center cursor-auto"
+          >
+            No hay solicitudes pendientes
+          </h2>
 
           <button
             onClick={() => router.push("/admin/mainView")}
-            className="py-2 px-6 border border-violet-500 rounded hover:bg-white hover:text-black transition-all duration-200 ease-in-out"
+            className="py-2 px-6 border border-violet-500 rounded hover:bg-white hover:text-black transition-all duration-200 ease-in-out 
+            transform hover:scale-105 hover:shadow-xl 
+           "
           >
             Volver a la consola
           </button>
         </div>
       ) : (
-        <ul className="space-y-6 w-full max-w-2xl">
+        <ul
+          className="space-y-6 w-full max-w-2xl 
+        bg-gray-800 p-8 rounded-lg shadow-lg border border-gray-700 transition-all duration-200 ease-in-out transform hover:scale-105 hover:shadow-xl"
+        >
           {users.map((user) => (
             <li
               key={user.id}
-              className="p-4 border border-gray-700 rounded flex flex-col md:flex-row md:items-center md:justify-between"
+              className="p-4 border border-gray-700 rounded flex flex-col md:flex-row md:items-center md:justify-between 
+              bg-gray-900 hover:bg-gray-800 transition-all duration-200 ease-in-out transform hover:scale-105 
+              hover:shadow-xl 
+              gap-4"
             >
               <div>
                 <p>
@@ -99,13 +122,26 @@ export default function AdminUsuariosPage() {
                   <strong>Email:</strong> {user.email}
                 </p>
               </div>
-              <div className="mt-4 md:mt-0 flex items-center gap-4">
-                <label htmlFor={`role-select-${user.id}`} className="sr-only">
+              <div
+                className="mt-4 md:mt-0 flex items-center gap-4 
+               justify-between 
+               md:justify-end w-full md:w-auto 
+               bg-gray-800 rounded-lg shadow-lg border border-gray-700   transition-all duration-200 ease-in-out transform hover:scale-105 hover:shadow-xl"
+              >
+                <label
+                  htmlFor={`role-select-${user.id}`}
+                  className="sr-only 
+                  "
+                  onClick={() => {
+                    const select = document.getElementById(`role-select-${user.id}`) as HTMLSelectElement;
+                    select.focus();
+                  }}
+                >
                   Seleccionar rol
                 </label>
                 <select
                   id={`role-select-${user.id}`}
-                  defaultValue="CONSERJE"
+                  defaultValue="select"
                   onChange={(e) => {
                     const select = e.target as HTMLSelectElement;
                     user.role = select.value as Role;

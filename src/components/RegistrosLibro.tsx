@@ -69,79 +69,81 @@ export const RegistrosLibro: React.FC<Props> = ({ registros, onRefresh }) => {
      border-gray-500 border-2  animate-pulse-slow"
     >
       {/* Filters */}
-      <section className="flex flex-col md:flex-row gap-4 mb-4 items-center justify-center 
-      bg-gray-900 p-4 rounded-lg border border-gray-700 shadow-md transition-all duration-300 sticky">
+      <section
+        className="flex flex-col md:flex-row gap-4 mb-4 items-center justify-center 
+      bg-gray-900 p-4 rounded-lg border border-gray-700 shadow-md transition-all duration-300 sticky"
+      >
         <div className="grid grid-cols-1 md:flex-cols-4 gap-4 mb-4 items-center justify-between">
-        <h2 className="text-2xl text-center  font-semibold mb-4">
-          Libro de registros{" "}
-        </h2>
-        <div className="flex gap-2 items-center justify-center flex-wrap">
-          <DatePicker
-            selected={startDate}
-            onChange={(date) => setStartDate(date)}
-            placeholderText="Desde"
-            className="p-2 bg-gray-800 max-w-[120px] rounded           "
-          />
-          <DatePicker
-            selected={endDate}
-            onChange={(date) => setEndDate(date)}
-            placeholderText="Hasta"
-            className="p-2 bg-gray-800 max-w-[120px] rounded"
+          <h2 className="text-2xl text-center  font-semibold mb-4">
+            Libro de registros{" "}
+          </h2>
+          <div className="flex gap-2 items-center justify-center flex-wrap">
+            <DatePicker
+              selected={startDate}
+              onChange={(date) => setStartDate(date)}
+              placeholderText="Desde"
+              className="p-2 bg-gray-800 max-w-[120px] rounded           "
+            />
+            <DatePicker
+              selected={endDate}
+              onChange={(date) => setEndDate(date)}
+              placeholderText="Hasta"
+              className="p-2 bg-gray-800 max-w-[120px] rounded"
+            />
+          </div>
+          <select
+            aria-label="Filtrar método"
+            value={methodFilter}
+            onChange={(e) => setMethodFilter(e.target.value)}
+            className="p-2 bg-gray-800 rounded max-w-[400px] 
+          text-gray-200 border border-gray-700 focus:outline-none focus:ring-2 focus:ring-blue-500 "
+          >
+            <option value="MAYORDOMO">Mayordomo</option>
+            <option value="NOCHERO">Nocturno</option>
+            <option value="JARDINERO">Jardinero</option>
+            <option value="PISCINERO">Piscinero</option>
+            <option value="MANTENIMIENTO">Mantenimiento</option>
+            <option value="CONSERJE">Conserje</option>
+            <option value="ALL">Todos</option>
+          </select>
+
+          <input
+            type="text"
+            placeholder="Palabra clave"
+            value={searchText}
+            onChange={(e) => setSearchText(e.target.value)}
+            className="p-2 bg-gray-800 rounded w-full max-w-[400px] 
+          text-gray-200 border border-gray-700 focus:outline-none focus:ring-2 focus:ring-blue-500"
           />
         </div>
-        <select
-          aria-label="Filtrar método"
-          value={methodFilter}
-          onChange={(e) => setMethodFilter(e.target.value)}
-          className="p-2 bg-gray-800 rounded max-w-[400px] 
-          text-gray-200 border border-gray-700 focus:outline-none focus:ring-2 focus:ring-blue-500 "
+
+        {/* Actions */}
+
+        <div
+          className="flex flex-auto items-center justify-between  mb-4 gap-2 md:gap-0 p-2 rounded bg-gray-800 border border-gray-700  
+      text-gray-200 shadow-md transition-all duration-300"
         >
-          <option value="MAYORDOMO">Mayordomo</option>
-          <option value="NOCHERO">Nocturno</option>
-          <option value="JARDINERO">Jardinero</option>
-          <option value="PISCINERO">Piscinero</option>
-          <option value="MANTENIMIENTO">Mantenimiento</option>
-          <option value="CONSERJE">Conserje</option>
-          <option value="ALL">Todos</option>
-        </select>
-
-        <input
-          type="text"
-          placeholder="Palabra clave"
-          value={searchText}
-          onChange={(e) => setSearchText(e.target.value)}
-          className="p-2 bg-gray-800 rounded w-full max-w-[400px] 
-          text-gray-200 border border-gray-700 focus:outline-none focus:ring-2 focus:ring-blue-500"
-        />
-      </div>
-
-      {/* Actions */}
-      
-        <div className="flex flex-auto items-center justify-between  mb-4 gap-2 md:gap-0 p-2 rounded bg-gray-800 border border-gray-700  
-      text-gray-200 shadow-md transition-all duration-300">
-        {/* <button
+          {/* <button
           onClick={() => setSortAsc(!sortAsc)}
           className="bg-gray-800 px-3 py-1 rounded hover:bg-gray-700 transition 
           text-gray-200  focus:outline-none focus:ring-2 focus:ring-blue-500"
         >
           Orden: {sortAsc ? "Ascendente" : "Descendente"}
         </button> */}
-        <button
-          onClick={onRefresh}
-          className="bg-blue-600 px-3 py-1 rounded hover:bg-blue-500 text-white transition "
-        >
-          Actualizar lista
-        </button>
-        <button
-          onClick={downloadPDF}
-          className="bg-green-600 px-3 py-1 rounded hover:bg-green-500 transition ml-auto text-white"
-        >
-          Descargar PDF
-        </button>
-      </div>
+          <button
+            onClick={onRefresh}
+            className="bg-blue-600 px-3 py-1 rounded hover:bg-blue-500 text-white transition "
+          >
+            Actualizar lista
+          </button>
+          <button
+            onClick={downloadPDF}
+            className="bg-green-600 px-3 py-1 rounded hover:bg-green-500 transition ml-auto text-white"
+          >
+            Descargar PDF
+          </button>
+        </div>
       </section>
-      
-      <span className=""><hr/></span>
 
       {/* List */}
       <div className="overflow-y-auto max-h-[120vh]">

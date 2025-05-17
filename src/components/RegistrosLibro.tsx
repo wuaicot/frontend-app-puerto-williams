@@ -146,7 +146,8 @@ export const RegistrosLibro: React.FC<Props> = ({ registros, onRefresh }) => {
       </section>
 
       {/* List */}
-      <div className="overflow-y-auto max-h-[120vh]">
+      <section>
+        <div className="overflow-y-auto max-h-[120vh]">
         <AnimatePresence>
           {filtered.length === 0 ? (
             <motion.p
@@ -194,6 +195,7 @@ export const RegistrosLibro: React.FC<Props> = ({ registros, onRefresh }) => {
           )}
         </AnimatePresence>
       </div>
+      </section>
     </div>
   );
 };

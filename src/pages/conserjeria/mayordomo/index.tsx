@@ -19,17 +19,47 @@ export default function MayordomoArea() {
   }, []);
 
   return (
-    <section className="h-screen overflow-hidden bg-black text-white">
+    <section
+      className="h-screen overflow-hidden bg-black text-white 
+    flex flex-col 
+    items-center
+    justify-center
+    gap-6   
+    rounded-lg
+    shadow-lg
+    shadow-white 
+    transition
+    duration-300
+    ease-in-out
+    transform    
+    "
+    >
       <div
         className="
         flex 
         flex-col 
-        md:flex-row 
+        w-full 
         items-center 
         justify-center 
         h-full 
         gap-6 
-        p-4
+        
+        rounded-lg
+        shadow-lg
+        shadow-black
+        
+        
+        transition
+        duration-300
+        ease-in-out
+        transform
+        hover:scale-105
+          hover:transition-all
+        hover:duration-300
+        hover:ease-in-out
+        
+
+        
       "
       >
         <div className=" flex-col items-center justify-center mt-52">

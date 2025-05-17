@@ -64,19 +64,18 @@ export const RegistrosLibro: React.FC<Props> = ({ registros, onRefresh }) => {
 
   return (
     <div
-      className="bg-black text-sky-200 p-4 rounded-lg shadow-lg flex-wrap gap-4 
-     flex flex-col max-w-[1200px] mx-auto 
-     border-gray-500 border-2  animate-pulse-slow"
+      className="bg-black text-sky-200 p-2 rounded-lg shadow-lg flex-wrap gap-4 
+     flex flex-col max-w-full border-gray-400 border-2  animate-pulse-slow"
     >
       {/* Filters */}
       <section
         className="flex flex-col md:flex-row gap-4 mb-4 items-center justify-center 
-      bg-gray-900 p-4 rounded-lg border border-gray-700 shadow-md transition-all duration-300 sticky"
+      bg-gray-900 p-2 rounded-lg border border-gray-700 shadow-md transition-all duration-300 sticky"
       >
         <div className="grid grid-cols-1 md:flex-cols-4 gap-4 mb-4 items-center justify-between">
-          <h2 className="text-2xl text-center  font-semibold mb-4">
+          {/* <h2 className="text-2xl text-center  font-semibold mb-4">
             Libro de registros{" "}
-          </h2>
+          </h2> */}
           <div className="flex gap-2 items-center justify-center flex-wrap">
             <DatePicker
               selected={startDate}

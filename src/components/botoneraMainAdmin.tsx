@@ -17,15 +17,17 @@ export const BotoneraMainAdmin: React.FC<BotoneraMainAdminProps> = ({ onNavigate
   ];
 
   return (
-    <div className="relative flex flex-col items-center gap-4 -mt-4 text-white bg-black p-8 rounded-2xl border border-violet-500 animate-pulse-slow">
+    <div className="relative flex flex-col items-center gap-4 mt-4 text-white bg-black p-4 rounded-2xl border border-violet-500 animate-pulse-slow -mb-8 
+    before:content-[''] before:absolute before:-top-2 before:-left-2 before:w-full before:h-full before:bg-violet-500 before:rounded-2xl before:-z-10">
       
-      <Link href="/" className="relative translate-y-112 text-3xl hover:opacity-70 cursor-pointer  animate-pulse-slow">
+      
+      <Link href="/" className="relative translate-y-118 text-3xl hover:opacity-70 cursor-pointer  animate-pulse-slow">
         ←
       </Link>
 
       <h1 className="mb-8 text-2xl font-semibold">CONSOLA ADMINISTRADOR</h1>
 
-      <div className="flex flex-col gap-4 w-full max-w-xs">
+      <div className="flex flex-col gap-4 w-full max-w-xs  p-4 rounded-2xl animate-pulse-slow before:content-[''] before:absolute before:-top-2 before:-left-2 before:w-full before:h-full before:bg-violet-500 before:rounded-2xl before:-z-10">
         {botones.map((btn) => (
           <button
             key={btn.route}

@@ -69,19 +69,29 @@ export const TurnStatus: React.FC = () => {
 
   return (
     <motion.div
-      className="mt-8 p-4 bg-blue-950 rounded-lg max-w-md mx-auto text-white shadow-lg"
-      initial={{ opacity: 0, y: 20 }}
+      className="mt-8 p-4 bg-blue-950 rounded-lg max-w-md mx-auto text-white shadow-lg 
+      transition-transform transform hover:scale-104 
+      duration-300 ease-in-out"
+      initial={{ scale: 0.9 }}
+      
       animate={{ opacity: 1, y: 0 }}
       transition={{ duration: 0.4 }}
     >
-      <h2 className="text-center mb-2 text-lg font-medium">
+      <h2 className="text-center mb-2 text-lg font-medium 
+      text-slate-300">
+        
         Estado del turno
       </h2>
-      <div className="text-xl font-bold text-center mb-2">
+      <div className="text-xl font-bold text-center mb-2 
+      text-slate-300">
         {status === "IN" ? "🔓 Turno activo" : "🔒 Turno finalizado"}
       </div>
       {status === "IN" && sessionStart && (
-        <div className="text-center text-sm text-slate-300">
+        <div className="text-center text-sm text-slate-300 
+        mt-2 font-medium 
+        ">
+          Turno iniciado el:{" "}
+          {sessionStart.toLocaleString()}
           Tiempo en turno: <strong>{duration}</strong> minuto
           {duration !== 1 ? "s" : ""}
         </div>

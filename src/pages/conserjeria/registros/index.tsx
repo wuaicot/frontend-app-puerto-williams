@@ -47,7 +47,7 @@ export default function RegistrosPage() {
         ←
       </button>
 
-      <h1 className="text-2xl font-semibold mb-4 ml-20">Libro de Registros</h1>
+      <h1 className="text-2xl text-center  font-semibold mb-4 ml-20">Libro de Registros</h1>
 
       {error && <p className="text-red-500 mb-4">{error}</p>}
 

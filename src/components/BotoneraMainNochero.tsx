@@ -14,10 +14,12 @@ export const BotoneraMainNochero: React.FC = () => {
   ];
 
   return (
-    <div className="relative flex flex-col items-center gap-6 p-8 text-white">
-      <h1 className="mb-6  mt-12 text-2xl font-semibold">NOCHERO</h1>
+    <div className="relative flex flex-col items-center gap-6 p-8 text-white 
+     rounded-lg shadow-lg w-full">
+      <h1 className="mb-6  mt-12 text-2xl font-semibold ">NOCHERO</h1>
 
-      <div className="flex flex-col gap-4 w-full max-w-xs">
+      <div className="flex flex-col gap-4 w-full max-w-xs 
+      bg-gradient-to-r from-sky-500/50 to-sky-700/50 p-4 rounded-4xl shadow-lg">
         {botones.map((btn) => (
           <button
             key={btn.route}

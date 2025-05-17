@@ -67,23 +67,25 @@ export default function AdminUsuariosPage() {
 
   return (
     <div className="min-h-screen mt-16  bg-black text-white p-8 align-items-center flex flex-col">
-      <h1 className="text-2xl mb-4 font-semibold">
+      <h1 className="text-2xl mb-4 font-semibold text-center cursor-auto  ">
         Solicitudes desde Conserjería
       </h1>
 
       {users.length === 0 ? (
-        <div className="mt-16 text-center">
-          <p className="mb-4">No hay solicitudes pendientes.</p>
+        <div className="mt-16 text-center flex flex-col items-center">
+          <h2 className="text-xl text-gray-400  mb-4">No hay solicitudes pendientes</h2>
+          
+          
 
           <button
             onClick={() => router.push("/admin/mainView")}
-            className="py-2 px-6 border border-white rounded hover:bg-white hover:text-black transition"
+            className="py-2 px-6 border border-violet-500 rounded hover:bg-white hover:text-black transition-all duration-200 ease-in-out"
           >
             Volver a la consola
           </button>
         </div>
       ) : (
-        <ul className="space-y-6">
+        <ul className="space-y-6 w-full max-w-2xl">
           {users.map((user) => (
             <li
               key={user.id}

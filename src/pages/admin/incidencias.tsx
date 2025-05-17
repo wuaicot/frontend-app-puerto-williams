@@ -42,7 +42,6 @@ export default function AdminRegistrosPage() {
         ←
       </Link>
 
-      <h1 className="  text-2xl font-semibold mb-4 ml-25 ">Libro de registros</h1>
       {error && <p className="text-red-500 mb-4">{error}</p>}
       <RegistrosLibro registros={registros} onRefresh={fetchRegistros} />
       {loading && (

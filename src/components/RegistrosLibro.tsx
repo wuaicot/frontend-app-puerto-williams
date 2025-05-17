@@ -46,7 +46,7 @@ export const RegistrosLibro: React.FC<Props> = ({ registros, onRefresh }) => {
   const downloadPDF = () => {
     const doc = new jsPDF({ unit: "pt", format: "letter" });
     doc.setFontSize(14);
-    doc.text("Libro de Registros 2.0", 40, 40);
+    doc.text("Libro de registros_Puerto Williams", 40, 40);
     // Use autoTable plugin
     autoTable(doc, {
       startY: 70,
@@ -59,19 +59,28 @@ export const RegistrosLibro: React.FC<Props> = ({ registros, onRefresh }) => {
       styles: { fontSize: 9 },
       headStyles: { fillColor: [30, 30, 40] },
     });
-    doc.save(`libro_registros_${format(new Date(), "yyyyMMdd_HHmm")}.pdf`);
+    doc.save(`libro_registros_${format(new Date(), "MMddyyyy_HHmm")}.pdf`);
   };
 
   return (
-    <div className="bg-black text-sky-200 p-4 rounded-lg shadow-lg flex-wrap">
+    <div
+      className="bg-black text-sky-200 p-4 rounded-lg shadow-lg flex-wrap gap-4 
+     flex flex-col max-w-[1200px] mx-auto 
+     border-gray-500 border-2  animate-pulse-slow"
+    >
       {/* Filters */}
-      <div className="grid grid-cols-1 md:flex-cols-4 gap-4 mb-4">
-        <div className="flex gap-2 items-center">
+      <section className="flex flex-col md:flex-row gap-4 mb-4 items-center justify-center 
+      bg-gray-900 p-4 rounded-lg border border-gray-700 shadow-md transition-all duration-300 sticky">
+        <div className="grid grid-cols-1 md:flex-cols-4 gap-4 mb-4 items-center justify-between">
+        <h2 className="text-2xl text-center  font-semibold mb-4">
+          Libro de registros{" "}
+        </h2>
+        <div className="flex gap-2 items-center justify-center flex-wrap">
           <DatePicker
             selected={startDate}
             onChange={(date) => setStartDate(date)}
             placeholderText="Desde"
-            className="p-2 bg-gray-800 max-w-[120px] rounded"
+            className="p-2 bg-gray-800 max-w-[120px] rounded           "
           />
           <DatePicker
             selected={endDate}
@@ -84,33 +93,42 @@ export const RegistrosLibro: React.FC<Props> = ({ registros, onRefresh }) => {
           aria-label="Filtrar método"
           value={methodFilter}
           onChange={(e) => setMethodFilter(e.target.value)}
-          className="p-2 bg-gray-800 rounded"
+          className="p-2 bg-gray-800 rounded max-w-[400px] 
+          text-gray-200 border border-gray-700 focus:outline-none focus:ring-2 focus:ring-blue-500 "
         >
-          <option value="ALL">Todos los métodos</option>
-          <option value="VOICE">Voz</option>
-          <option value="MANUAL">Manual</option>
+          <option value="MAYORDOMO">Mayordomo</option>
+          <option value="NOCHERO">Nocturno</option>
+          <option value="JARDINERO">Jardinero</option>
+          <option value="PISCINERO">Piscinero</option>
+          <option value="MANTENIMIENTO">Mantenimiento</option>
+          <option value="CONSERJE">Conserje</option>
+          <option value="ALL">Todos</option>
         </select>
 
         <input
           type="text"
-          placeholder="Buscar descripción..."
+          placeholder="Palabra clave"
           value={searchText}
           onChange={(e) => setSearchText(e.target.value)}
-          className="p-2 bg-gray-800 rounded"
+          className="p-2 bg-gray-800 rounded w-full max-w-[400px] 
+          text-gray-200 border border-gray-700 focus:outline-none focus:ring-2 focus:ring-blue-500"
         />
       </div>
 
       {/* Actions */}
-      <div className="flex flex-wrap items-center justify-between mb-4 gap-2">
-        <button
+      
+        <div className="flex flex-auto items-center justify-between  mb-4 gap-2 md:gap-0 p-2 rounded bg-gray-800 border border-gray-700  
+      text-gray-200 shadow-md transition-all duration-300">
+        {/* <button
           onClick={() => setSortAsc(!sortAsc)}
-          className="bg-gray-800 px-3 py-1 rounded hover:bg-gray-700 transition"
+          className="bg-gray-800 px-3 py-1 rounded hover:bg-gray-700 transition 
+          text-gray-200  focus:outline-none focus:ring-2 focus:ring-blue-500"
         >
           Orden: {sortAsc ? "Ascendente" : "Descendente"}
-        </button>
+        </button> */}
         <button
           onClick={onRefresh}
-          className="bg-blue-600 px-3 py-1 rounded hover:bg-blue-500 text-white transition"
+          className="bg-blue-600 px-3 py-1 rounded hover:bg-blue-500 text-white transition "
         >
           Actualizar lista
         </button>
@@ -121,9 +139,12 @@ export const RegistrosLibro: React.FC<Props> = ({ registros, onRefresh }) => {
           Descargar PDF
         </button>
       </div>
+      </section>
+      
+      <span className=""><hr/></span>
 
       {/* List */}
-      <div className="overflow-y-auto max-h-[60vh]">
+      <div className="overflow-y-auto max-h-[120vh]">
         <AnimatePresence>
           {filtered.length === 0 ? (
             <motion.p

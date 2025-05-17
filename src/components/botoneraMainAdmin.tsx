@@ -8,7 +8,7 @@ interface BotoneraMainAdminProps {
 
 export const BotoneraMainAdmin: React.FC<BotoneraMainAdminProps> = ({ onNavigate }) => {
   const botones = [
-    { label: 'Gestión usuario Conserjería', route: '/admin/usuarios' },
+    { label: 'Gestión usuarios conserjería', route: '/admin/usuarios' },
     { label: 'Ver libro de registro', route: '/admin/incidencias' },
     { label: 'Gestionar finanzas', route: '/admin/finanzas' },
     { label: 'Gestionar mantenimiento', route: '/admin/mantenimiento' },
@@ -17,9 +17,9 @@ export const BotoneraMainAdmin: React.FC<BotoneraMainAdminProps> = ({ onNavigate
   ];
 
   return (
-    <div className="relative flex flex-col items-center gap-4 -mt-16 text-white">
+    <div className="relative flex flex-col items-center gap-4 -mt-4 text-white bg-black p-8 rounded-2xl border border-violet-500 animate-pulse-slow">
       
-      <Link href="/" className="relative translate-y-112 text-3xl hover:opacity-70   ">
+      <Link href="/" className="relative translate-y-112 text-3xl hover:opacity-70 cursor-pointer  animate-pulse-slow">
         ←
       </Link>
 

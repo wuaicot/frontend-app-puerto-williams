@@ -1,13 +1,14 @@
 // client/src/components/BotoneraMainMayordomo.tsx
 import React from 'react';
 import { useRouter } from 'next/router';
+import { Footer } from './Footer'; 
 
 export const BotoneraMainMayordomo: React.FC = () => {
   const router = useRouter();
 
   const botones = [
     {
-      label: ' Registrar turno',
+      label: ' Registrar Inicio/Fin de turno',
       route: '/conserjeria/turno'
     },
     {
@@ -18,10 +19,10 @@ export const BotoneraMainMayordomo: React.FC = () => {
       label: ' Supervisar turnos',
       route: '/conserjeria/mayordomo/turnos'
     },
-    {
-      label: ' Aprobar solicitudes',
-      route: '/conserjeria/mayordomo/solicitudes'
-    },
+    // {
+    //   label: ' Aprobar solicitudes',
+    //   route: '/conserjeria/mayordomo/solicitudes'
+    // },
     {
       label: ' Generar reportes',
       route: '/conserjeria/mayordomo/reportes'
@@ -52,6 +53,7 @@ export const BotoneraMainMayordomo: React.FC = () => {
       >
         ← Volver al inicio
       </button>
+         <Footer />
     </div>
   );
 };

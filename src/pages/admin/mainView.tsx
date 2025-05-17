@@ -13,7 +13,7 @@ const MainViewAdmin: React.FC = () => {
     <div className="min-h-screen bg-black flex items-center justify-center flex-col sm:p-8 ">
       
       <BotoneraMainAdmin onNavigate={handleNavigate} />
-      <div className="mt-28 cursor-pointer"><Footer /></div>
+      <div className="mt-28 "><Footer /></div>
       
     </div>    
   );

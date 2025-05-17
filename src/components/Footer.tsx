@@ -1,5 +1,9 @@
-import React from 'react';
-import { QuestionMarkCircleIcon, LightBulbIcon, InformationCircleIcon } from '@heroicons/react/24/outline';
+import React from "react";
+import {
+  QuestionMarkCircleIcon,
+  LightBulbIcon,
+  InformationCircleIcon,
+} from "@heroicons/react/24/outline";
 
 export const Footer: React.FC = () => {
   return (

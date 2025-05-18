@@ -1,7 +1,7 @@
 // client/src/pages/conserjeria/turno/index.tsx
 import React from 'react';
 import { useRouter } from 'next/router';
-import { SpeakerWaveIcon, PencilIcon } from '@heroicons/react/24/outline';
+
 
 
 export default function TurnoModeSelection() {

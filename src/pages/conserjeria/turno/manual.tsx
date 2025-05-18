@@ -22,7 +22,7 @@ export default function ManualTurnRegistration() {
       alert("Registro manual guardado");
       setText("");
       setIsLast(false);
-      router.push("/conserjeria/turno");
+      router.replace("/conserjeria/turno");
     } catch {
       alert("No se pudo guardar el registro manual");
     } finally {
@@ -35,9 +35,8 @@ export default function ManualTurnRegistration() {
     ">
        <button
         onClick={() => router.back()}
-        className="absolute top-4 left-4 text-3xl hover:opacity-70 cursor-pointer 
-        transition-opacity duration-300"
-        aria-label="Volver"
+        className=" top-4 left-4 text-3xl hover:opacity-70 cursor-pointer transition-opacity duration-300  
+        "
       >
         ←
       </button>

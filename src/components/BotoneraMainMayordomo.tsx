@@ -8,7 +8,7 @@ export const BotoneraMainMayordomo: React.FC = () => {
 
   const botones = [
     {
-      label: ' Registrar Inicio/Fin de turno',
+      label: ' Registrar Inicio/Fin turno',
       route: '/conserjeria/turno'
     },
     {

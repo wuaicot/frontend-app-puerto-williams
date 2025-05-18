@@ -261,7 +261,7 @@ export default function VoiceTurnRegistration() {
               onClick={() => {
                 setShowContinue(false);
                 resetTranscript();
-                router.push("/conserjeria/turno");
+                router.replace("/conserjeria/turno");
               }}
               className="mr-2 px-4 py-2 border border-gray-300 rounded text-white
               hover:bg-gray-100 transition duration-200 hover:text-black"
@@ -269,7 +269,7 @@ export default function VoiceTurnRegistration() {
               Sí
             </button>
             <button
-              onClick={() => router.push("/conserjeria/turno")}
+              onClick={() => router.replace("/conserjeria/turno")}
               className="px-4 py-2 border  text-white rounded 
               hover:bg-gray-700 transition duration-200 
               hover:text-white"

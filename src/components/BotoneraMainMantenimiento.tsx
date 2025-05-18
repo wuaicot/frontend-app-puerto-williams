@@ -7,7 +7,7 @@ import Link from "next/link";
 export const BotoneraMainMantenimiento: React.FC = () => {
   const router = useRouter();
   const botones = [
-    { label: "Registrar inicio turno", route: "/conserjeria/turno" },
+    { label: "Registrar inicio/fin turno", route: "/conserjeria/turno" },
     { label: "Tareas asignadas", route: "/conserjeria/tareas" },
     { label: "Control de pisos", route: "/conserjeria/pisos" },
     { label: "Control de muros", route: "/conserjeria/muros" },

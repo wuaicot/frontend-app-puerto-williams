@@ -1,3 +1,4 @@
+// client/src/components/TurnStatus.tsx
 import React, { useState, useEffect } from "react";
 import apiClient from "../lib/axios";
 import { motion } from "framer-motion";
@@ -20,10 +21,9 @@ export const TurnStatus: React.FC = () => {
 
         setStatus(res.data.status);
         if (res.data.status === "IN" && res.data.sessionStart) {
-          const start = new Date(res.data.sessionStart);
-          setSessionStart(start);
+          setSessionStart(new Date(res.data.sessionStart));
         }
-      } catch (err) {
+      } catch {
         setError("No se pudo cargar el estado del turno.");
       } finally {
         setLoading(false);
@@ -69,31 +69,26 @@ export const TurnStatus: React.FC = () => {
 
   return (
     <motion.div
-      className="mt-8 p-4 bg-blue-950 rounded-lg max-w-md mx-auto text-white shadow-lg 
-      transition-transform transform hover:scale-104 
-      duration-300 ease-in-out"
-      initial={{ scale: 0.9 }}
-      
-      animate={{ opacity: 1, y: 0 }}
+      className="mt-8 p-4 bg-blue-950 rounded-lg max-w-md mx-auto
+                 text-white shadow-lg transition-transform
+                 transform hover:scale-104 duration-300 ease-in-out"
+      initial={{ scale: 0.9, opacity: 0 }}
+      animate={{ scale: 1, opacity: 1 }}
       transition={{ duration: 0.4 }}
     >
-      <h2 className="text-center mb-2 text-lg font-medium 
-      text-slate-300">
-        
+      <h2 className="text-center mb-2 text-lg font-medium text-slate-300">
         Estado del turno
       </h2>
-      <div className="text-xl font-bold text-center mb-2 
-      text-slate-300">
+      <div className="text-xl font-bold text-center mb-2 text-slate-300">
         {status === "IN" ? "🔓 Turno activo" : "🔒 Turno finalizado"}
       </div>
       {status === "IN" && sessionStart && (
-        <div className="text-center text-sm text-slate-300 
-        mt-2 font-medium 
-        ">
-          Turno iniciado el:{" "}
-          {sessionStart.toLocaleString()}
-          Tiempo en turno: <strong>{duration}</strong> minuto
-          {duration !== 1 ? "s" : ""}
+        <div className="text-center text-sm text-slate-300 mt-2 font-medium">
+          <div>Turno iniciado el: {sessionStart.toLocaleString()}</div>
+          <div>
+            Tiempo en turno: <strong>{duration}</strong> minuto
+            {duration !== 1 ? "s" : ""}
+          </div>
         </div>
       )}
     </motion.div>

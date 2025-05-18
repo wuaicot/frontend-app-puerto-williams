@@ -1,3 +1,4 @@
+//client/src/lib/axios.ts
 import axios from "axios";
 import { getAuth, signOut, User } from "firebase/auth";
 import { app } from "./firebase";

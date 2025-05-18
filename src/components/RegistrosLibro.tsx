@@ -122,13 +122,13 @@ export const RegistrosLibro: React.FC<Props> = ({ registros, onRefresh }) => {
           className="flex flex-auto items-center justify-between  mb-4 gap-2 md:gap-0 p-2 rounded bg-gray-800 border border-gray-700  
       text-gray-200 shadow-md transition-all duration-300"
         >
-          {/* <button
+          <button
           onClick={() => setSortAsc(!sortAsc)}
           className="bg-gray-800 px-3 py-1 rounded hover:bg-gray-700 transition 
           text-gray-200  focus:outline-none focus:ring-2 focus:ring-blue-500"
         >
           Orden: {sortAsc ? "Ascendente" : "Descendente"}
-        </button> */}
+        </button>
           <button
             onClick={onRefresh}
             className="bg-blue-600 px-3 py-1 rounded hover:bg-blue-500 text-white transition "

@@ -141,7 +141,7 @@ export default function AdminUsuariosPage() {
                 </label>
                 <select
                   id={`role-select-${user.id}`}
-                  defaultValue="select"
+                  defaultValue="Asigne un Rol"
                   onChange={(e) => {
                     const select = e.target as HTMLSelectElement;
                     user.role = select.value as Role;
@@ -155,6 +155,7 @@ export default function AdminUsuariosPage() {
                     "JARDINERO",
                     "PISCINERO",
                     "MANTENIMIENTO",
+                    "Asigne un Rol",
                   ].map((r) => (
                     <option key={r} value={r}>
                       {r}
@@ -166,12 +167,14 @@ export default function AdminUsuariosPage() {
                   disabled={approving === user.id}
                   className={`py-2 px-4 rounded-full ${
                     approving === user.id
-                      ? "bg-gray-600 cursor-not-allowed"
-                      : "bg-white text-black hover:bg-gray-200"
-                  } transition`}
+                      ? "bg-gray-600 cursor-not-allowed text-gray-400"
+                      : "bg-white text-black hover:bg-cyan-200 "
+                  } transition duration-200 ease-in-out transform hover:scale-105 hover:shadow-xl`}
                 >
                   {approving === user.id ? "Aprobando…" : "Aprobar"}
+                  
                 </button>
+               
               </div>
             </li>
           ))}
@@ -179,7 +182,9 @@ export default function AdminUsuariosPage() {
       )}
       <button
         onClick={() => router.push("/admin/mainView")}
-        className="mb-6 mt-8 cursor-pointer   translate-y-auto text-3xl hover:opacity-70"
+        className="mb-6 mt-8 cursor-pointer   translate-y-auto text-3xl hover:opacity-70 
+        transition-all duration-200 ease-in-out transform hover:scale-105 hover:shadow-xl
+        bg-gray-800 text-white py-2 px-4 rounded-full border border-gray-700 shadow-lg"
       >
         ←
       </button>

@@ -139,8 +139,10 @@ export default function LandingPage() {
         </button>
       </div>
 
-      <footer className="absolute bottom-12 text-center w-full text-gray-500 text-sm">
-        <p>&copy; {new Date().getFullYear()} Puerto Williams App. Todos los derechos reservados.</p>
+      <footer className="absolute bottom-12 text-center w-full text-gray-400 text-sm ">
+        <div className="flex items-center justify-center animate-pulse">
+          <p>&copy; {new Date().getFullYear()} Puerto Williams App. Todos los derechos reservados.</p>
+        </div>
       </footer>
     </main>
   );

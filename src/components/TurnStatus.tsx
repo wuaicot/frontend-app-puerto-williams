@@ -69,7 +69,7 @@ export const TurnStatus: React.FC = () => {
 
   return (
     <motion.div
-      className="mt-8 p-4 bg-blue-950 rounded-lg max-w-md mx-auto
+      className="mt-8 p-2 bg-blue-900 rounded-lg max-w-md mx-auto
                  text-white shadow-lg transition-transform
                  transform hover:scale-104 duration-300 ease-in-out"
       initial={{ scale: 0.9, opacity: 0 }}

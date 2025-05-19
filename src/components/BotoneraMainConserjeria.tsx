@@ -14,7 +14,7 @@ export const BotoneraMainConserjeria: React.FC = () => {
 
   return (
     <div className="relative flex flex-col items-center gap-6 text-white">
-      <h1 className="mb-4  mt-12 text-2xl font-semibold">CONSERJE</h1>
+      <h1 className="mb-2 mt-4 text-2xl font-semibold">Panel del Conserje</h1>
 
       <div className="flex flex-col gap-4 w-full max-w-xs">
         {botones.map((btn) => (

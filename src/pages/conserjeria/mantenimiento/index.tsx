@@ -4,6 +4,8 @@ import React from 'react';
 import { useRouter } from 'next/router';
 import { TurnStatus } from '../../../components/TurnStatus';
 import { BotoneraMainMantenimiento } from '../../../components/BotoneraMainMantenimiento';
+import { Footer } from '../../../components/Footer';
+
 
 export default function PiscinaArea() {
   const router = useRouter();
@@ -21,6 +23,7 @@ export default function PiscinaArea() {
         
         
         <TurnStatus />
+        <Footer />
       </section>
       
     </div>

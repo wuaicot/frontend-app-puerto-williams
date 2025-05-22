@@ -32,7 +32,7 @@ export const BotoneraMainNochero: React.FC = () => {
       </div>
       <Link
         href="/"
-        className="mt-2 animate-pulse  text-3xl hover:opacity-70 flex flex-col items-center justify-center w-full"
+        className="-mt-2 animate-pulse  text-3xl hover:opacity-70 flex flex-col items-center justify-center w-full"
       >
         ←
       </Link>

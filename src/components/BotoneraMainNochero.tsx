@@ -14,7 +14,7 @@ export const BotoneraMainNochero: React.FC = () => {
   ];
 
   return (
-    <div className="relative flex flex-col items-center gap-6  text-white 
+    <div className="relative flex flex-col items-center gap-6 text-white 
      rounded-lg shadow-lg w-full">
       
 

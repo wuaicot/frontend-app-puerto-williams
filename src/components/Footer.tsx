@@ -12,7 +12,7 @@ export const Footer: React.FC = () => {
         {/* Ayuda */}
         <button
           aria-label="Ayuda"
-          className="flex flex-col  items-center text-gray-400 hover:text-white transition ml-2"
+          className="flex flex-col items-center text-gray-400 hover:text-white transition ml-2"
         >
           <QuestionMarkCircleIcon className="w-8 h-8" />
           <span className="mt-1 text-sm">Ayuda</span>

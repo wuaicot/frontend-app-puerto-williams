@@ -1,6 +1,5 @@
 // client/src/pages/conserjeria/conserje/index.tsx
 import React from "react";
-
 import { TurnStatus } from "../../../components/TurnStatus";
 import { BotoneraMainConserjeria } from "../../../components/BotoneraMainConserjeria";
 import Head from "next/head";

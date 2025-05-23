@@ -14,10 +14,11 @@
     "jsx": "preserve",
     "incremental": true,
     "forceConsistentCasingInFileNames": true,
+    "baseUrl": ".",                           // necesario para paths
     "paths": {
-      "@/*": ["./src/*"]
-    }
-    // <-- ya no hay "types": [...]
+      "@/*": ["src/*"]
+    },
+    "types": ["next", "react", "react-dom", "node"]  // incluimos definiciones de Next/React/Node
   },
   "include": ["next-env.d.ts", "**/*.ts", "**/*.tsx"],
   "exclude": ["node_modules"]

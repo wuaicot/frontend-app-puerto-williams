@@ -2,7 +2,7 @@
 import React from "react";
 import { useRouter } from "next/router";
 import { Footer } from "../../components/Footer";
-import { BotoneraMainAdmin } from "../../components/BotoneraMainAdmin";
+import { BotoneraMainAdmin } from "../../components/BotoneraMainAdmin"; // Asegúrate de que la B y M sean mayúsculas
 
 const MainViewAdmin: React.FC = () => {
   const router = useRouter();

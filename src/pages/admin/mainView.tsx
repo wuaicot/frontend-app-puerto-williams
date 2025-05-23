@@ -1,8 +1,8 @@
 // client/src/pages/admin/mainView.tsx
 import React from "react";
 import { useRouter } from "next/router";
-import { Footer } from "@/components/Footer";
-import { BotoneraMainAdmin } from "@/components/BotoneraMainAdmin";
+import { Footer } from "../../components/Footer";
+import { BotoneraMainAdmin } from "../../components/BotoneraMainAdmin";
 
 const MainViewAdmin: React.FC = () => {
   const router = useRouter();

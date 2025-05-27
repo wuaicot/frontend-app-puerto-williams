@@ -1,4 +1,3 @@
-// client/src/components/TurnStatus.tsx
 import React, { useState, useEffect } from "react";
 import apiClient from "../lib/axios";
 import { motion } from "framer-motion";
@@ -6,11 +5,10 @@ import { motion } from "framer-motion";
 export const TurnStatus: React.FC = () => {
   const [status, setStatus] = useState<"IN" | "OUT" | null>(null);
   const [sessionStart, setSessionStart] = useState<Date | null>(null);
-  const [duration, setDuration] = useState<number>(0);
+  const [duration, setDuration] = useState<string>("00:00");
   const [loading, setLoading] = useState(true);
   const [error, setError] = useState<string | null>(null);
 
-  // Al montar, obtenemos estado actual y el inicio de sesión
   useEffect(() => {
     const fetchStatus = async () => {
       try {
@@ -33,18 +31,22 @@ export const TurnStatus: React.FC = () => {
     fetchStatus();
   }, []);
 
-  // Iniciar contador basado en sessionStart
   useEffect(() => {
     if (status !== "IN" || !sessionStart) return;
 
     const updateDuration = () => {
       const now = Date.now();
-      const minutes = Math.floor((now - sessionStart.getTime()) / 60000);
-      setDuration(minutes);
+      const diffMs = now - sessionStart.getTime();
+      const totalMinutes = Math.floor(diffMs / 60000);
+      const hours = Math.floor(totalMinutes / 60)
+        .toString()
+        .padStart(2, "0");
+      const minutes = (totalMinutes % 60).toString().padStart(2, "0");
+      setDuration(`${hours}:${minutes}`);
     };
 
-    updateDuration(); // Llamada inicial
-    const interval = setInterval(updateDuration, 60_000); // Cada 1 min
+    updateDuration();
+    const interval = setInterval(updateDuration, 60_000);
 
     return () => clearInterval(interval);
   }, [status, sessionStart]);
@@ -84,10 +86,17 @@ export const TurnStatus: React.FC = () => {
       </div>
       {status === "IN" && sessionStart && (
         <div className="text-center text-sm text-slate-300 mt-2 font-medium">
-          <div>Turno iniciado el: {sessionStart.toLocaleString()}</div>
           <div>
-            Tiempo en turno: <strong>{duration}</strong> minuto
-            {duration !== 1 ? "s" : ""}
+            Turno iniciado el:{" "}
+            {sessionStart.toLocaleDateString()}{" "}
+            {sessionStart.toLocaleTimeString([], {
+              hour: "2-digit",
+              minute: "2-digit",
+              hour12: false,
+            })}
+          </div>
+          <div>
+            Tiempo en turno: <strong>{duration}</strong> h
           </div>
         </div>
       )}

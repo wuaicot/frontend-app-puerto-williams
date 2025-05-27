@@ -58,7 +58,7 @@ FRONTEND-APP-PUERTO-WILLIAMS
 │       ├── styles/
 │       │   └── globals.css
 │       │ 
-│       └── types
+│       └── types  
 │   
 │── .env.local
 │── .gitignore

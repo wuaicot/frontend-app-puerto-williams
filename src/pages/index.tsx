@@ -15,7 +15,7 @@ export default function LandingPage() {
   const router = useRouter();
 
   const baseButtonStyles =
-    "flex items-center justify-center w-full max-w-xs px-6 py-3 text-lg font-semibold rounded-lg shadow-md focus:outline-none focus:ring-2 focus:ring-offset-2 focus:ring-offset-gray-900 transition-all duration-200 ease-in-out";
+    "flex items-center justify-center w-full px-6 py-3 text-lg font-semibold rounded-lg shadow-md focus:outline-none focus:ring-2 focus:ring-offset-2 focus:ring-offset-gray-900 transition-all duration-200 ease-in-out";
   const outlineButtonStyles = `${baseButtonStyles} text-cyan-400 border-2 border-cyan-500 hover:bg-cyan-500 hover:text-white focus:ring-cyan-400`;
 
   const handleAuthAction = async (type: "register" | "login") => {
@@ -108,42 +108,49 @@ export default function LandingPage() {
   };
 
   return (
-    <main className="flex flex-col items-center justify-center min-h-screen bg-gradient-to-br from-gray-900 to-black text-white p-12 sm:p-8">
-      <div className="text-center mb-12 sm:mb-16">
-        <h1 className="text-5xl sm:text-6xl font-bold tracking-tight">
-          <span className="bg-cyan-400 text-black rounded">P</span>uerto{" "}
-          <span className="bg-cyan-400 text-black rounded">W</span>illiams
-          <span className="text-cyan-400">App</span>
-        </h1>
-        <p className="mt-4 text-lg sm:text-md text-gray-300">
-          Herramienta Organizativa para su Comunidad.
-        </p>
-      </div>
+    <div className="flex flex-col min-h-screen bg-gradient-to-br from-gray-900 to-black text-white">
+      <main className="flex flex-col items-center justify-center flex-grow p-6 sm:p-8 lg:p-12">
+        <div className="text-center mb-8 sm:mb-12 md:mb-16">
+          <h1 className="text-4xl sm:text-5xl md:text-6xl lg:text-7xl font-bold tracking-tight">
+            <span className="bg-cyan-400 text-black rounded">P</span>uerto{" "}
+            <span className="bg-cyan-400 text-black rounded">W</span>illiams
+            <span className="text-cyan-400">App</span>
+          </h1>
+          <p className="mt-3 text-lg sm:text-md md:text-lg text-gray-300">
+            Herramienta Organizativa para su Comunidad.
+          </p>
+        </div>
 
-      <div className="flex flex-col items-center gap-6 w-full">
-        <button
-          onClick={() => handleAuthAction("login")}
-          className={`${baseButtonStyles} border-2 border-cyan-500 text-cyan-400 hover:bg-cyan-500 hover:text-white`}
-        >
-          <RiAdminLine className="mr-3 text-2xl" />
-          Admin.
-        </button>
-        <button
-          onClick={handleConserjeriaClick}
-          className={`${baseButtonStyles} border-2 border-cyan-500 text-cyan-400 hover:bg-cyan-500 hover:text-white`}
-        >
-          <RiLoginBoxLine className="mr-3 text-2xl" />
-          Conserjería
-        </button>
-        <button onClick={() => handleAuthAction("register")} className={outlineButtonStyles}>
-          <RiUserAddLine className="mr-3 text-2xl" />
-          <span className="text-white">Solicitar Acceso</span>
-        </button>
-      </div>
-
-      <footer className="absolute bottom-12 text-center w-full text-gray-400 text-sm">
+        <div className="flex flex-col items-center gap-4 w-full max-w-md sm:max-w-sm md:max-w-md lg:max-w-lg">
+          <button
+            onClick={() => handleAuthAction("login")}
+            className={`${baseButtonStyles} w-full md:max-w-xs border-2 border-cyan-500 text-cyan-400 hover:bg-cyan-500 hover:text-white`}
+          >
+            <RiAdminLine className="mr-2 text-xl md:text-2xl" />
+            <span className="hidden sm:inline">Admin.</span>
+            <span className="sm:hidden">Admin</span>
+          </button>
+          <button
+            onClick={handleConserjeriaClick}
+            className={`${baseButtonStyles} w-full md:max-w-xs border-2 border-cyan-500 text-cyan-400 hover:bg-cyan-500 hover:text-white`}
+          >
+            <RiLoginBoxLine className="mr-2 text-xl md:text-2xl" />
+            <span className="hidden sm:inline">Conserjería</span>
+            <span className="sm:hidden">Conserje</span>
+          </button>
+          <button
+            onClick={() => handleAuthAction("register")}
+            className={`${outlineButtonStyles} w-full md:max-w-xs`}
+          >
+            <RiUserAddLine className="mr-2 text-xl md:text-2xl" />
+            <span className="text-white hidden sm:inline">Solicitar Acceso</span>
+            <span className="text-white sm:hidden">Solicitar</span>
+          </button>
+        </div>
+      </main>
+      <footer className="text-center p-4 text-gray-400 text-sm">
         <p>&copy; {new Date().getFullYear()} Puerto Williams App. Todos los derechos reservados.</p>
       </footer>
-    </main>
+    </div>
   );
 }

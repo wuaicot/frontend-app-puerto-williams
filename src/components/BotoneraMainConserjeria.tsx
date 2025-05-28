@@ -2,6 +2,7 @@
 import React from "react";
 import { useRouter } from "next/router";
 import Link from "next/link";
+
 export const BotoneraMainConserjeria: React.FC = () => {
   const router = useRouter();
   const botones = [
@@ -13,17 +14,20 @@ export const BotoneraMainConserjeria: React.FC = () => {
   ];
 
   return (
-    <div className="relative flex flex-col items-center gap-6 text-white">
-      <h1 className="mb-2 mt-4 text-2xl font-semibold">Panel del Conserje</h1>
+    <div className="relative flex flex-col items-center gap-6 mt-6 text-white">
+      <h1 className="text-xl sm:text-2xl font-semibold mb-4 md:mb-6 lg:mb-8">
+        Panel del Conserje
+      </h1>
 
-      <div className="flex flex-col gap-4 w-full max-w-xs">
+      <div className="flex flex-col gap-3 w-full max-w-sm p-4 rounded-2xl
+        md:flex-row md:flex-wrap md:justify-center md:gap-4 lg:gap-6"
+      >
         {botones.map((btn) => (
           <button
             key={btn.route}
             onClick={() => router.push(btn.route)}
-            className="w-full cursor-pointer py-2 px-16 rounded-full border border-sky-500 text-center hover:bg-white hover:text-black transition 
-            duration-300 ease-in-out shadow-lg text-white font-semibold 
-            "
+            className="w-full md:w-auto py-2 px-4 rounded-full border border-sky-500 text-center hover:bg-white hover:text-black transition
+              duration-300 ease-in-out shadow-lg text-white font-semibold text-sm md:text-base"
           >
             {btn.label}
           </button>
@@ -31,7 +35,7 @@ export const BotoneraMainConserjeria: React.FC = () => {
       </div>
       <Link
         href="/"
-        className="mt-8 animate-pulse  text-3xl hover:opacity-70 flex flex-col items-center justify-center w-full"
+        className="absolute bottom-4 left-4 text-xl hover:opacity-70 cursor-pointer animate-pulse md:bottom-6 md:left-6 lg:text-2xl"
       >
         ←
       </Link>

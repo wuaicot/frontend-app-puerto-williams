@@ -15,23 +15,20 @@ export const BotoneraMainMantenimiento: React.FC = () => {
   ];
 
   return (
-    <div className="flex flex-col items-center justify-center min-h-auto gap-6 text-white 
-    ">
-      <h1 className="text-xl font-semibold text-center mt-8 mb-4 
-      text-slate-300">
-        
+    <div className="relative flex flex-col items-center gap-6 mt-6 text-white">
+      <h1 className="text-xl sm:text-2xl font-semibold text-center mb-4 md:mb-6 lg:mb-8 text-slate-300">
         Panel de control Mantenimiento
       </h1>
 
-      <div className="flex flex-col gap-4 w-full max-w-xs mx-auto 
-      ">
+      <div className="flex flex-col gap-3 w-full max-w-sm p-4 rounded-2xl
+        md:flex-row md:flex-wrap md:justify-center md:gap-4 lg:gap-6"
+      >
         {botones.map((btn) => (
           <button
             key={btn.route}
             onClick={() => router.push(btn.route)}
-            className="w-full cursor-pointer px-4 rounded-full border border-sky-500 text-center hover:bg-white hover:text-black transition 
-            duration-300 ease-in-out shadow-lg bg-sky-500 text-white font-semibold text-lg transform hover:scale-104"
-            
+            className="w-full md:w-auto py-2 px-4 rounded-full border border-sky-500 text-center hover:bg-white hover:text-black transition
+              duration-300 ease-in-out shadow-lg bg-sky-500 text-white font-semibold text-sm md:text-base transform hover:scale-105"
           >
             {btn.label}
           </button>
@@ -40,7 +37,7 @@ export const BotoneraMainMantenimiento: React.FC = () => {
 
       <Link
         href="/"
-        className="mt-1 animate-pulse text-3xl hover:opacity-70"
+        className="absolute bottom-4 left-4 text-xl hover:opacity-70 cursor-pointer animate-pulse md:bottom-6 md:left-6 lg:text-2xl"
       >
         ←
       </Link>

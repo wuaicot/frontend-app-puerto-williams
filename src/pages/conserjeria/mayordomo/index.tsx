@@ -1,7 +1,7 @@
+// client/src/pages/conserjeria/mayordomo/index.tsx
 import React from "react";
 import { TurnStatus } from "../../../components/TurnStatus";
 import { BotoneraMainMayordomo } from "../../../components/BotoneraMainMayordomo";
-import { Footer } from "../../../components/Footer";
 
 export default function MayordomoArea() {
   return (
@@ -9,7 +9,7 @@ export default function MayordomoArea() {
       <div className="flex flex-col items-center justify-start h-full w-full max-w-lg gap-8">
         {/* Top Section */}
         <div className="flex flex-col items-center justify-center gap-4">
-          
+          <h1 className="text-2xl font-semibold">Área de Mayordomo</h1>
           <TurnStatus />
         </div>
 
@@ -17,7 +17,8 @@ export default function MayordomoArea() {
         <div className="flex-grow flex flex-col justify-center items-center w-full">
           <BotoneraMainMayordomo />
         </div>
-        
+
+        {/* Bottom Section */}
         
       </div>
     </div>

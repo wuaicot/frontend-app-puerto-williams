@@ -15,6 +15,16 @@ module.exports = {
       }
     },
   },
+  variants: {
+    extend: {
+      flexDirection: ['landscape', 'portrait'],
+      padding:       ['landscape', 'portrait'],
+      width:         ['landscape', 'portrait'],
+      height:        ['landscape', 'portrait'],
+      justifyContent:['landscape', 'portrait'],
+      alignItems:    ['landscape', 'portrait'],
+    },
+  },
   plugins: [
     require('tailwindcss-animate')
   ],

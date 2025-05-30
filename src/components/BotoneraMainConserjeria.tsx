@@ -1,44 +1,49 @@
 //client/src/components/BotoneraMainConserjeria.tsx
 import React from "react";
 import { useRouter } from "next/router";
-import Link from "next/link";
 
 export const BotoneraMainConserjeria: React.FC = () => {
   const router = useRouter();
   const botones = [
     { label: "Registrar inicio/fin turno", route: "/conserjeria/turno" },
-    { label: "Tareas asignadas", route: "/conserjeria/tareas" },
-    { label: "Controlar acceso", route: "/conserjeria/acceso" },
-    { label: "Atención residente", route: "/conserjeria/atencion" },
-    { label: "Ver registros", route: "/conserjeria/registros" },
+    { label: "Tareas asignadas",        route: "/conserjeria/tareas" },
+    { label: "Controlar acceso",         route: "/conserjeria/acceso" },
+    { label: "Atención residente",      route: "/conserjeria/atencion" },
+    { label: "Ver registros",           route: "/conserjeria/registros" },
   ];
 
   return (
-    <div className="relative flex flex-col items-center gap-6 mt-6 text-white">
-      <h1 className="text-xl sm:text-2xl font-semibold mb-4 md:mb-6 lg:mb-8">
-        Panel del Conserje
-      </h1>
+    <nav
+      className="
+        w-full flex flex-col items-center justify-start gap-6
+        bg-gray-800 text-white p-6 rounded-b-3xl   /* redondeo abajo en desktop */
+        md:rounded-none landscape:py-8
+        lg:h-full lg:w-64 lg:rounded-r-3xl lg:p-8
+        lg:flex-col lg:gap-8 overflow-auto
+      "
+    >
+      <h2 className="text-2xl font-bold mb-4 lg:mb-8">
+        Panel Conserje
+      </h2>
 
-      <div className="flex flex-col gap-3 w-full max-w-sm p-4 rounded-2xl
-        md:flex-row md:flex-wrap md:justify-center md:gap-4 lg:gap-6"
-      >
+      <ul className="w-full flex flex-col gap-3 md:gap-4 lg:gap-6">
         {botones.map((btn) => (
-          <button
-            key={btn.route}
-            onClick={() => router.push(btn.route)}
-            className="w-full md:w-auto py-2 px-4 rounded-full border border-sky-500 text-center hover:bg-white hover:text-black transition
-              duration-300 ease-in-out shadow-lg text-white font-semibold text-sm md:text-base"
-          >
-            {btn.label}
-          </button>
+          <li key={btn.route} className="w-full">
+            <button
+              onClick={() => router.push(btn.route)}
+              className="
+                block w-full text-center
+                py-2 px-4 text-sm md:text-base font-medium
+                rounded-full border-2 border-sky-500
+                hover:bg-sky-500 hover:text-black
+                transition
+              "
+            >
+              {btn.label}
+            </button>
+          </li>
         ))}
-      </div>
-      <Link
-        href="/"
-        className="absolute bottom-4 left-4 text-xl hover:opacity-70 cursor-pointer animate-pulse md:bottom-6 md:left-6 lg:text-2xl"
-      >
-        ←
-      </Link>
-    </div>
+      </ul>
+    </nav>
   );
 };

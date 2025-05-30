@@ -128,7 +128,6 @@ export const RegistrosLibro: React.FC<Props> = ({ registros, onRefresh }) => {
             aria-label="Filtrar por rol"
           >
             <option value="ALL">Todos</option>
-            <option value="ADMIN">Admin</option>
             <option value="CONSERJE">Conserje</option>
             <option value="MAYORDOMO">Mayordomo</option>
             <option value="NOCHERO">Nochero</option>

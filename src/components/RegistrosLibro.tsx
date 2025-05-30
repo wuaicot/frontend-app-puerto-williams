@@ -13,9 +13,10 @@ export interface Registro {
   description: string;
   entryMethod: string;
   isHighlighted?: boolean;
-  user?: { // Make user property optional
+  user?: {
     name: string;
     email?: string;
+    role: string; // Add the role property
   };
 }
 
@@ -28,7 +29,7 @@ export const RegistrosLibro: React.FC<Props> = ({ registros, onRefresh }) => {
   const [sortAsc, setSortAsc] = useState(false);
   const [startDate, setStartDate] = useState<Date | null>(null);
   const [endDate, setEndDate] = useState<Date | null>(null);
-  const [methodFilter, setMethodFilter] = useState<string>("ALL");
+  const [roleFilter, setRoleFilter] = useState<string>("ALL"); // Changed from methodFilter to roleFilter
   const [searchText, setSearchText] = useState("");
   const [highlightedIds, setHighlightedIds] = useState<Set<string>>(new Set());
   const [isConfirmModalVisible, setIsConfirmModalVisible] = useState(false);
@@ -41,13 +42,20 @@ export const RegistrosLibro: React.FC<Props> = ({ registros, onRefresh }) => {
       const date = new Date(r.timestamp);
       if (startDate && date < startDate) return false;
       if (endDate && date > endDate) return false;
-      if (methodFilter !== "ALL" && methodFilter !== "ALL" && r.entryMethod !== methodFilter)
+      if (
+        roleFilter !== "ALL" &&
+        r.user?.role?.trim().toLowerCase() !== roleFilter.trim().toLowerCase() // Filter by user role (case-insensitive and trimmed)
+      )
         return false;
       if (!r.description.toLowerCase().includes(searchText.toLowerCase()))
         return false;
       return true;
     })
-    .sort((a, b) => (sortAsc ? new Date(a.timestamp).getTime() - new Date(b.timestamp).getTime() : new Date(b.timestamp).getTime() - new Date(a.timestamp).getTime()));
+    .sort((a, b) =>
+      sortAsc
+        ? new Date(a.timestamp).getTime() - new Date(b.timestamp).getTime()
+        : new Date(b.timestamp).getTime() - new Date(a.timestamp).getTime()
+    );
 
   const downloadPDF = () => {
     const doc = new jsPDF({ unit: "pt", format: "letter" });
@@ -55,10 +63,11 @@ export const RegistrosLibro: React.FC<Props> = ({ registros, onRefresh }) => {
     doc.text("Libro de registros - Puerto Williams", 40, 40);
     autoTable(doc, {
       startY: 70,
-      head: [["Fecha y hora", "Usuario", "Descripción"]],
+      head: [["Fecha y hora", "Usuario", "Rol", "Descripción"]],
       body: filtered.map((r) => [
         format(new Date(r.timestamp), "dd/MM/yyyy HH:mm"),
-        r.user?.name || "Usuario Desconocido", // Use optional chaining and default value
+        r.user?.name || "Usuario Desconocido",
+        r.user?.role || "Rol Desconocido",
         r.description,
       ]),
       styles: { fontSize: 9 },
@@ -108,19 +117,24 @@ export const RegistrosLibro: React.FC<Props> = ({ registros, onRefresh }) => {
               className="p-2 bg-gray-800 rounded text-gray-200 max-w-[120px]"
             />
           </div>
-          <label htmlFor="methodFilter" className="sr-only">
-            Filtrar por método
+          <label htmlFor="roleFilter" className="sr-only">
+            Filtrar por rol
           </label>
           <select
-            id="methodFilter"
-            value={methodFilter}
-            onChange={(e) => setMethodFilter(e.target.value)}
+            id="roleFilter"
+            value={roleFilter}
+            onChange={(e) => setRoleFilter(e.target.value)}
             className="p-2 bg-gray-800 rounded text-gray-200 border border-gray-700 max-w-xs"
-            aria-label="Filtrar por método"
+            aria-label="Filtrar por rol"
           >
             <option value="ALL">Todos</option>
-            <option value="VOICE">Voz</option>
-            <option value="MANUAL">Manual</option>
+            <option value="ADMIN">Admin</option>
+            <option value="CONSERJE">Conserje</option>
+            <option value="MAYORDOMO">Mayordomo</option>
+            <option value="NOCHERO">Nochero</option>
+            <option value="JARDINERO">Jardinero</option>
+            <option value="PISCINERO">Piscina</option>
+            <option value="MANTENIMIENTO">Mantenimiento</option>
           </select>
           <input
             type="text"
@@ -219,20 +233,20 @@ export const RegistrosLibro: React.FC<Props> = ({ registros, onRefresh }) => {
       {/* Modal de confirmación */}
       {isConfirmModalVisible && registroIdToHighlight && (
         <div className="fixed inset-0 bg-black bg-opacity-50 flex items-center justify-center z-50">
-          <div className="bg-white p-6 rounded-lg shadow-lg max-w-sm text-center">
-            <p className="mb-4">
+          <div className="bg-blue-900 p-6 rounded-lg shadow-lg max-w-sm text-center border border-solid border-lime-400">
+            <p className="mb-4 font-bold text-white">
               ¿Deseas resaltar este registro permanentemente?
             </p>
             <div className="flex justify-center gap-4">
               <button
                 onClick={cancelHighlight}
-                className="bg-gray-300 hover:bg-gray-400 text-gray-800 px-4 py-2 rounded focus:outline-none"
+                className="bg-gray-500 hover:bg-gray-400 text-gray-00 px-4 py-2 rounded-full  focus:outline-none text-white"
               >
                 Cancelar
               </button>
               <button
                 onClick={confirmHighlight}
-                className="bg-blue-600 hover:bg-blue-700 text-white px-4 py-2 rounded focus:outline-none"
+                className="bg-blue-600 hover:bg-blue-700 text-white px-4 py-2  focus:outline-none rounded-full"
               >
                 Confirmar
               </button>

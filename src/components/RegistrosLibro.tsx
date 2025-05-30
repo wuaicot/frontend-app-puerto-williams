@@ -1,4 +1,3 @@
-// client/RegistrosLibro.tsx
 import React, { useState } from "react";
 import { format } from "date-fns";
 import { jsPDF } from "jspdf";
@@ -14,6 +13,10 @@ export interface Registro {
   description: string;
   entryMethod: string;
   isHighlighted?: boolean;
+  user?: { // Make user property optional
+    name: string;
+    email?: string;
+  };
 }
 
 interface Props {
@@ -38,17 +41,13 @@ export const RegistrosLibro: React.FC<Props> = ({ registros, onRefresh }) => {
       const date = new Date(r.timestamp);
       if (startDate && date < startDate) return false;
       if (endDate && date > endDate) return false;
-      if (methodFilter !== "ALL" && r.entryMethod !== methodFilter)
+      if (methodFilter !== "ALL" && methodFilter !== "ALL" && r.entryMethod !== methodFilter)
         return false;
       if (!r.description.toLowerCase().includes(searchText.toLowerCase()))
         return false;
       return true;
     })
-    .sort((a, b) => {
-      const diff =
-        new Date(a.timestamp).getTime() - new Date(b.timestamp).getTime();
-      return sortAsc ? diff : -diff;
-    });
+    .sort((a, b) => (sortAsc ? new Date(a.timestamp).getTime() - new Date(b.timestamp).getTime() : new Date(b.timestamp).getTime() - new Date(a.timestamp).getTime()));
 
   const downloadPDF = () => {
     const doc = new jsPDF({ unit: "pt", format: "letter" });
@@ -56,10 +55,10 @@ export const RegistrosLibro: React.FC<Props> = ({ registros, onRefresh }) => {
     doc.text("Libro de registros - Puerto Williams", 40, 40);
     autoTable(doc, {
       startY: 70,
-      head: [["Fecha y hora", "Método", "Descripción"]],
+      head: [["Fecha y hora", "Usuario", "Descripción"]],
       body: filtered.map((r) => [
         format(new Date(r.timestamp), "dd/MM/yyyy HH:mm"),
-        r.entryMethod,
+        r.user?.name || "Usuario Desconocido", // Use optional chaining and default value
         r.description,
       ]),
       styles: { fontSize: 9 },
@@ -176,7 +175,7 @@ export const RegistrosLibro: React.FC<Props> = ({ registros, onRefresh }) => {
                 className={`mb-2 border rounded shadow transition-all duration-300 ${
                   r.isHighlighted || highlightedIds.has(r.id)
                     ? "border-yellow-300"
-                    : "hover:border-gray-500"
+                    : "hover:border-gray-500 border-gray-700 bg-gray-800"
                 }`}
               >
                 <div
@@ -188,12 +187,12 @@ export const RegistrosLibro: React.FC<Props> = ({ registros, onRefresh }) => {
                 >
                   <span>
                     {format(new Date(r.timestamp), "dd/MM/yyyy HH:mm")} —{" "}
-                    {r.entryMethod}
+                    {r.user?.name || "Usuario Desconocido"}
                   </span>
                   {!r.isHighlighted && !highlightedIds.has(r.id) && (
                     <button
                       onClick={() => handleHighlightRequest(r.id)}
-                      className="text-sm text-blue-400 hover:underline"
+                      className="text-sm text-blue-400 hover:underline focus:outline-none"
                     >
                       Resaltar
                     </button>
@@ -203,7 +202,7 @@ export const RegistrosLibro: React.FC<Props> = ({ registros, onRefresh }) => {
                   )}
                 </div>
                 <div
-                  className={`px-4 py-3 rounded-b ${
+                  className={`px-4 py-3 rounded-b break-words whitespace-pre-wrap ${
                     r.isHighlighted || highlightedIds.has(r.id)
                       ? "bg-yellow-50 text-black"
                       : "bg-gray-800 text-white"
@@ -227,13 +226,13 @@ export const RegistrosLibro: React.FC<Props> = ({ registros, onRefresh }) => {
             <div className="flex justify-center gap-4">
               <button
                 onClick={cancelHighlight}
-                className="bg-gray-300 hover:bg-gray-400 text-gray-800 px-4 py-2 rounded"
+                className="bg-gray-300 hover:bg-gray-400 text-gray-800 px-4 py-2 rounded focus:outline-none"
               >
                 Cancelar
               </button>
               <button
                 onClick={confirmHighlight}
-                className="bg-blue-600 hover:bg-blue-700 text-white px-4 py-2 rounded"
+                className="bg-blue-600 hover:bg-blue-700 text-white px-4 py-2 rounded focus:outline-none"
               >
                 Confirmar
               </button>

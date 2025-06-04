@@ -14,7 +14,6 @@ export default function VoiceTurnRegistration() {
   const [role, setRole] = useState<string>("");
   const [isReviewOpen, setIsReviewOpen] = useState(false);
   const [pendingText, setPendingText] = useState("");
-  const [showContinue, setShowContinue] = useState(false);
   const [isLast, setIsLast] = useState(false);
   const [loading, setLoading] = useState(false);
 
@@ -58,7 +57,7 @@ export default function VoiceTurnRegistration() {
     setIsReviewOpen(true);
   };
 
-  // 3) Envía el registro (IN u OUT según isLast)
+  // 3) Enviar el registro y redirigir según rol
   const handleSend = async () => {
     if (!pendingText.trim()) return;
     setLoading(true);
@@ -68,17 +67,13 @@ export default function VoiceTurnRegistration() {
         entryMethod: "VOICE",
         isLast,
       });
-      setIsReviewOpen(false);
-      setShowContinue(true);
+      // Al guardar con éxito, redirigimos al dashboard según rol:
+      router.replace(`/conserjeria/${role.toLowerCase()}`);
     } catch {
       alert("No se pudo guardar el registro de voz");
     } finally {
       setLoading(false);
     }
-  };
-
-  const goHome = () => {
-    router.replace(`/conserjeria/${role.toLowerCase()}`);
   };
 
   return (
@@ -110,7 +105,7 @@ export default function VoiceTurnRegistration() {
             ${
               listening
                 ? "bg-cyan-300 active:shadow-black"
-                : "bg-lima-500 active:shadow-xl"
+                : "bg-lime-500 active:shadow-xl"
             }`}
         >
           {/* ping dinámico según listening */}
@@ -205,36 +200,6 @@ export default function VoiceTurnRegistration() {
           </div>
         </Dialog>
       </Transition>
-
-      {/* Modal “¿Crear otro o salir?” */}
-      {showContinue && (
-        <div className="fixed inset-0 flex items-center justify-center bg-black bg-opacity-50 z-50">
-          <div className="bg-white p-6 rounded-lg text-center shadow-lg max-w-sm w-full">
-            <h2 className="text-black text-lg font-semibold mb-2">¡Listo!</h2>
-            <p className="mb-4 text-black text-lg">
-              Registro guardado. ¿Deseas crear otro?
-            </p>
-            <div className="flex justify-center gap-4">
-              <button
-                className="px-4 py-2 border rounded bg-gray-800 text-white hover:bg-gray-700 transition"
-                onClick={() => {
-                  setShowContinue(false);
-                  resetTranscript();
-                  router.replace("/conserjeria/turno");
-                }}
-              >
-                Sí
-              </button>
-              <button
-                className="px-4 py-2 bg-gray-800 text-white rounded hover:bg-gray-700 transition"
-                onClick={goHome}
-              >
-                No
-              </button>
-            </div>
-          </div>
-        </div>
-      )}
     </div>
   );
 }

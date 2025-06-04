@@ -1,54 +1,48 @@
 // client/src/pages/conserjeria/mantenimiento.tsx
-import React from "react";
-import Head from "next/head";
+
+import React, { useEffect } from "react";
 import { useRouter } from "next/router";
 import { TurnStatus } from "../../../components/TurnStatus";
 import { BotoneraMainMantenimiento } from "../../../components/BotoneraMainMantenimiento";
 import { Footer } from "../../../components/Footer";
 
-export default function MantenimientoArea() {
+export default function MantenArea() {
   const router = useRouter();
 
+  useEffect(() => {
+    // Cada vez que el usuario pulse “Atrás” en el navegador,
+    // interceptamos y redirigimos siempre a “/”:
+    const onPopState = () => {
+      router.replace("/");
+    };
+    window.addEventListener("popstate", onPopState);
+    return () => {
+      window.removeEventListener("popstate", onPopState);
+    };
+  }, [router]);
+
   return (
-    <>
-      <Head>
-        <title>Panel Mantenimiento - Puerto Williams</title>
-      </Head>
-      <div className="relative flex min-h-screen flex-col bg-black text-white">
-        {/* Botón volver */}
-        <button
-          onClick={() => router.back()}
-          className="
-            absolute top-4 left-4 z-10 text-2xl
-            text-white bg-gray-800/50 p-2 rounded-full
-            hover:bg-gray-700 transition
-          "
-          aria-label="Volver"
-        >
-          ←
-        </button>
+    <div className="relative bg-black text-white p-8 min-h-screen">
+      {/* Botón manual “←” que lleva siempre a "/" */}
+      <button
+        onClick={() => router.replace("/")}
+        className="absolute top-4 left-4 text-3xl text-white hover:text-gray-400 transition duration-300"
+        aria-label="Volver a inicio"
+      >
+        ←
+      </button>
 
-        {/* Layout: columna móvil, fila desktop */}
-        <div className="flex flex-1 flex-col lg:flex-row">
-          {/* Sidebar con botones */}
-          <aside className="w-full lg:w-64 p-4">
-            <BotoneraMainMantenimiento />
-          </aside>
-
-          {/* Contenido principal */}
-          <main className="flex flex-1 flex-col items-center justify-center p-4 sm:p-8 gap-8">
-            <p className="text-center text-lg">
-              Control de mantenimiento y prevención del edificio.
-            </p>
-            <div className="w-full max-w-md">
-              <TurnStatus />
-            </div>
-            <div className="w-full max-w-lg">
-              <Footer />
-            </div>
-          </main>
-        </div>
+      <div className="mt-12 text-center">
+        <p className="text-lg mb-4">
+          Control de mantenimiento y prevención del edificio.
+        </p>
+        <BotoneraMainMantenimiento />
       </div>
-    </>
+
+      <section className="mt-8 p-4 rounded-lg shadow-lg flex flex-col items-center gap-4">
+        <TurnStatus />
+        <Footer />
+      </section>
+    </div>
   );
 }

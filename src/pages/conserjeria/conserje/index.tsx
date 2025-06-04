@@ -15,9 +15,9 @@ export default function ConserjeArea() {
         <title>Panel Conserje - Puerto Williams</title>
       </Head>
       <div className="relative flex min-h-screen flex-col bg-gray-900 text-white">
-        {/* Botón volver */}
+        {/* Botón volver: reemplazamos router.back() por router.replace("/") */}
         <button
-          onClick={() => router.back()}
+          onClick={() => router.replace("/")}
           className="
             absolute top-4 left-4 z-10 text-2xl
             text-white bg-gray-800/50 p-2 rounded-full

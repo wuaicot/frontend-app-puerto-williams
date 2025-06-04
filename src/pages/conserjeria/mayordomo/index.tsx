@@ -1,21 +1,51 @@
-import React from "react";
+// client/src/pages/conserjeria/mayordomo/index.tsx
+import React, { useEffect } from "react";
 import Head from "next/head";
+import { useRouter } from "next/router";
 import { TurnStatus } from "../../../components/TurnStatus";
-import { BotoneraMainNochero } from "../../../components/BotoneraMainNochero";
+import { BotoneraMainMayordomo } from "../../../components/BotoneraMainMayordomo";
 import { Footer } from "../../../components/Footer";
 
-export default function NocheroArea() {
+export default function MayordomoArea() {
+  const router = useRouter();
+
+  useEffect(() => {
+    // Interceptar el “back” del navegador para forzar ir a “/”
+    router.beforePopState(() => {
+      router.replace("/");
+      return false; // impedimos el comportamiento normal de “volver”
+    });
+
+    return () => {
+      // Restaurar el comportamiento normal cuando el componente se desmonte
+      router.beforePopState(() => true);
+    };
+  }, [router]);
+
   return (
     <>
       <Head>
-        <title>Área Nochero – Puerto Williams</title>
+        <title>Área Mayordomo – Puerto Williams</title>
       </Head>
+
+      {/* Botón personalizado para volver a “/” */}
+      <button
+        onClick={() => router.replace("/")}
+        className="
+          absolute top-4 left-4 z-10 text-3xl
+          text-white bg-gray-800/50 p-2 rounded-full
+          hover:bg-gray-700 transition
+        "
+        aria-label="Volver"
+      >
+        ←
+      </button>
 
       {/* Contenedor principal: columna en móvil, fila en desktop */}
       <div className="min-h-screen bg-black text-white flex flex-col lg:flex-row">
-        {/* Sidebar con menú Nochero */}
+        {/* Sidebar con menú Mayordomo */}
         <aside className="flex-none p-4 lg:p-6">
-          <BotoneraMainNochero />
+          <BotoneraMainMayordomo />
         </aside>
 
         {/* Contenido principal: TurnStatus + footer */}

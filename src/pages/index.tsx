@@ -113,11 +113,11 @@ export default function LandingPage() {
         <div className="text-center mb-8 sm:mb-12 md:mb-16">
           <h1 className="text-4xl sm:text-5xl md:text-6xl lg:text-7xl font-bold tracking-tight">
             <span className="bg-cyan-400 text-black rounded">P</span>uerto{" "}
-            <span className="bg-cyan-400 text-black rounded">W</span>illiams
-            <span className="text-cyan-400">App</span>
+            <span className="bg-cyan-400 text-black rounded">w</span>illiams
+            <span className="text-cyan-400 font-extrabold border rounded-lg ml-2 pl-1 pr-1">2.0</span>
           </h1>
           <p className="mt-3 text-lg sm:text-md md:text-lg text-gray-300">
-            Herramienta Organizativa para su Comunidad.
+            Herramienta Organizativa para su Comunidad
           </p>
         </div>
 
@@ -128,7 +128,7 @@ export default function LandingPage() {
           >
             <RiAdminLine className="mr-2 text-xl md:text-2xl" />
             <span className="hidden sm:inline">Admin.</span>
-            <span className="sm:hidden">Admin</span>
+            <span className="sm:hidden">Admin.</span>
           </button>
           <button
             onClick={handleConserjeriaClick}
@@ -136,7 +136,7 @@ export default function LandingPage() {
           >
             <RiLoginBoxLine className="mr-2 text-xl md:text-2xl" />
             <span className="hidden sm:inline">Conserjería</span>
-            <span className="sm:hidden">Conserje</span>
+            <span className="sm:hidden">Conserjería</span>
           </button>
           <button
             onClick={() => handleAuthAction("register")}
@@ -148,8 +148,8 @@ export default function LandingPage() {
           </button>
         </div>
       </main>
-      <footer className="text-center p-4 text-gray-400 text-sm">
-        <p>&copy; {new Date().getFullYear()} Puerto Williams App. Todos los derechos reservados.</p>
+      <footer className="text-center p-4 text-gray-400 text-sm animate-pulse">
+        <p>&copy; {new Date().getFullYear()} Naycol Linares • Todos los derechos reservados.</p>
       </footer>
     </div>
   );

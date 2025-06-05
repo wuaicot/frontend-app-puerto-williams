@@ -31,7 +31,7 @@ export default function VoiceTurnRegistration() {
       .catch(() => router.replace("/"));
   }, [router]);
 
-  // 2) Reconocimiento de voz
+  // (Removed duplicate imports and duplicate component definition)
   const {
     transcript,
     listening,
@@ -157,8 +157,8 @@ export default function VoiceTurnRegistration() {
                   Revisión de Registro
                 </Dialog.Title>
                 <div className="space-y-3 mb-4 text-left">
-                  <p className="text-sm text-gray-700">Texto transcrito:</p>
-                  <div className="mt-1 text-gray-800 whitespace-pre-wrap bg-gray-100 p-2 rounded-lg border border-gray-300 shadow-sm h-32 overflow-y-auto">
+                  <p className="text-md text-gray-700">Texto transcrito:</p>
+                  <div className="mt-1 text-black whitespace-pre-wrap bg-blue-50 p-2 rounded-lg border border-blak shadow-sm h-32 overflow-y-auto text-xl">
                     {pendingText || <em>(vacío)</em>}
                   </div>
 
@@ -168,31 +168,35 @@ export default function VoiceTurnRegistration() {
                       type="checkbox"
                       checked={isLast}
                       onChange={() => setIsLast(!isLast)}
+                      className="h-4 w-4 text-sky-500 bg-gray-200 rounded mt-4 animate-spin"
                     />
-                    <span className="cursor-pointer">Fin de turno</span>
+                    <span className="cursor-pointer mt-4">
+                      marcar como Fin de turno
+                    </span>
                   </label>
+                  <hr className="text-cyan-500 mt-8 border" />
 
-                  <p className="text-sm text-gray-700">
+                  <p className="text-sm text-gray-700 mt-4">
                     Fecha y hora: {new Date().toLocaleString()}
                   </p>
                   <p className="text-sm text-gray-700">Rol: {role}</p>
                 </div>
                 <div className="flex justify-end gap-2">
                   <button
-                    className="px-4 py-2 bg-gray-300 rounded hover:bg-gray-400"
+                    className="px-4 py-2 bg-slate-800 rounded hover:bg-gray-400 text-white"
                     onClick={() => {
                       setIsReviewOpen(false);
                       resetTranscript();
                     }}
                   >
-                    Grabar de nuevo
+                    Repetir
                   </button>
                   <button
                     className="px-4 py-2 bg-blue-600 text-white rounded disabled:opacity-50 disabled:cursor-not-allowed"
                     disabled={!pendingText.trim() || loading}
                     onClick={handleSend}
                   >
-                    {loading ? "Guardando..." : "Enviar"}
+                    {loading ? "Guardando..." : "Guardar registro"}
                   </button>
                 </div>
               </Dialog.Panel>

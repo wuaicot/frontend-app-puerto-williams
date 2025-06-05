@@ -162,7 +162,7 @@ export default function LandingPage() {
             <span className="text-white hidden sm:inline">
               Solicitar Acceso
             </span>
-            <span className="text-white sm:hidden">Solicitar</span>
+            <span className="text-violet-300 sm:hidden">Solicitar acceso </span>
           </button>
         </div>
       </main>

@@ -117,7 +117,7 @@ export default function LandingPage() {
             <span className="text-cyan-400 font-extrabold border rounded-lg ml-2 pl-1 pr-1">2.0</span>
           </h1>
           <p className="mt-3 text-lg sm:text-md md:text-lg text-gray-300">
-            Herramienta Organizativa en su Comunidad
+            Libro de registros
           </p>
         </div>
 

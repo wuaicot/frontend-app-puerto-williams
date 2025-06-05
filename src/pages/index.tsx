@@ -38,7 +38,9 @@ export default function LandingPage() {
         if (userData.status === "PENDING") {
           router.push("/pendiente-aprobacion");
         } else {
-          router.push(`/conserjeria/${(userData.role || "conserje").toLowerCase()}`);
+          router.push(
+            `/conserjeria/${(userData.role || "conserje").toLowerCase()}`
+          );
         }
       } else {
         // login admin
@@ -49,7 +51,10 @@ export default function LandingPage() {
         }
       }
     } catch (raw: unknown) {
-      const err = raw as { code?: string; response?: { data?: { message?: string } } };
+      const err = raw as {
+        code?: string;
+        response?: { data?: { message?: string } };
+      };
       if (
         err.code === AuthErrorCodes.POPUP_BLOCKED ||
         err.code === AuthErrorCodes.OPERATION_NOT_SUPPORTED
@@ -92,7 +97,10 @@ export default function LandingPage() {
         );
       }
     } catch (raw: unknown) {
-      const err = raw as { code?: string; response?: { data?: { message?: string } } };
+      const err = raw as {
+        code?: string;
+        response?: { data?: { message?: string } };
+      };
       if (
         err.code === AuthErrorCodes.POPUP_BLOCKED ||
         err.code === AuthErrorCodes.OPERATION_NOT_SUPPORTED
@@ -112,9 +120,17 @@ export default function LandingPage() {
       <main className="flex flex-col items-center justify-center flex-grow p-6 sm:p-8 lg:p-12">
         <div className="text-center mb-8 sm:mb-12 md:mb-16">
           <h1 className="text-4xl sm:text-5xl md:text-6xl lg:text-7xl font-bold tracking-tight">
-            <span className="border text-cyan-400 rounded pl-0.5 pr-0.5 text-4xl">P</span>uerto{" "}
-            <span className=" text-cyan-400 border pl-0.5 pr-0.5 rounded text-4xl">W</span>illiams
-            <span className="text-cyan-400 font-extrabold border rounded-lg ml-2 pl-1 pr-1">2.0</span>
+            <span className="border text-cyan-400 rounded-lg  pl-1 pr-1 ">
+              P
+            </span>
+            uerto{" "}
+            <span className=" text-cyan-400 border pl-1 pr-1 rounded-lg">
+              W
+            </span>
+            illiams
+            <span className="text-cyan-400 font-extrabold border rounded-lg ml-2 pl-1 pr-1">
+              2.0
+            </span>
           </h1>
           <p className="mt-3 text-lg sm:text-md md:text-lg text-gray-300">
             Libro de registros
@@ -143,13 +159,18 @@ export default function LandingPage() {
             className={`${outlineButtonStyles} w-full md:max-w-xs`}
           >
             <RiUserAddLine className="mr-2 text-xl md:text-2xl" />
-            <span className="text-white hidden sm:inline">Solicitar Acceso</span>
-            <span className="text-white sm:hidden">Solicitar</span>
+            <span className="text-white hidden sm:inline">
+              Solicitar Acceso
+            </span>
+            <span className="text-violet-300 sm:hidden">Solicitar acceso </span>
           </button>
         </div>
       </main>
       <footer className="text-center p-4 text-gray-400 text-sm animate-pulse">
-        <p>&copy; {new Date().getFullYear()} Naycol Linares • Todos los derechos reservados.</p>
+        <p>
+          &copy; {new Date().getFullYear()} Naycol Linares • Todos los derechos
+          reservados.
+        </p>
       </footer>
     </div>
   );

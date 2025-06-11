@@ -119,21 +119,21 @@ export default function LandingPage() {
     <div className="flex flex-col min-h-screen bg-gradient-to-br from-gray-900 to-black text-white">
       <main className="flex flex-col items-center justify-center flex-grow p-6 sm:p-8 lg:p-12">
         <div className="text-center mb-24 sm:mb-12 md:mb-16">
-          <h1 className="text-4xl sm:text-5xl md:text-6xl lg:text-7xl font-bold tracking-tight -mt-4">
+          <h1 className="text-4xl sm:text-5xl md:text-6xl lg:text-7xl font-bold tracking-tight -mt-4 -ml-10 ">
             <span className="border text-cyan-400 rounded-lg  pl-1 pr-1 ">
-              P
+              L
             </span>
-            uerto{" "}
+            ibro de{" "}
             <span className=" text-cyan-400 border pl-1 pr-1 rounded-lg">
-              W
+              R
             </span>
-            illiams
-            <span className="text-cyan-400 font-extrabold border rounded-lg ml-2 pl-1 pr-1">
+            egistros
+            <span className="text-cyan-400 font-extrabold border rounded-lg ml-1 pl-1 pr-1 text-lg absolute">
               2.0
             </span>
           </h1>
           <p className="mt-8 text-xl animate-pulse font-bold text-gray-300 ">
-            Libro de Registros
+            Nombre del edificio aquí
           </p>
         </div>
 
@@ -162,7 +162,7 @@ export default function LandingPage() {
             <span className="text-white hidden sm:inline">
               Solicitar Acceso
             </span>
-            <span className="text-violet-500 hover:text-black  sm:hidden">
+            <span className="text-white hover:text-black  sm:hidden">
               Solicitar acceso{" "}
             </span>
           </button>

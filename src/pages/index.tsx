@@ -128,7 +128,7 @@ export default function LandingPage() {
               R
             </span>
             egistros
-            <span className="text-cyan-400 font-extrabold border rounded-lg ml-1 pl-1 pr-1 text-lg absolute">
+            <span className="text-cyan-400 font-extrabold border rounded-tr-lg rounded-br-lg ml-1 pl-1 pr-1 text-lg absolute rounded-tl-lg">
               2.0
             </span>
           </h1>

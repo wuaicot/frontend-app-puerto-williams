@@ -148,7 +148,7 @@ export default function LandingPage() {
           </button>
           <button
             onClick={handleConserjeriaClick}
-            className={`${baseButtonStyles} w-full  border-2 border-cyan-500 text-cyan-400 hover:bg-cyan-500 hover:text-white cursor-pointer`}
+            className={`${baseButtonStyles} w-xs  border-2 border-cyan-500 text-cyan-400 hover:bg-cyan-500 hover:text-white cursor-pointer`}
           >
             <RiLoginBoxLine className="mr-2 text-xl md:text-2xl" />
             <span className="hidden sm:inline">Conserjería</span>

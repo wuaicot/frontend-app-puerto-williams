@@ -15,7 +15,7 @@ export default function LandingPage() {
   const router = useRouter();
 
   const baseButtonStyles =
-    "flex items-center justify-center w-sm:sm px-6 py-3 text-lg font-semibold rounded-2xl shadow-md focus:outline-none focus:ring-2 focus:ring-offset-2 focus:ring-offset-gray-900 transition-all duration-200 ease-in-out";
+    "flex items-center justify-center w-full px-6 py-3 text-lg font-semibold rounded-2xl shadow-md focus:outline-none focus:ring-2 focus:ring-offset-2 focus:ring-offset-gray-900 transition-all duration-200 ease-in-out";
   const outlineButtonStyles = `${baseButtonStyles} text-cyan-400 border-2 border-violet-00 hover:bg-cyan-500 hover:text-white focus:ring-cyan-400`;
 
   const handleAuthAction = async (type: "register" | "login") => {
@@ -148,7 +148,7 @@ export default function LandingPage() {
           </button>
           <button
             onClick={handleConserjeriaClick}
-            className={`${baseButtonStyles} w-xs  border-2 border-cyan-500 text-cyan-400 hover:bg-cyan-500 hover:text-white cursor-pointer`}
+            className={`${baseButtonStyles} md:max-w-xs  border-2 border-cyan-500 text-cyan-400 hover:bg-cyan-500 hover:text-white cursor-pointer`}
           >
             <RiLoginBoxLine className="mr-2 text-xl md:text-2xl" />
             <span className="hidden sm:inline">Conserjería</span>
@@ -169,7 +169,7 @@ export default function LandingPage() {
         </div>
       </main>
       <footer className="text-center p-4 text-gray-400 text-sm animate-pulse">
-        <p>
+        <p className="-translate-y-34">
           &copy; {new Date().getFullYear()} Naycol Linares • Todos los derechos
           reservados.
         </p>

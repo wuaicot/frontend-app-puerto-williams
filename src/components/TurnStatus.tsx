@@ -76,7 +76,7 @@ export const TurnStatus: React.FC = () => {
 
   return (
     <motion.div
-      className="mt-8 p-4 bg-none rounded-4xl max-w-xs mx-auto text-white relative overflow-hidden border-1 "
+      className="mt-8 p-4 bg-none rounded-4xl max-w-xs mx-auto text-white relative overflow-hidden border-1"
       initial={{ opacity: 0, y: 20 }}
       animate={{ opacity: 1, y: 0 }}
       transition={{ duration: 0.5 }}

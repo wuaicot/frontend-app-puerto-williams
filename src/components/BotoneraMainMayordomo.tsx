@@ -40,7 +40,7 @@ export const BotoneraMainMayordomo: React.FC = () => {
         w-full max-w-sm 
         px-6 py-8 rounded-2xl shadow-lg
         transition-all duration-300 ease-in-out
-        animate-pulse-slow
+        
         lg:sticky lg:top-4 lg:max-w-xs
       "
     >

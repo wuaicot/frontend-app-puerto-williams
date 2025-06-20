@@ -30,7 +30,7 @@ export const BotoneraMainAdmin: React.FC<BotoneraMainAdminProps> = ({
       "
     >
       {/* Título */}
-      <h2 className="text-2xl font-bold mb-4 lg:mb-8">CONSOLA ADMIN</h2>
+      <h2 className="text-2xl font-bold mb-4 lg:mb-8">CONSOLA ADMINiNiSTRACIÓN</h2>
 
       {/* Botones */}
       <ul
